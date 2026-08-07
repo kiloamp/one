@@ -1,5 +1,6 @@
-# one
+# A320 Type Rating Portal
 
-A tiny static website where the word "one" drifts like bubbles.
+A static dashboard prototype for an A320 type rating student portal.
 
-Open `index.html` in a browser or serve this folder with any static file server.
+The page includes simulator schedule, class schedule, training phase progress,
+instructor comments, airline readiness metrics, and passed or failed exam gates.

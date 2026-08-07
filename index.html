@@ -3,32 +3,333 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>one</title>
-    <meta name="description" content="A tiny page where one floats like bubbles.">
+    <title>A320 Type Rating Portal</title>
+    <meta
+      name="description"
+      content="Student training dashboard for A320 type rating progress, simulator detail, class schedule, instructor notes, and exam outcomes."
+    >
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main class="scene" aria-label="Floating one bubbles">
-      <div class="ambient ambient-a"></div>
-      <div class="ambient ambient-b"></div>
-      <div class="ambient ambient-c"></div>
+    <div class="shell">
+      <aside class="sidebar" aria-label="Training portal navigation">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">A320</div>
+          <div>
+            <p class="eyebrow">Type Rating</p>
+            <h1>Student Portal</h1>
+          </div>
+        </div>
 
-      <h1 class="center-one">one</h1>
+        <nav class="nav-list" aria-label="Primary">
+          <a class="nav-link active" href="#overview">Overview</a>
+          <a class="nav-link" href="#simulator">Simulator</a>
+          <a class="nav-link" href="#classroom">Classroom</a>
+          <a class="nav-link" href="#checks">Checks</a>
+          <a class="nav-link" href="#instructor">Instructor Notes</a>
+        </nav>
 
-      <div class="bubble-field" aria-hidden="true">
-        <span style="--x: 6vw; --size: 4.8rem; --delay: -2s; --duration: 17s;">one</span>
-        <span style="--x: 16vw; --size: 2.4rem; --delay: -8s; --duration: 20s;">one</span>
-        <span style="--x: 25vw; --size: 3.2rem; --delay: -12s; --duration: 18s;">one</span>
-        <span style="--x: 35vw; --size: 1.6rem; --delay: -5s; --duration: 14s;">one</span>
-        <span style="--x: 47vw; --size: 5.4rem; --delay: -10s; --duration: 23s;">one</span>
-        <span style="--x: 58vw; --size: 2rem; --delay: -1s; --duration: 16s;">one</span>
-        <span style="--x: 68vw; --size: 3.8rem; --delay: -15s; --duration: 19s;">one</span>
-        <span style="--x: 78vw; --size: 2.8rem; --delay: -6s; --duration: 15s;">one</span>
-        <span style="--x: 89vw; --size: 4.2rem; --delay: -13s; --duration: 21s;">one</span>
-        <span style="--x: 96vw; --size: 1.8rem; --delay: -4s; --duration: 13s;">one</span>
-        <span style="--x: 12vw; --size: 1.3rem; --delay: -18s; --duration: 24s;">one</span>
-        <span style="--x: 53vw; --size: 1.4rem; --delay: -21s; --duration: 22s;">one</span>
-      </div>
-    </main>
+        <div class="sidebar-card">
+          <p class="eyebrow">Training ID</p>
+          <strong>TR-A320-0426</strong>
+          <span>Line-oriented preparation</span>
+        </div>
+      </aside>
+
+      <main class="dashboard">
+        <header class="topbar" id="overview">
+          <div>
+            <p class="eyebrow">Friday, 07 Aug 2026</p>
+            <h2>A320 transition dashboard</h2>
+            <p class="summary">
+              Cadet: Sofia Alvarez. Course: A320 EASA type rating, Phase 4 of 6.
+            </p>
+          </div>
+          <div class="crew-panel" aria-label="Crew pairing">
+            <span>PF</span>
+            <strong>Alvarez</strong>
+            <span>PM</span>
+            <strong>Mensah</strong>
+          </div>
+        </header>
+
+        <section class="status-strip" aria-label="Course status">
+          <article>
+            <span>Training phase</span>
+            <strong>LOFT prep</strong>
+            <small>Managed descent and abnormal ECAM flow</small>
+          </article>
+          <article>
+            <span>Next sim</span>
+            <strong>Sat 08 Aug, 06:00Z</strong>
+            <small>FFS Bay 2, Instructor R. Novak</small>
+          </article>
+          <article>
+            <span>Readiness</span>
+            <strong>82%</strong>
+            <small>Stable, with lateral-mode monitoring open</small>
+          </article>
+          <article>
+            <span>Gate</span>
+            <strong class="status-good">Cleared</strong>
+            <small>Briefing pack acknowledged</small>
+          </article>
+        </section>
+
+        <section class="grid">
+          <article class="panel wide">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">A320 flow analogy</p>
+                <h3>Training flight phases</h3>
+              </div>
+              <span class="badge">ECAM style scan</span>
+            </div>
+            <div class="phase-rail" aria-label="Training phase progress">
+              <div class="phase complete">
+                <span>1</span>
+                <strong>Ground school</strong>
+                <small>Systems passed</small>
+              </div>
+              <div class="phase complete">
+                <span>2</span>
+                <strong>FBS handling</strong>
+                <small>Normal ops</small>
+              </div>
+              <div class="phase complete">
+                <span>3</span>
+                <strong>FFS events</strong>
+                <small>Raw data focus</small>
+              </div>
+              <div class="phase current">
+                <span>4</span>
+                <strong>LOFT prep</strong>
+                <small>Line scenario</small>
+              </div>
+              <div class="phase">
+                <span>5</span>
+                <strong>LST</strong>
+                <small>Skill test</small>
+              </div>
+              <div class="phase">
+                <span>6</span>
+                <strong>Base training</strong>
+                <small>Release gate</small>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel" id="simulator">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Simulator schedule</p>
+                <h3>FFS and checkride slots</h3>
+              </div>
+              <span class="badge amber">4 events</span>
+            </div>
+            <div class="timeline">
+              <div class="event active">
+                <time>08 Aug<br>06:00Z</time>
+                <div>
+                  <strong>FFS 09: LOFT LEBL to LFPG</strong>
+                  <p>Managed climb, SID constraint, ADR 2 fault, high workload arrival.</p>
+                </div>
+              </div>
+              <div class="event">
+                <time>09 Aug<br>13:30Z</time>
+                <div>
+                  <strong>FFS 10: Recurrent abnormal set</strong>
+                  <p>Engine failure after V1, dual hydraulic advisory, ECAM discipline.</p>
+                </div>
+              </div>
+              <div class="event">
+                <time>11 Aug<br>08:00Z</time>
+                <div>
+                  <strong>LST profile rehearsal</strong>
+                  <p>Precision approach, go-around, unreliable speed recognition.</p>
+                </div>
+              </div>
+              <div class="event checkride">
+                <time>12 Aug<br>07:15Z</time>
+                <div>
+                  <strong>License skill test</strong>
+                  <p>Examiner: Capt. D. Pereira. Seat support confirmed.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel" id="classroom">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Class schedule</p>
+                <h3>Briefings and systems labs</h3>
+              </div>
+              <span class="badge">This week</span>
+            </div>
+            <table class="schedule-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Module</th>
+                  <th>Room</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fri</td>
+                  <td>FCU/FMA callouts</td>
+                  <td>Brief 3</td>
+                  <td><span class="status-good">Done</span></td>
+                </tr>
+                <tr>
+                  <td>Sat</td>
+                  <td>LOFT pre-brief</td>
+                  <td>Bay 2</td>
+                  <td><span class="status-warn">Due</span></td>
+                </tr>
+                <tr>
+                  <td>Mon</td>
+                  <td>QRH memory items</td>
+                  <td>CBT 1</td>
+                  <td><span>Assigned</span></td>
+                </tr>
+                <tr>
+                  <td>Tue</td>
+                  <td>LST oral prep</td>
+                  <td>Brief 1</td>
+                  <td><span>Booked</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="panel compact">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">MCDU scratchpad</p>
+                <h3>Open actions</h3>
+              </div>
+            </div>
+            <ul class="task-list">
+              <li>
+                <span class="checkbox done"></span>
+                Review alternate law protections.
+              </li>
+              <li>
+                <span class="checkbox done"></span>
+                Upload FFS 08 self-critique.
+              </li>
+              <li>
+                <span class="checkbox"></span>
+                Chair-fly non-normal briefing sequence.
+              </li>
+              <li>
+                <span class="checkbox"></span>
+                Revise green-dot energy targets.
+              </li>
+            </ul>
+          </article>
+
+          <article class="panel compact" id="checks">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Exam results</p>
+                <h3>Gates and checks</h3>
+              </div>
+            </div>
+            <div class="exam-list">
+              <div class="exam pass">
+                <span>Pass</span>
+                <strong>Aircraft systems</strong>
+                <small>92%, first attempt</small>
+              </div>
+              <div class="exam pass">
+                <span>Pass</span>
+                <strong>Performance and mass</strong>
+                <small>88%, corrected W&B worksheet</small>
+              </div>
+              <div class="exam fail">
+                <span>Retake</span>
+                <strong>FMA mode awareness quiz</strong>
+                <small>76%, retake scheduled after FFS 09</small>
+              </div>
+              <div class="exam pending">
+                <span>Pending</span>
+                <strong>LST oral</strong>
+                <small>Examiner pack not released</small>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel wide" id="instructor">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Instructor comments</p>
+                <h3>Latest training notes</h3>
+              </div>
+              <span class="badge">Capt. R. Novak</span>
+            </div>
+            <div class="notes">
+              <article>
+                <time>07 Aug, 16:20</time>
+                <p>
+                  Good crew tempo in normal flows. Keep the scan anchored on FMA changes
+                  after FCU inputs; treat it like checking the aircraft's handshake before
+                  accepting the next task.
+                </p>
+              </article>
+              <article>
+                <time>06 Aug, 11:45</time>
+                <p>
+                  Approach energy improved. On late runway change, verbalize plan, box it,
+                  then fly it. Avoid chasing the vertical profile while PM is still reading
+                  the arrival.
+                </p>
+              </article>
+              <article>
+                <time>05 Aug, 18:05</time>
+                <p>
+                  ECAM handling is methodical. Next session will stress timing: aviate,
+                  announce, confirm, then action. Do not rush the blue items.
+                </p>
+              </article>
+            </div>
+          </article>
+
+          <article class="panel metrics">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Training tooling</p>
+                <h3>Airline readiness board</h3>
+              </div>
+            </div>
+            <div class="metric-grid">
+              <div>
+                <span>CBT</span>
+                <strong>41/44</strong>
+                <small>Modules complete</small>
+              </div>
+              <div>
+                <span>Briefs</span>
+                <strong>12h</strong>
+                <small>This week</small>
+              </div>
+              <div>
+                <span>Sim</span>
+                <strong>18.5h</strong>
+                <small>Logged FFS</small>
+              </div>
+              <div>
+                <span>Threat log</span>
+                <strong>7</strong>
+                <small>Open items</small>
+              </div>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
