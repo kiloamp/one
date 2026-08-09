@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>Debrief</title>
 
 <style>
 :root {
-  --bg: #f4f5f7;
-  --panel: #ffffff;
-  --ink: #17191d;
-  --muted: #7b818b;
-  --line: #dfe2e7;
-  --line-strong: #c7ccd3;
-  --ok: #2e7d54;
-  --bad: #ba3f3f;
-  --shadow: 0 14px 40px rgba(17,24,39,.08);
+  --bg: #0d0f12;
+  --bg-soft: #12151a;
+  --panel: #171a20;
+  --panel-hover: #1d2128;
+  --panel-light: #20242b;
+
+  --text: #f4f6f8;
+  --muted: #8b929d;
+  --muted-light: #b1b6bf;
+
+  --border: #292e36;
+  --border-light: #353b45;
+
+  --green: #3bc47b;
+  --green-bg: rgba(59, 196, 123, .11);
+
+  --red: #ee6464;
+  --red-bg: rgba(238, 100, 100, .11);
+
+  --yellow: #e6b85c;
+
+  --shadow:
+    0 18px 60px rgba(0,0,0,.36);
+
   --radius: 18px;
 }
 
@@ -29,6 +45,11 @@ html {
 
 body {
   margin: 0;
+
+  background: var(--bg);
+
+  color: var(--text);
+
   font-family:
     Inter,
     ui-sans-serif,
@@ -37,15 +58,12 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-
-  color: var(--ink);
-  background: var(--bg);
 }
 
 button,
 input,
-textarea,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -53,85 +71,131 @@ button {
   cursor: pointer;
 }
 
-.app {
-  min-height: 100vh;
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* HEADER */
+::selection {
+  background: #4a5160;
+  color: white;
+}
+
+/* ------------------------------------------------ */
+/* TOP BAR */
+/* ------------------------------------------------ */
 
 .topbar {
   height: 72px;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 30;
+
+  padding:
+    0
+    34px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 34px;
+  background:
+    rgba(13,15,18,.88);
 
-  border-bottom: 1px solid var(--line);
+  backdrop-filter:
+    blur(18px);
 
-  background: rgba(244,245,247,.94);
-  backdrop-filter: blur(14px);
-
-  position: sticky;
-  top: 0;
-  z-index: 30;
+  border-bottom:
+    1px solid var(--border);
 }
 
 .brand {
-  font-weight: 720;
-  letter-spacing: -.035em;
   font-size: 22px;
+
+  font-weight: 750;
+
+  letter-spacing: -.045em;
+
   cursor: pointer;
 }
 
 .top-actions {
   display: flex;
-  gap: 10px;
+
   align-items: center;
+
+  gap: 9px;
 }
 
 .btn {
-  border: 1px solid var(--line-strong);
-  background: var(--panel);
-  color: var(--ink);
-
-  border-radius: 11px;
-
   min-height: 40px;
 
-  padding: 0 15px;
+  padding:
+    0
+    15px;
 
-  font-weight: 620;
+  border-radius: 10px;
 
-  transition: .18s ease;
+  border:
+    1px solid var(--border-light);
+
+  background: var(--panel);
+
+  color: var(--text);
+
+  font-weight: 650;
+
+  transition:
+    .18s ease;
 }
 
 .btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(17,24,39,.07);
+  background:
+    var(--panel-hover);
+
+  border-color:
+    #454c57;
 }
 
 .btn.primary {
-  background: var(--ink);
-  color: white;
-  border-color: var(--ink);
+  background:
+    var(--text);
+
+  border-color:
+    var(--text);
+
+  color:
+    #101215;
+}
+
+.btn.primary:hover {
+  background: white;
 }
 
 .btn.ghost {
-  background: transparent;
+  background:
+    transparent;
 }
 
 .btn.icon {
   width: 40px;
+
   padding: 0;
 
   display: grid;
+
   place-items: center;
 
   font-size: 20px;
 }
 
+/* ------------------------------------------------ */
 /* VIEWS */
+/* ------------------------------------------------ */
 
 .view {
   display: none;
@@ -141,65 +205,155 @@ button {
   display: block;
 }
 
-/* DASHBOARD */
-
-.dashboard {
-  max-width: 1260px;
-  margin: 0 auto;
-  padding: 58px 34px 80px;
-}
-
-.hero {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-
-  gap: 24px;
-
-  margin-bottom: 34px;
-}
+/* ------------------------------------------------ */
+/* SHARED */
+/* ------------------------------------------------ */
 
 .eyebrow {
-  text-transform: uppercase;
-
-  letter-spacing: .13em;
+  margin-bottom: 10px;
 
   color: var(--muted);
 
   font-size: 11px;
+
   font-weight: 760;
 
-  margin-bottom: 11px;
+  text-transform: uppercase;
+
+  letter-spacing: .14em;
 }
 
 h1 {
   margin: 0;
 
-  font-size: clamp(38px,5vw,64px);
+  font-size:
+    clamp(
+      40px,
+      5vw,
+      68px
+    );
 
-  letter-spacing: -.055em;
+  font-weight: 740;
+
   line-height: .96;
 
-  font-weight: 720;
+  letter-spacing: -.06em;
 }
 
-.hero p {
-  margin: 13px 0 0;
+input,
+select,
+textarea {
+  width: 100%;
 
-  max-width: 520px;
+  padding:
+    12px
+    13px;
+
+  border:
+    1px solid var(--border-light);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background:
+    #111419;
+
+  color: var(--text);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color:
+    #646d79;
+
+  background:
+    #14181d;
+}
+
+textarea {
+  resize: vertical;
+
+  min-height: 180px;
+
+  line-height: 1.55;
+}
+
+.form-group label,
+.field label {
+  display: block;
+
+  margin-bottom: 8px;
 
   color: var(--muted);
 
+  font-size: 10px;
+
+  font-weight: 760;
+
+  text-transform: uppercase;
+
+  letter-spacing: .11em;
+}
+
+/* ------------------------------------------------ */
+/* DASHBOARD */
+/* ------------------------------------------------ */
+
+.dashboard {
+  max-width: 1260px;
+
+  margin:
+    0
+    auto;
+
+  padding:
+    58px
+    34px
+    90px;
+}
+
+.hero {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content:
+    space-between;
+
+  gap: 28px;
+
+  margin-bottom: 38px;
+}
+
+.hero p {
+  max-width: 550px;
+
+  margin:
+    15px
+    0
+    0;
+
+  color: var(--muted-light);
+
   font-size: 15px;
+
   line-height: 1.6;
 }
 
 .section-head {
-  margin: 42px 0 16px;
+  margin:
+    44px
+    0
+    16px;
 
   display: flex;
+
   align-items: center;
-  justify-content: space-between;
+
+  justify-content:
+    space-between;
 }
 
 .section-head h2 {
@@ -213,184 +367,270 @@ h1 {
 .section-head span {
   color: var(--muted);
 
-  font-size: 13px;
+  font-size: 12px;
 }
 
+/* ------------------------------------------------ */
 /* SESSION CARDS */
+/* ------------------------------------------------ */
 
 .cards {
   display: grid;
 
-  grid-template-columns: repeat(3,minmax(0,1fr));
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0,1fr)
+    );
 
   gap: 15px;
 }
 
 .sim-card {
-  border: 1px solid var(--line);
-
-  background: var(--panel);
-
-  border-radius: var(--radius);
+  min-height: 190px;
 
   padding: 22px;
 
-  min-height: 190px;
-
   display: flex;
+
   flex-direction: column;
-  justify-content: space-between;
+
+  justify-content:
+    space-between;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius);
+
+  background:
+    var(--panel);
+
+  color:
+    var(--text);
 
   text-align: left;
 
-  color: inherit;
-
-  transition: .2s ease;
+  transition:
+    .2s ease;
 }
 
 .sim-card:hover {
-  transform: translateY(-3px);
+  transform:
+    translateY(-3px);
 
-  box-shadow: var(--shadow);
+  background:
+    var(--panel-hover);
 
-  border-color: #d3d7dd;
+  border-color:
+    #3b424c;
+
+  box-shadow:
+    var(--shadow);
 }
 
 .sim-card.new {
-  background: transparent;
+  background:
+    transparent;
 
-  border: 1px dashed #bac0c9;
+  border:
+    1px dashed #404753;
 }
 
 .card-top {
   display: flex;
 
-  justify-content: space-between;
+  align-items: center;
+
+  justify-content:
+    space-between;
 
   gap: 12px;
 }
 
 .pill {
-  font-size: 11px;
+  padding:
+    6px
+    8px;
 
-  font-weight: 720;
+  border:
+    1px solid var(--border-light);
 
-  letter-spacing: .04em;
+  border-radius:
+    999px;
 
-  text-transform: uppercase;
+  color:
+    var(--muted-light);
 
-  border: 1px solid var(--line);
+  font-size: 10px;
 
-  padding: 6px 8px;
+  font-weight: 760;
 
-  border-radius: 999px;
+  text-transform:
+    uppercase;
 
-  color: #555c66;
+  letter-spacing:
+    .05em;
 }
 
 .arrow {
-  font-size: 20px;
+  color:
+    #747c88;
 
-  color: #9ca2aa;
+  font-size:
+    20px;
 }
 
 .route {
-  font-size: 27px;
+  margin:
+    21px
+    0
+    5px;
 
-  font-weight: 710;
+  font-size:
+    27px;
 
-  letter-spacing: -.045em;
+  font-weight:
+    720;
 
-  margin: 20px 0 5px;
+  letter-spacing:
+    -.045em;
 }
 
 .meta {
-  color: var(--muted);
-
-  font-size: 13px;
-
   display: flex;
-  justify-content: space-between;
+
+  justify-content:
+    space-between;
 
   gap: 10px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    12px;
 }
 
 .plus-card {
-  font-size: 34px;
+  color:
+    #a0a6af;
 
-  font-weight: 300;
+  font-size:
+    38px;
 
-  color: #6d737c;
+  font-weight:
+    260;
 }
 
+/* ------------------------------------------------ */
 /* DEBRIEF */
+/* ------------------------------------------------ */
 
 .debrief-shell {
-  min-height: calc(100vh - 72px);
+  min-height:
+    calc(
+      100vh -
+      72px
+    );
 
-  overflow: hidden;
+  overflow:
+    hidden;
 }
 
 .debrief-head {
-  height: 104px;
+  min-height:
+    105px;
 
-  padding: 24px 34px 18px;
+  padding:
+    24px
+    34px
+    18px;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  display:
+    flex;
 
-  border-bottom: 1px solid var(--line);
+  align-items:
+    flex-end;
+
+  justify-content:
+    space-between;
+
+  border-bottom:
+    1px solid
+    var(--border);
 }
 
 .debrief-route {
-  font-size: 29px;
+  font-size:
+    30px;
 
-  font-weight: 720;
+  font-weight:
+    740;
 
-  letter-spacing: -.045em;
+  letter-spacing:
+    -.05em;
 }
 
 .debrief-sub {
-  color: var(--muted);
+  margin-top:
+    5px;
 
-  font-size: 13px;
+  color:
+    var(--muted);
 
-  margin-top: 5px;
+  font-size:
+    12px;
 }
 
 .legend {
-  display: flex;
-  align-items: center;
+  display:
+    flex;
 
-  gap: 16px;
+  align-items:
+    center;
 
-  color: var(--muted);
+  gap:
+    16px;
 
-  font-size: 12px;
+  color:
+    var(--muted);
+
+  font-size:
+    11px;
 }
 
 .legend i {
-  display: inline-block;
+  width:
+    8px;
 
-  width: 8px;
-  height: 8px;
+  height:
+    8px;
 
-  border-radius: 50%;
+  margin-right:
+    5px;
 
-  margin-right: 5px;
+  display:
+    inline-block;
+
+  border-radius:
+    50%;
 }
 
 .legend .g {
-  background: var(--ok);
+  background:
+    var(--green);
 }
 
 .legend .r {
-  background: var(--bad);
+  background:
+    var(--red);
 }
 
 .legend .n {
-  background: #9096a0;
+  background:
+    #6f7680;
 }
 
 .mobile-scroll-hint {
@@ -398,36 +638,58 @@ h1 {
 }
 
 .timeline-wrap {
-  height: calc(100vh - 176px);
+  height:
+    calc(
+      100vh -
+      177px
+    );
 
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x:
+    auto;
 
-  scrollbar-width: thin;
+  overflow-y:
+    hidden;
 
-  scrollbar-color: #b8bec7 transparent;
+  scrollbar-width:
+    thin;
 
-  -webkit-overflow-scrolling: touch;
+  scrollbar-color:
+    #3c424c
+    transparent;
 
-  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling:
+    touch;
 
-  touch-action: pan-x;
+  touch-action:
+    pan-x;
 }
 
 .timeline {
-  width: 2100px;
+  position:
+    relative;
 
-  min-height: 100%;
+  width:
+    2100px;
 
-  position: relative;
+  min-height:
+    100%;
 
-  padding: 42px 90px 80px;
+  padding:
+    42px
+    90px
+    80px;
 }
 
 .phase-labels {
-  height: 54px;
+  height:
+    54px;
 
-  display: grid;
+  padding:
+    0
+    28px;
+
+  display:
+    grid;
 
   grid-template-columns:
     260px
@@ -436,666 +698,1124 @@ h1 {
     340px
     310px;
 
-  align-items: end;
+  align-items:
+    end;
 
-  color: #959ba4;
+  color:
+    #6f7680;
 
-  text-transform: uppercase;
+  font-size:
+    10px;
 
-  letter-spacing: .12em;
+  font-weight:
+    750;
 
-  font-size: 10px;
+  text-transform:
+    uppercase;
 
-  font-weight: 750;
-
-  padding: 0 28px;
+  letter-spacing:
+    .12em;
 }
 
 .route-canvas {
-  position: relative;
+  position:
+    relative;
 
-  height: 430px;
+  height:
+    430px;
 }
 
 .flight-svg {
-  position: absolute;
+  position:
+    absolute;
 
-  left: 0;
-  top: 0;
+  inset:
+    0;
 
-  width: 100%;
-  height: 100%;
+  width:
+    100%;
 
-  overflow: visible;
+  height:
+    100%;
+
+  overflow:
+    visible;
 }
 
-.flight-svg path.track {
-  fill: none;
+.flight-svg .track {
+  fill:
+    none;
 
-  stroke: #c9cdd3;
+  stroke:
+    #3a4048;
 
-  stroke-width: 2.2;
+  stroke-width:
+    2.2;
 }
 
-.flight-svg path.track-dash {
-  fill: none;
+.flight-svg .track-dash {
+  fill:
+    none;
 
-  stroke: #e4e6ea;
+  stroke:
+    #22272e;
 
-  stroke-width: 1;
+  stroke-width:
+    1;
 
-  stroke-dasharray: 4 8;
+  stroke-dasharray:
+    4 8;
 }
 
-/* AIRPORTS */
+/* ------------------------------------------------ */
+/* AIRPORT */
+/* ------------------------------------------------ */
 
 .airport {
-  position: absolute;
+  position:
+    absolute;
 
-  bottom: 45px;
+  bottom:
+    45px;
 
-  width: 150px;
-}
-
-.airport.arrival {
-  right: 0;
-
-  text-align: right;
+  width:
+    150px;
 }
 
 .airport.departure {
   left: 0;
 }
 
+.airport.arrival {
+  right: 0;
+
+  text-align:
+    right;
+}
+
 .airport-code {
-  font-size: 23px;
+  font-size:
+    23px;
 
-  font-weight: 720;
+  font-weight:
+    740;
 
-  letter-spacing: -.04em;
+  letter-spacing:
+    -.04em;
 }
 
 .airport-name {
-  font-size: 11px;
+  margin-top:
+    4px;
 
-  color: var(--muted);
+  color:
+    var(--muted);
 
-  margin-top: 4px;
+  font-size:
+    11px;
 }
 
 .runway {
-  height: 7px;
+  position:
+    relative;
 
-  width: 82px;
+  width:
+    82px;
 
-  background: #30343a;
+  height:
+    7px;
 
-  border-radius: 2px;
+  margin-top:
+    12px;
 
-  margin-top: 12px;
+  border-radius:
+    2px;
 
-  position: relative;
+  background:
+    #8c939e;
 }
 
 .arrival .runway {
-  margin-left: auto;
+  margin-left:
+    auto;
 }
 
 .runway::after {
   content: "";
 
-  position: absolute;
+  position:
+    absolute;
 
-  left: 8px;
-  right: 8px;
-  top: 3px;
+  left:
+    8px;
 
-  border-top: 1px dashed white;
+  right:
+    8px;
+
+  top:
+    3px;
+
+  border-top:
+    1px dashed
+    #171a20;
 }
 
-/* EVENTS */
+/* ------------------------------------------------ */
+/* TIMELINE EVENTS */
+/* ------------------------------------------------ */
 
 .event {
-  position: absolute;
+  position:
+    absolute;
 
-  transform: translate(-50%,-50%);
+  width:
+    170px;
 
-  width: 170px;
+  padding:
+    0;
 
-  border: 0;
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
 
-  background: transparent;
+  border:
+    0;
 
-  color: inherit;
+  background:
+    transparent;
 
-  text-align: center;
+  color:
+    var(--text);
 
-  padding: 0;
+  text-align:
+    center;
 }
 
 .event .dot {
-  width: 15px;
-  height: 15px;
+  width:
+    16px;
 
-  border-radius: 50%;
+  height:
+    16px;
 
-  background: #8d939d;
+  margin:
+    0
+    auto;
 
-  border: 4px solid var(--bg);
+  border:
+    4px solid
+    var(--bg);
 
-  box-shadow: 0 0 0 1px #aab0b9;
+  border-radius:
+    50%;
 
-  margin: 0 auto;
+  background:
+    #737b86;
 
-  transition: .2s ease;
-}
+  box-shadow:
+    0 0 0 1px
+    #656d78;
 
-.event.pass .dot {
-  background: var(--ok);
-
-  box-shadow: 0 0 0 1px var(--ok);
-}
-
-.event.fail .dot {
-  background: var(--bad);
-
-  box-shadow: 0 0 0 1px var(--bad);
+  transition:
+    .18s ease;
 }
 
 .event:hover .dot {
-  transform: scale(1.2);
+  transform:
+    scale(1.25);
+}
+
+.event.pass .dot {
+  background:
+    var(--green);
+
+  box-shadow:
+    0 0 0 1px
+    var(--green);
+}
+
+.event.fail .dot {
+  background:
+    var(--red);
+
+  box-shadow:
+    0 0 0 1px
+    var(--red);
 }
 
 .event-title {
-  margin-top: 10px;
+  display:
+    inline-block;
 
-  font-size: 12px;
+  margin-top:
+    10px;
 
-  line-height: 1.25;
+  padding:
+    5px
+    7px;
 
-  font-weight: 690;
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      .03
+    );
 
-  letter-spacing: -.01em;
+  border-radius:
+    7px;
 
-  background: rgba(244,245,247,.88);
+  background:
+    rgba(
+      13,
+      15,
+      18,
+      .88
+    );
 
-  padding: 4px 7px;
+  font-size:
+    12px;
 
-  border-radius: 6px;
+  font-weight:
+    690;
 
-  display: inline-block;
+  line-height:
+    1.25;
+
+  letter-spacing:
+    -.01em;
 }
 
 .event-time {
-  font-size: 10px;
+  margin-top:
+    4px;
 
-  color: var(--muted);
+  color:
+    var(--muted);
 
-  margin-top: 4px;
+  font-size:
+    10px;
 }
 
-/* DETAILS DRAWER */
+/* ------------------------------------------------ */
+/* DRAWER */
+/* ------------------------------------------------ */
 
 .drawer {
-  position: fixed;
+  position:
+    fixed;
 
-  top: 0;
-  right: 0;
-  bottom: 0;
+  top:
+    0;
 
-  width: min(430px,92vw);
+  right:
+    0;
 
-  background: var(--panel);
+  bottom:
+    0;
 
-  border-left: 1px solid var(--line);
+  z-index:
+    60;
 
-  z-index: 50;
+  width:
+    min(
+      480px,
+      94vw
+    );
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  border-left:
+    1px solid
+    var(--border);
+
+  background:
+    #14171c;
 
   box-shadow:
-    -20px 0 55px rgba(17,24,39,.12);
+    -30px
+    0
+    80px
+    rgba(
+      0,
+      0,
+      0,
+      .45
+    );
 
-  transform: translateX(101%);
+  transform:
+    translateX(
+      101%
+    );
 
   transition:
-    .28s cubic-bezier(.2,.75,.25,1);
-
-  display: flex;
-  flex-direction: column;
+    .28s
+    cubic-bezier(
+      .2,
+      .75,
+      .25,
+      1
+    );
 }
 
 .drawer.open {
-  transform: translateX(0);
+  transform:
+    translateX(0);
 }
 
 .drawer-top {
-  padding: 25px 25px 19px;
+  padding:
+    25px
+    25px
+    19px;
 
-  border-bottom: 1px solid var(--line);
+  display:
+    flex;
 
-  display: flex;
+  align-items:
+    flex-start;
 
-  justify-content: space-between;
+  justify-content:
+    space-between;
 
-  gap: 15px;
+  gap:
+    15px;
 
-  align-items: flex-start;
+  border-bottom:
+    1px solid
+    var(--border);
 }
 
 .drawer h3 {
-  font-size: 25px;
+  margin:
+    6px
+    0
+    0;
 
-  letter-spacing: -.04em;
+  font-size:
+    25px;
 
-  margin: 6px 0 0;
+  font-weight:
+    720;
+
+  line-height:
+    1.15;
+
+  letter-spacing:
+    -.04em;
 }
 
 .drawer-body {
-  padding: 23px 25px;
+  flex:
+    1;
 
-  overflow: auto;
+  padding:
+    23px
+    25px;
 
-  flex: 1;
-}
-
-.field {
-  margin-bottom: 24px;
-}
-
-.field label,
-.form-group label {
-  display: block;
-
-  font-size: 11px;
-
-  text-transform: uppercase;
-
-  letter-spacing: .1em;
-
-  color: var(--muted);
-
-  font-weight: 760;
-
-  margin-bottom: 9px;
-}
-
-/* COUNTER */
-
-.counter {
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-}
-
-.counter button {
-  width: 36px;
-  height: 36px;
-
-  border-radius: 9px;
-
-  border: 1px solid var(--line);
-
-  background: white;
-
-  font-size: 18px;
-}
-
-.counter strong {
-  min-width: 24px;
-
-  text-align: center;
-
-  font-size: 18px;
-}
-
-/* FORMS */
-
-textarea,
-input,
-select {
-  width: 100%;
-
-  border: 1px solid var(--line-strong);
-
-  border-radius: 10px;
-
-  background: white;
-
-  padding: 11px 12px;
-
-  outline: none;
-
-  color: var(--ink);
-}
-
-textarea {
-  min-height: 140px;
-
-  resize: vertical;
-
-  line-height: 1.5;
-}
-
-textarea:focus,
-input:focus,
-select:focus {
-  border-color: #6f7680;
-}
-
-/* PASS FAIL */
-
-.result-toggle {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 9px;
-}
-
-.result {
-  height: 46px;
-
-  border-radius: 10px;
-
-  border: 1px solid var(--line);
-
-  background: white;
-
-  font-weight: 700;
-}
-
-.result.active.pass {
-  border-color: #b8d8c6;
-
-  background: #f1f8f4;
-
-  color: var(--ok);
-}
-
-.result.active.fail {
-  border-color: #e7c1c1;
-
-  background: #fff4f4;
-
-  color: var(--bad);
+  overflow:
+    auto;
 }
 
 .drawer-footer {
-  padding: 18px 25px;
+  padding:
+    18px
+    25px;
 
-  border-top: 1px solid var(--line);
+  border-top:
+    1px solid
+    var(--border);
 }
 
 .drawer-footer .btn {
-  width: 100%;
+  width:
+    100%;
 }
 
+.field {
+  margin-bottom:
+    28px;
+}
+
+/* ------------------------------------------------ */
+/* ATTEMPTS TABLE */
+/* ------------------------------------------------ */
+
+.attempts-wrapper {
+  overflow:
+    hidden;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    12px;
+
+  background:
+    #111419;
+}
+
+.attempts-table {
+  width:
+    100%;
+
+  border-collapse:
+    collapse;
+}
+
+.attempts-table th {
+  padding:
+    11px
+    12px;
+
+  color:
+    var(--muted);
+
+  background:
+    #171b20;
+
+  font-size:
+    10px;
+
+  font-weight:
+    760;
+
+  text-align:
+    left;
+
+  text-transform:
+    uppercase;
+
+  letter-spacing:
+    .08em;
+
+  border-bottom:
+    1px solid
+    var(--border);
+}
+
+.attempts-table td {
+  padding:
+    12px;
+
+  border-bottom:
+    1px solid
+    var(--border);
+
+  font-size:
+    13px;
+}
+
+.attempts-table tr:last-child td {
+  border-bottom:
+    0;
+}
+
+.attempt-name {
+  font-weight:
+    670;
+}
+
+.attempt-status {
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  gap:
+    6px;
+
+  padding:
+    5px
+    8px;
+
+  border-radius:
+    999px;
+
+  font-size:
+    11px;
+
+  font-weight:
+    720;
+}
+
+.attempt-status.pass {
+  color:
+    var(--green);
+
+  background:
+    var(--green-bg);
+}
+
+.attempt-status.fail {
+  color:
+    var(--red);
+
+  background:
+    var(--red-bg);
+}
+
+.attempt-actions {
+  display:
+    flex;
+
+  justify-content:
+    flex-end;
+
+  gap:
+    5px;
+}
+
+.attempt-btn {
+  min-width:
+    36px;
+
+  height:
+    32px;
+
+  padding:
+    0
+    9px;
+
+  border:
+    1px solid
+    var(--border-light);
+
+  border-radius:
+    8px;
+
+  background:
+    var(--panel);
+
+  color:
+    var(--text);
+
+  font-size:
+    12px;
+
+  font-weight:
+    700;
+}
+
+.attempt-btn.pass.active {
+  color:
+    var(--green);
+
+  border-color:
+    rgba(
+      59,
+      196,
+      123,
+      .45
+    );
+
+  background:
+    var(--green-bg);
+}
+
+.attempt-btn.fail.active {
+  color:
+    var(--red);
+
+  border-color:
+    rgba(
+      238,
+      100,
+      100,
+      .45
+    );
+
+  background:
+    var(--red-bg);
+}
+
+.add-attempt {
+  width:
+    100%;
+
+  margin-top:
+    10px;
+
+  min-height:
+    42px;
+
+  border:
+    1px dashed
+    #3b424c;
+
+  border-radius:
+    10px;
+
+  background:
+    transparent;
+
+  color:
+    var(--muted-light);
+
+  font-weight:
+    650;
+}
+
+.add-attempt:hover {
+  background:
+    var(--panel);
+
+  color:
+    var(--text);
+}
+
+/* ------------------------------------------------ */
 /* CREATE PAGE */
+/* ------------------------------------------------ */
 
 .create-page {
-  max-width: 1180px;
+  max-width:
+    1180px;
 
-  margin: 0 auto;
+  margin:
+    0
+    auto;
 
-  padding: 46px 34px 90px;
+  padding:
+    46px
+    34px
+    90px;
 }
 
 .create-title {
-  font-size: 42px;
+  margin:
+    0
+    0
+    30px;
 
-  font-weight: 720;
+  font-size:
+    44px;
 
-  letter-spacing: -.05em;
+  font-weight:
+    730;
 
-  margin: 0 0 28px;
+  letter-spacing:
+    -.055em;
 }
 
 .form-grid {
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
-    repeat(4,1fr);
+    repeat(
+      4,
+      1fr
+    );
 
-  gap: 12px;
+  gap:
+    12px;
 
-  margin-bottom: 44px;
+  margin-bottom:
+    44px;
 }
 
-/* BUILDER */
-
 .builder {
-  background: white;
+  padding:
+    28px;
 
-  border: 1px solid var(--line);
+  border:
+    1px solid
+    var(--border);
 
-  border-radius: 20px;
+  border-radius:
+    20px;
 
-  padding: 28px;
+  background:
+    var(--panel);
 }
 
 .builder-head {
-  display: flex;
+  margin-bottom:
+    24px;
 
-  justify-content: space-between;
+  display:
+    flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  margin-bottom: 24px;
+  justify-content:
+    space-between;
 }
 
 .builder-head h2 {
   margin: 0;
 
-  font-size: 18px;
+  font-size:
+    18px;
 }
 
 .builder-track {
-  position: relative;
+  position:
+    relative;
 
-  min-height: 250px;
+  min-height:
+    250px;
 
-  padding: 65px 25px 40px;
+  padding:
+    65px
+    25px
+    40px;
 
-  overflow-x: auto;
+  overflow-x:
+    auto;
 
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling:
+    touch;
 }
 
 .builder-line {
-  position: absolute;
+  position:
+    absolute;
 
-  left: 60px;
-  right: 60px;
+  left:
+    60px;
 
-  top: 122px;
+  right:
+    60px;
 
-  border-top: 2px solid #d4d8de;
+  top:
+    122px;
+
+  border-top:
+    2px solid
+    #343a43;
 }
 
 .builder-events {
-  min-width: 840px;
+  position:
+    relative;
 
-  display: flex;
+  z-index:
+    2;
 
-  gap: 46px;
+  min-width:
+    840px;
 
-  align-items: flex-start;
+  display:
+    flex;
 
-  position: relative;
+  align-items:
+    flex-start;
 
-  z-index: 2;
+  gap:
+    46px;
 }
 
 .builder-event,
 .add-event {
-  width: 138px;
+  flex:
+    0
+    0
+    138px;
 
-  flex: 0 0 138px;
+  width:
+    138px;
 
-  text-align: center;
+  text-align:
+    center;
+}
+
+.builder-event {
+  cursor:
+    pointer;
 }
 
 .builder-event .mini-dot {
-  width: 17px;
-  height: 17px;
+  width:
+    17px;
 
-  border-radius: 50%;
+  height:
+    17px;
 
-  background: #6e747d;
+  margin:
+    50px
+    auto
+    12px;
 
-  border: 4px solid white;
+  border:
+    4px solid
+    var(--panel);
 
-  box-shadow: 0 0 0 1px #979da6;
+  border-radius:
+    50%;
 
-  margin: 50px auto 12px;
+  background:
+    #747c87;
+
+  box-shadow:
+    0
+    0
+    0
+    1px
+    #646d79;
 }
 
 .builder-event b {
-  display: block;
+  display:
+    block;
 
-  font-size: 12px;
+  font-size:
+    12px;
 
-  line-height: 1.3;
+  line-height:
+    1.3;
 }
 
 .builder-event small {
-  display: block;
+  display:
+    block;
 
-  color: var(--muted);
+  margin-top:
+    5px;
 
-  margin-top: 5px;
+  color:
+    var(--muted);
+
+  font-size:
+    11px;
 }
 
 .add-event button {
-  width: 42px;
-  height: 42px;
+  width:
+    42px;
 
-  border-radius: 50%;
+  height:
+    42px;
 
-  border: 1px solid #aeb4bd;
+  margin:
+    38px
+    auto
+    6px;
 
-  background: white;
+  border:
+    1px solid
+    #515966;
 
-  font-size: 25px;
+  border-radius:
+    50%;
 
-  margin: 38px auto 6px;
+  background:
+    #12151a;
+
+  color:
+    white;
+
+  font-size:
+    25px;
 }
 
 .add-event span {
-  font-size: 11px;
+  color:
+    var(--muted);
 
-  color: var(--muted);
+  font-size:
+    11px;
 }
 
 .create-footer {
-  display: flex;
+  margin-top:
+    18px;
 
-  justify-content: flex-end;
+  display:
+    flex;
 
-  gap: 10px;
+  justify-content:
+    flex-end;
 
-  margin-top: 18px;
+  gap:
+    10px;
 }
 
-/* ADD EVENT MODAL */
+/* ------------------------------------------------ */
+/* MODAL */
+/* ------------------------------------------------ */
 
 .modal-backdrop {
-  position: fixed;
+  position:
+    fixed;
 
-  inset: 0;
+  inset:
+    0;
 
-  background: rgba(20,23,28,.32);
+  z-index:
+    80;
 
-  z-index: 60;
+  padding:
+    20px;
 
-  display: none;
+  display:
+    none;
 
-  align-items: center;
-  justify-content: center;
+  align-items:
+    center;
 
-  padding: 20px;
+  justify-content:
+    center;
+
+  background:
+    rgba(
+      0,
+      0,
+      0,
+      .56
+    );
 }
 
 .modal-backdrop.open {
-  display: flex;
+  display:
+    flex;
 }
 
 .modal {
-  width: min(520px,96vw);
+  width:
+    min(
+      540px,
+      96vw
+    );
 
-  background: white;
+  padding:
+    25px;
 
-  border-radius: 18px;
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    18px;
+
+  background:
+    #171a20;
 
   box-shadow:
-    0 30px 90px rgba(0,0,0,.22);
-
-  padding: 25px;
+    0
+    30px
+    100px
+    rgba(
+      0,
+      0,
+      0,
+      .6
+    );
 }
 
 .modal h3 {
-  margin: 0 0 20px;
+  margin:
+    0
+    0
+    20px;
 
-  font-size: 22px;
+  font-size:
+    22px;
 
-  letter-spacing: -.035em;
+  letter-spacing:
+    -.035em;
 }
 
 .modal .form-group {
-  margin-bottom: 15px;
+  margin-bottom:
+    15px;
 }
 
 .modal-actions {
-  display: flex;
+  margin-top:
+    20px;
 
-  justify-content: flex-end;
+  display:
+    flex;
 
-  gap: 9px;
+  justify-content:
+    flex-end;
 
-  margin-top: 20px;
+  gap:
+    9px;
 }
 
+/* ------------------------------------------------ */
 /* TOAST */
+/* ------------------------------------------------ */
 
 .toast {
-  position: fixed;
+  position:
+    fixed;
 
-  left: 50%;
-  bottom: 28px;
+  left:
+    50%;
+
+  bottom:
+    28px;
+
+  z-index:
+    100;
+
+  padding:
+    11px
+    15px;
+
+  border:
+    1px solid
+    #333943;
+
+  border-radius:
+    10px;
+
+  background:
+    #1b1f25;
+
+  color:
+    white;
+
+  font-size:
+    13px;
+
+  opacity:
+    0;
+
+  pointer-events:
+    none;
 
   transform:
-    translate(-50%,20px);
+    translate(
+      -50%,
+      20px
+    );
 
-  background: #181a1e;
-
-  color: white;
-
-  padding: 11px 15px;
-
-  border-radius: 10px;
-
-  font-size: 13px;
-
-  opacity: 0;
-
-  pointer-events: none;
-
-  transition: .2s;
-
-  z-index: 100;
+  transition:
+    .2s ease;
 }
 
 .toast.show {
-  opacity: 1;
+  opacity:
+    1;
 
   transform:
-    translate(-50%,0);
+    translate(
+      -50%,
+      0
+    );
 }
 
+/* ------------------------------------------------ */
 /* TABLET */
+/* ------------------------------------------------ */
 
-@media (max-width: 900px) {
+@media
+(max-width: 900px) {
 
   .cards {
     grid-template-columns:
@@ -1108,68 +1828,78 @@ select:focus {
   }
 
   .hero {
-    align-items: flex-start;
+    align-items:
+      flex-start;
 
-    flex-direction: column;
+    flex-direction:
+      column;
   }
 
   .legend {
-    display: none;
+    display:
+      none;
   }
 
-  .timeline {
-    width: 1900px;
-
-    padding-left: 70px;
-    padding-right: 70px;
-  }
-
-  .event {
-    width: 150px;
-  }
-
-  .event-title {
-    max-width: 145px;
-  }
 }
 
+/* ------------------------------------------------ */
 /* MOBILE */
+/* ------------------------------------------------ */
 
-@media (max-width: 620px) {
+@media
+(max-width: 620px) {
 
   .topbar {
-    height: 62px;
+    height:
+      calc(
+        62px +
+        env(
+          safe-area-inset-top
+        )
+      );
 
     padding:
-      env(safe-area-inset-top)
+      env(
+        safe-area-inset-top
+      )
       14px
       0;
   }
 
   .brand {
-    font-size: 20px;
+    font-size:
+      20px;
   }
 
   .top-actions {
-    gap: 6px;
+    gap:
+      6px;
   }
 
   .top-actions .btn {
-    min-height: 38px;
+    min-height:
+      38px;
 
-    padding: 0 11px;
+    padding:
+      0
+      11px;
 
-    font-size: 13px;
+    font-size:
+      12px;
   }
 
   .dashboard,
   .create-page {
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left:
+      18px;
+
+    padding-right:
+      18px;
   }
 
   .dashboard {
-    padding-top: 38px;
+    padding-top:
+      38px;
   }
 
   .cards {
@@ -1178,7 +1908,8 @@ select:focus {
   }
 
   .sim-card {
-    min-height: 165px;
+    min-height:
+      165px;
   }
 
   .form-grid {
@@ -1187,57 +1918,64 @@ select:focus {
   }
 
   .hero {
-    gap: 20px;
+    gap:
+      20px;
   }
 
   .hero > .btn {
-    width: 100%;
+    width:
+      100%;
   }
 
   .debrief-head {
-    height: 108px;
+    min-height:
+      108px;
 
     padding:
-      18px
-      18px
-      14px;
+      18px;
   }
 
   .debrief-route {
-    font-size: 23px;
-  }
-
-  .debrief-sub {
-    font-size: 12px;
+    font-size:
+      23px;
   }
 
   .mobile-scroll-hint {
-    display: block;
+    display:
+      block;
 
     padding:
       8px
       18px;
 
-    font-size: 11px;
-
-    color: var(--muted);
-
     border-bottom:
-      1px solid var(--line);
+      1px solid
+      var(--border);
+
+    color:
+      var(--muted);
 
     background:
-      rgba(244,245,247,.92);
+      #111419;
+
+    font-size:
+      11px;
   }
 
   .timeline-wrap {
     height:
-      calc(100vh - 210px);
+      calc(
+        100vh -
+        220px
+      );
 
-    min-height: 500px;
+    min-height:
+      500px;
   }
 
   .timeline {
-    width: 1760px;
+    width:
+      1760px;
 
     padding:
       25px
@@ -1253,65 +1991,71 @@ select:focus {
       300px
       270px;
 
-    padding: 0 18px;
-  }
-
-  .route-canvas {
-    height: 410px;
+    padding:
+      0
+      18px;
   }
 
   .event {
-    width: 132px;
+    width:
+      132px;
   }
 
   .event-title {
-    max-width: 128px;
+    max-width:
+      128px;
 
-    font-size: 11px;
+    padding:
+      4px
+      5px;
 
-    line-height: 1.2;
-
-    padding: 4px 5px;
+    font-size:
+      11px;
   }
 
-  .event-time {
-    font-size: 9px;
-  }
-
-  .airport-code {
-    font-size: 21px;
-  }
-
-  /* MOBILE BOTTOM SHEET */
+  /* bottom sheet */
 
   .drawer {
-    top: auto;
+    top:
+      auto;
 
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left:
+      0;
 
-    width: 100%;
+    right:
+      0;
 
-    max-height: 85vh;
+    bottom:
+      0;
 
-    border-left: 0;
+    width:
+      100%;
+
+    max-height:
+      90vh;
+
+    border-left:
+      0;
 
     border-top:
-      1px solid var(--line);
+      1px solid
+      var(--border);
 
     border-radius:
-      22px 22px 0 0;
+      22px
+      22px
+      0
+      0;
 
     transform:
-      translateY(101%);
+      translateY(
+        101%
+      );
 
     padding-bottom:
-      env(safe-area-inset-bottom);
-
-    box-shadow:
-      0 -20px 60px
-      rgba(17,24,39,.15);
+      env(
+        safe-area-inset-bottom
+      );
   }
 
   .drawer.open {
@@ -1319,51 +2063,64 @@ select:focus {
       translateY(0);
   }
 
-  .drawer-top {
+  .drawer-body {
     padding:
-      20px
-      20px
-      16px;
+      20px;
   }
 
-  .drawer-body {
+  .drawer-top {
     padding:
       20px;
   }
 
   .drawer-footer {
     padding:
-      14px 20px
+      14px
+      20px
       calc(
         14px +
-        env(safe-area-inset-bottom)
+        env(
+          safe-area-inset-bottom
+        )
       );
   }
 
-  .counter button {
-    width: 44px;
-    height: 44px;
-  }
-
-  .result {
-    height: 50px;
-  }
-
   textarea {
-    min-height: 115px;
+    min-height:
+      150px;
+  }
+
+  .attempts-table th,
+  .attempts-table td {
+    padding:
+      10px
+      8px;
+  }
+
+  .attempt-btn {
+    min-width:
+      32px;
+
+    padding:
+      0
+      7px;
   }
 
   .create-title {
-    font-size: 36px;
+    font-size:
+      36px;
   }
 
   .builder {
-    padding: 20px 14px;
+    padding:
+      20px
+      14px;
   }
 
   .builder-track {
     margin:
-      0 -14px;
+      0
+      -14px;
 
     padding:
       50px
@@ -1372,54 +2129,55 @@ select:focus {
   }
 
   .builder-events {
-    gap: 28px;
+    gap:
+      28px;
   }
 
   .create-footer {
-    display: grid;
+    display:
+      grid;
 
     grid-template-columns:
-      1fr 1fr;
+      1fr
+      1fr;
   }
 
   .create-footer .btn {
-    width: 100%;
+    width:
+      100%;
   }
 
-  /* MOBILE ADD EVENT SHEET */
-
   .modal-backdrop {
-    align-items: flex-end;
+    align-items:
+      flex-end;
 
-    padding: 0;
+    padding:
+      0;
   }
 
   .modal {
-    width: 100%;
-
-    border-radius:
-      22px 22px 0 0;
+    width:
+      100%;
 
     padding:
       24px
       20px
       calc(
         24px +
-        env(safe-area-inset-bottom)
+        env(
+          safe-area-inset-bottom
+        )
       );
+
+    border-radius:
+      22px
+      22px
+      0
+      0;
   }
 
-  .modal-actions {
-    display: grid;
-
-    grid-template-columns:
-      1fr 1fr;
-  }
-
-  .modal-actions .btn {
-    width: 100%;
-  }
 }
+
 </style>
 </head>
 
@@ -1431,8 +2189,6 @@ select:focus {
 
   <div
     class="brand"
-    role="button"
-    tabindex="0"
     onclick="showView('dashboard')"
   >
     Debrief
@@ -1461,9 +2217,12 @@ select:focus {
 
 </header>
 
+
 <main>
 
+<!-- ================================================= -->
 <!-- DASHBOARD -->
+<!-- ================================================= -->
 
 <section
   id="dashboard"
@@ -1486,8 +2245,9 @@ Sessions
 
 <p>
 Review simulator events by phase of flight,
-record repetitions, instructor comments,
-and pass or fail.
+edit instructor assessments,
+track individual attempts,
+and build new sessions.
 </p>
 
 </div>
@@ -1501,6 +2261,7 @@ Create new
 
 </div>
 
+
 <div class="section-head">
 
 <h2>
@@ -1513,10 +2274,11 @@ Recent sims
 
 </div>
 
+
 <div class="cards">
 
 <button
-  class="sim-card preset"
+  class="sim-card"
   onclick="openPreset()"
 >
 
@@ -1541,16 +2303,26 @@ LEBL → LEPA
 </div>
 
 <div class="meta">
-<span>A320</span>
-<span>6 events</span>
-<span>08 Aug 2026</span>
+
+<span>
+A320
+</span>
+
+<span>
+6 events
+</span>
+
+<span>
+08 Aug 2026
+</span>
+
 </div>
 
 </button>
 
 
 <button
-  class="sim-card preset"
+  class="sim-card"
   onclick="openPreset()"
 >
 
@@ -1575,16 +2347,26 @@ LEPA → EGGC
 </div>
 
 <div class="meta">
-<span>A320</span>
-<span>6 events</span>
-<span>02 Aug 2026</span>
+
+<span>
+A320
+</span>
+
+<span>
+6 events
+</span>
+
+<span>
+02 Aug 2026
+</span>
+
 </div>
 
 </button>
 
 
 <button
-  class="sim-card preset"
+  class="sim-card"
   onclick="openPreset()"
 >
 
@@ -1609,16 +2391,26 @@ EGLL → EHAM
 </div>
 
 <div class="meta">
-<span>A320</span>
-<span>6 events</span>
-<span>27 Jul 2026</span>
+
+<span>
+A320
+</span>
+
+<span>
+6 events
+</span>
+
+<span>
+27 Jul 2026
+</span>
+
 </div>
 
 </button>
 
 
 <button
-  class="sim-card preset"
+  class="sim-card"
   onclick="openPreset()"
 >
 
@@ -1643,16 +2435,26 @@ LFPG → LEMD
 </div>
 
 <div class="meta">
-<span>A320</span>
-<span>6 events</span>
-<span>19 Jul 2026</span>
+
+<span>
+A320
+</span>
+
+<span>
+6 events
+</span>
+
+<span>
+19 Jul 2026
+</span>
+
 </div>
 
 </button>
 
 
 <button
-  class="sim-card preset"
+  class="sim-card"
   onclick="openPreset()"
 >
 
@@ -1677,9 +2479,19 @@ LEBL → LFMN
 </div>
 
 <div class="meta">
-<span>A320</span>
-<span>6 events</span>
-<span>12 Jul 2026</span>
+
+<span>
+A320
+</span>
+
+<span>
+6 events
+</span>
+
+<span>
+12 Jul 2026
+</span>
+
 </div>
 
 </button>
@@ -1698,15 +2510,19 @@ LEBL → LFMN
 
 <div
   class="route"
-  style="font-size:22px"
+  style="
+    font-size:22px
+  "
 >
 Create new
 </div>
 
 <div class="meta">
+
 <span>
 Build a session
 </span>
+
 </div>
 
 </div>
@@ -1720,7 +2536,9 @@ Build a session
 </section>
 
 
-<!-- DEBRIEF VIEW -->
+<!-- ================================================= -->
+<!-- SAVED DEBRIEF -->
+<!-- ================================================= -->
 
 <section
   id="debrief"
@@ -1729,13 +2547,16 @@ Build a session
 
 <div class="debrief-shell">
 
+
 <div class="debrief-head">
 
 <div>
 
 <div
   class="eyebrow"
-  style="margin-bottom:6px"
+  style="
+    margin-bottom:6px
+  "
 >
 Type Rating · A320
 </div>
@@ -1749,6 +2570,7 @@ LEBL → LEPA
 </div>
 
 </div>
+
 
 <div class="legend">
 
@@ -1771,9 +2593,11 @@ Not graded
 
 </div>
 
+
 <div class="mobile-scroll-hint">
 Swipe horizontally to follow the flight →
 </div>
+
 
 <div
   class="timeline-wrap"
@@ -1809,32 +2633,32 @@ Landing
 
 <div class="route-canvas">
 
+
 <svg
   class="flight-svg"
   viewBox="0 0 1920 430"
   preserveAspectRatio="none"
-  aria-hidden="true"
 >
 
 <path
   class="track-dash"
   d="
-  M 40 332
-  C 215 330 268 240 340 190
-  C 485 90 720 88 880 112
-  C 1080 142 1240 91 1390 155
-  C 1512 208 1578 310 1880 332
+    M 40 332
+    C 215 330 268 240 340 190
+    C 485 90 720 88 880 112
+    C 1080 142 1240 91 1390 155
+    C 1512 208 1578 310 1880 332
   "
 />
 
 <path
   class="track"
   d="
-  M 40 332
-  C 215 330 268 240 340 190
-  C 485 90 720 88 880 112
-  C 1080 142 1240 91 1390 155
-  C 1512 208 1578 310 1880 332
+    M 40 332
+    C 215 330 268 240 340 190
+    C 485 90 720 88 880 112
+    C 1080 142 1240 91 1390 155
+    C 1512 208 1578 310 1880 332
   "
 />
 
@@ -1873,8 +2697,11 @@ Palma de Mallorca
 
 <button
   class="event fail"
-  style="left:220px;top:300px"
   data-event="0"
+  style="
+    left:220px;
+    top:300px
+  "
   onclick="openEvent(0)"
 >
 
@@ -1893,8 +2720,11 @@ Ground
 
 <button
   class="event pass"
-  style="left:458px;top:174px"
   data-event="1"
+  style="
+    left:458px;
+    top:174px
+  "
   onclick="openEvent(1)"
 >
 
@@ -1913,8 +2743,11 @@ After V1
 
 <button
   class="event pass"
-  style="left:790px;top:111px"
   data-event="2"
+  style="
+    left:790px;
+    top:111px
+  "
   onclick="openEvent(2)"
 >
 
@@ -1933,8 +2766,11 @@ FL180
 
 <button
   class="event fail"
-  style="left:1115px;top:120px"
   data-event="3"
+  style="
+    left:1115px;
+    top:120px
+  "
   onclick="openEvent(3)"
 >
 
@@ -1953,8 +2789,11 @@ Cruise
 
 <button
   class="event pass"
-  style="left:1452px;top:185px"
   data-event="4"
+  style="
+    left:1452px;
+    top:185px
+  "
   onclick="openEvent(4)"
 >
 
@@ -1973,8 +2812,11 @@ Approach
 
 <button
   class="event fail"
-  style="left:1720px;top:310px"
   data-event="5"
+  style="
+    left:1720px;
+    top:310px
+  "
   onclick="openEvent(5)"
 >
 
@@ -1990,6 +2832,7 @@ Landing
 
 </button>
 
+
 </div>
 
 </div>
@@ -2001,7 +2844,9 @@ Landing
 </section>
 
 
-<!-- CREATE SESSION -->
+<!-- ================================================= -->
+<!-- CREATE -->
+<!-- ================================================= -->
 
 <section
   id="create"
@@ -2031,7 +2876,7 @@ From
   id="fromAirport"
   value="LEBL"
   maxlength="4"
-/>
+>
 
 </div>
 
@@ -2046,7 +2891,7 @@ To
   id="toAirport"
   value="LEPA"
   maxlength="4"
-/>
+>
 
 </div>
 
@@ -2120,11 +2965,11 @@ Flight path
 </h2>
 
 <span
-  style="
-  font-size:12px;
-  color:var(--muted)
-  "
   id="eventCount"
+  style="
+    color:var(--muted);
+    font-size:12px
+  "
 >
 3 events
 </span>
@@ -2143,7 +2988,14 @@ Flight path
 >
 
 
-<div class="builder-event">
+<div
+  class="builder-event"
+  onclick="
+    editBuilderEvent(
+      this
+    )
+  "
+>
 
 <div class="mini-dot"></div>
 
@@ -2158,7 +3010,14 @@ Ground
 </div>
 
 
-<div class="builder-event">
+<div
+  class="builder-event"
+  onclick="
+    editBuilderEvent(
+      this
+    )
+  "
+>
 
 <div class="mini-dot"></div>
 
@@ -2173,7 +3032,14 @@ Cruise
 </div>
 
 
-<div class="builder-event">
+<div
+  class="builder-event"
+  onclick="
+    editBuilderEvent(
+      this
+    )
+  "
+>
 
 <div class="mini-dot"></div>
 
@@ -2190,7 +3056,11 @@ Landing
 
 <div class="add-event">
 
-<button onclick="openAddModal()">
+<button
+  onclick="
+    openAddModal()
+  "
+>
 +
 </button>
 
@@ -2211,14 +3081,20 @@ Add event
 
 <button
   class="btn"
-  onclick="showView('dashboard')"
+  onclick="
+    showView(
+      'dashboard'
+    )
+  "
 >
 Cancel
 </button>
 
 <button
   class="btn primary"
-  onclick="createSession()"
+  onclick="
+    createSession()
+  "
 >
 Create session
 </button>
@@ -2234,7 +3110,9 @@ Create session
 </div>
 
 
-<!-- EVENT DETAILS DRAWER -->
+<!-- ================================================= -->
+<!-- SAVED POINT EDIT DRAWER -->
+<!-- ================================================= -->
 
 <aside
   class="drawer"
@@ -2258,9 +3136,12 @@ TCAS RA
 
 </div>
 
+
 <button
   class="btn icon"
-  onclick="closeDrawer()"
+  onclick="
+    closeDrawer()
+  "
 >
 ×
 </button>
@@ -2270,27 +3151,60 @@ TCAS RA
 
 <div class="drawer-body">
 
+
 <div class="field">
 
 <label>
-Times repeated
+Attempts
 </label>
 
-<div class="counter">
 
-<button onclick="changeCount(-1)">
-−
-</button>
+<div class="attempts-wrapper">
 
-<strong id="repeatCount">
-1
-</strong>
+<table class="attempts-table">
 
-<button onclick="changeCount(1)">
-+
-</button>
+<thead>
+
+<tr>
+
+<th>
+Try
+</th>
+
+<th>
+Result
+</th>
+
+<th
+  style="
+    text-align:right
+  "
+>
+Edit
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="attemptsBody">
+
+</tbody>
+
+</table>
 
 </div>
+
+
+<button
+  class="add-attempt"
+  onclick="
+    addAttempt()
+  "
+>
++ Add attempt
+</button>
 
 </div>
 
@@ -2303,37 +3217,8 @@ Instructor comments
 
 <textarea
   id="comments"
-  placeholder="Add comments"
+  placeholder="Add instructor comments"
 ></textarea>
-
-</div>
-
-
-<div class="field">
-
-<label>
-Result
-</label>
-
-<div class="result-toggle">
-
-<button
-  class="result pass"
-  id="passBtn"
-  onclick="setResult('pass')"
->
-✓ Pass
-</button>
-
-<button
-  class="result fail"
-  id="failBtn"
-  onclick="setResult('fail')"
->
-× Fail
-</button>
-
-</div>
 
 </div>
 
@@ -2344,9 +3229,11 @@ Result
 
 <button
   class="btn primary"
-  onclick="saveEvent()"
+  onclick="
+    saveEvent()
+  "
 >
-Save
+Save changes
 </button>
 
 </div>
@@ -2354,17 +3241,23 @@ Save
 </aside>
 
 
-<!-- ADD EVENT MODAL -->
+<!-- ================================================= -->
+<!-- ADD / EDIT BUILDER EVENT -->
+<!-- ================================================= -->
 
 <div
   class="modal-backdrop"
   id="modalBackdrop"
-  onclick="modalBackdropClick(event)"
+  onclick="
+    modalBackdropClick(
+      event
+    )
+  "
 >
 
 <div class="modal">
 
-<h3>
+<h3 id="modalTitle">
 Add event
 </h3>
 
@@ -2471,14 +3364,19 @@ Landing
 
 <button
   class="btn"
-  onclick="closeAddModal()"
+  onclick="
+    closeAddModal()
+  "
 >
 Cancel
 </button>
 
 <button
   class="btn primary"
-  onclick="addBuilderEvent()"
+  id="modalSaveBtn"
+  onclick="
+    saveBuilderModal()
+  "
 >
 Add
 </button>
@@ -2500,143 +3398,280 @@ Saved
 
 <script>
 
-/* PREMADE SESSION DATA */
+/* ================================================= */
+/* SAVED SIM DATA */
+/* ================================================= */
 
 const events = [
 
   {
-    title: "ENG 2 START FAULT",
-    phase: "Ground",
-    repeats: 2,
+
+    title:
+      "ENG 2 START FAULT",
+
+    phase:
+      "Ground",
+
+    attempts: [
+
+      {
+        result:
+          "fail"
+      },
+
+      {
+        result:
+          "pass"
+      }
+
+    ],
+
     comments:
-      "Second attempt correctly identified the start malfunction and stopped the sequence promptly.",
-    result: "fail"
+      "The first engine start attempt was not managed to the expected standard. Recognition of the abnormal start was delayed and the crew continued monitoring without clearly verbalising the developing condition. The shutdown decision was therefore later than desired. On the second attempt the malfunction was identified much earlier. The correct priorities were established, the start sequence was stopped promptly, and communication between PF and PM was significantly clearer. Review the normal engine start parameters and the cues that should trigger an immediate stop of the start sequence."
+
   },
 
-  {
-    title: "ENG 1 FAIL",
-    phase: "After V1",
-    repeats: 1,
-    comments:
-      "Good control transfer and prioritisation. ECAM handling was structured.",
-    result: "pass"
-  },
 
   {
-    title: "TCAS RA",
-    phase: "FL180",
-    repeats: 1,
+
+    title:
+      "ENG 1 FAIL",
+
+    phase:
+      "After V1",
+
+    attempts: [
+
+      {
+        result:
+          "pass"
+      }
+
+    ],
+
     comments:
-      "Immediate response to the RA. Correct vertical guidance follow-up.",
-    result: "pass"
+      "The engine failure was handled in a controlled manner with good aircraft control immediately after V1. Directional control was maintained and the initial flight path was stable. Task sharing between PF and PM was effective and there was no unnecessary rush into ECAM actions before the aircraft was established. The ECAM sequence was completed methodically and the crew maintained awareness of terrain, acceleration altitude and configuration changes. The return strategy was sensible and the briefing covered the main operational consequences. Continue to emphasise clear confirmation before any irreversible action."
+
   },
 
-  {
-    title: "AIR ENG 1 BLEED FAULT",
-    phase: "Cruise",
-    repeats: 2,
-    comments:
-      "ECAM sequence improved on repeat. Review system status cross-check.",
-    result: "fail"
-  },
 
   {
+
+    title:
+      "TCAS RA",
+
+    phase:
+      "FL180",
+
+    attempts: [
+
+      {
+        result:
+          "pass"
+      }
+
+    ],
+
+    comments:
+      "The response to the TCAS resolution advisory was immediate and correctly prioritised over the existing ATC clearance. The required vertical response was applied smoothly without excessive control input. The crew monitored the vertical speed guidance throughout the manoeuvre and avoided unnecessary lateral deviation. Communication was concise and the PM correctly supported the event by monitoring the traffic display and subsequent clear-of-conflict indication. The return to the previous clearance was well managed. Maintain the same discipline of responding to the RA first and resolving ATC coordination afterwards."
+
+  },
+
+
+  {
+
+    title:
+      "AIR ENG 1 BLEED FAULT",
+
+    phase:
+      "Cruise",
+
+    attempts: [
+
+      {
+        result:
+          "fail"
+      },
+
+      {
+        result:
+          "pass"
+      }
+
+    ],
+
+    comments:
+      "During the first run the ECAM actions were completed, but the overall system picture was not fully understood before moving into the status review. The consequences for air conditioning, pressurisation and anti-ice capability were discussed only after prompting. On the repeat, the crew slowed the process down and built a clearer understanding of what remained available. The status page was reviewed more effectively and the operational implications were incorporated into the continuation decision. Further review should focus on linking individual ECAM actions to the wider system consequences rather than treating the procedure as a sequence of isolated steps."
+
+  },
+
+
+  {
+
     title:
       "BRAKES A/SKID N/W STRG FAULT",
-    phase: "Approach",
-    repeats: 1,
+
+    phase:
+      "Approach",
+
+    attempts: [
+
+      {
+        result:
+          "pass"
+      }
+
+    ],
+
     comments:
-      "Correctly anticipated landing implications and briefed the abnormal configuration.",
-    result: "pass"
+      "The fault was identified early enough to allow the approach plan to be reassessed without unnecessary time pressure. The crew reviewed the expected landing implications and incorporated them into the approach briefing. Runway length, braking expectations and directional control considerations were discussed. The PF maintained a stable approach while the PM completed the required actions. The decision to continue was supported by the available runway and conditions. Good anticipation of the landing phase reduced workload later in the exercise. Continue to make the operational consequences explicit during the briefing rather than relying only on the ECAM status presentation."
+
   },
 
+
   {
-    title: "LOSS OF BRAKING",
-    phase: "Landing",
-    repeats: 2,
+
+    title:
+      "LOSS OF BRAKING",
+
+    phase:
+      "Landing",
+
+    attempts: [
+
+      {
+        result:
+          "fail"
+      },
+
+      {
+        result:
+          "pass"
+      }
+
+    ],
+
     comments:
-      "Initial response delayed. Second run showed faster recognition and better directional control.",
-    result: "fail"
+      "On the first attempt the crew took too long to recognise that the expected deceleration was not developing. This delayed the transition from normal braking expectations to the abnormal braking response. Directional control remained acceptable, but the available runway was being consumed rapidly. On the second attempt the lack of deceleration was identified much sooner. The response was more decisive and both pilots communicated clearly about the remaining runway and the aircraft behaviour. The second run demonstrated a much better balance between maintaining directional control and taking timely action. Review the visual and kinetic cues that indicate ineffective braking immediately after touchdown."
+
   }
 
 ];
 
 
-let currentEvent = null;
+let currentEvent =
+  null;
 
-let builderCount = 3;
+let builderCount =
+  3;
+
+let editingBuilderElement =
+  null;
 
 
-/* PAGE NAVIGATION */
+/* ================================================= */
+/* NAVIGATION */
+/* ================================================= */
 
 function showView(id) {
 
   document
-    .querySelectorAll(".view")
-    .forEach(view => {
+    .querySelectorAll(
+      ".view"
+    )
+    .forEach(
+      view => {
 
-      view.classList.remove("active");
+        view
+          .classList
+          .remove(
+            "active"
+          );
 
-    });
+      }
+    );
 
 
   document
     .getElementById(id)
     .classList
-    .add("active");
+    .add(
+      "active"
+    );
 
 
-  const insideSession =
-    id !== "dashboard";
+  const inside =
+    id !==
+    "dashboard";
 
 
   document
-    .getElementById("backBtn")
+    .getElementById(
+      "backBtn"
+    )
     .style.display =
-      insideSession
+      inside
         ? "inline-flex"
         : "none";
 
 
   document
-    .getElementById("newBtn")
+    .getElementById(
+      "newBtn"
+    )
     .style.display =
-      id === "create"
+      id ===
+      "create"
         ? "none"
         : "inline-flex";
 
 
   closeDrawer();
 
-
-  window.scrollTo(0,0);
+  window.scrollTo(
+    0,
+    0
+  );
 
 }
 
 
-/* PRESET SESSION */
+/* ================================================= */
+/* OPEN SAVED FLIGHT */
+/* ================================================= */
 
 function openPreset() {
 
-  showView("debrief");
+  showView(
+    "debrief"
+  );
 
 
-  setTimeout(() => {
+  setTimeout(
+    () => {
 
-    document
-      .getElementById("timelineScroll")
-      .scrollLeft = 0;
+      document
+        .getElementById(
+          "timelineScroll"
+        )
+        .scrollLeft =
+          0;
 
-  },30);
+    },
+    30
+  );
 
 }
 
 
-/* OPEN FAILURE / PROCEDURE */
+/* ================================================= */
+/* OPEN SAVED POINT */
+/* ================================================= */
 
 function openEvent(index) {
 
-  currentEvent = index;
+  currentEvent =
+    index;
 
 
   const eventData =
@@ -2644,175 +3679,296 @@ function openEvent(index) {
 
 
   document
-    .getElementById("drawerTitle")
+    .getElementById(
+      "drawerTitle"
+    )
     .textContent =
       eventData.title;
 
 
   document
-    .getElementById("drawerPhase")
+    .getElementById(
+      "drawerPhase"
+    )
     .textContent =
       eventData.phase;
 
 
   document
-    .getElementById("repeatCount")
-    .textContent =
-      eventData.repeats;
-
-
-  document
-    .getElementById("comments")
+    .getElementById(
+      "comments"
+    )
     .value =
       eventData.comments;
 
 
-  paintResult(
-    eventData.result
-  );
-
-
-  document
-    .getElementById("drawer")
-    .classList
-    .add("open");
-
-}
-
-
-/* CLOSE DRAWER */
-
-function closeDrawer() {
-
-  document
-    .getElementById("drawer")
-    .classList
-    .remove("open");
-
-}
-
-
-/* REPEAT COUNTER */
-
-function changeCount(change) {
-
-  if (
-    currentEvent === null
-  ) {
-    return;
-  }
-
-
-  let count =
-    Number(
-      document
-        .getElementById(
-          "repeatCount"
-        )
-        .textContent
-    );
-
-
-  count =
-    Math.max(
-      1,
-      count + change
-    );
+  renderAttempts();
 
 
   document
     .getElementById(
-      "repeatCount"
+      "drawer"
     )
-    .textContent =
-      count;
-
-}
-
-
-/* PASS / FAIL VISUAL */
-
-function paintResult(result) {
-
-  document
-    .getElementById("passBtn")
     .classList
-    .toggle(
-      "active",
-      result === "pass"
-    );
-
-
-  document
-    .getElementById("failBtn")
-    .classList
-    .toggle(
-      "active",
-      result === "fail"
+    .add(
+      "open"
     );
 
 }
 
 
-/* CHANGE RESULT */
+/* ================================================= */
+/* ATTEMPTS TABLE */
+/* ================================================= */
 
-function setResult(result) {
+function renderAttempts() {
 
   if (
-    currentEvent === null
+    currentEvent ===
+    null
   ) {
     return;
   }
 
 
-  events[currentEvent].result =
-    result;
+  const body =
+    document
+      .getElementById(
+        "attemptsBody"
+      );
 
 
-  paintResult(result);
+  const attempts =
+    events[
+      currentEvent
+    ].attempts;
+
+
+  body.innerHTML =
+    "";
+
+
+  attempts
+    .forEach(
+      (
+        attempt,
+        index
+      ) => {
+
+        const row =
+          document
+            .createElement(
+              "tr"
+            );
+
+
+        const tryNumber =
+          index + 1;
+
+
+        row.innerHTML = `
+
+          <td>
+
+            <span class="attempt-name">
+
+              Try ${tryNumber}
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span
+              class="
+                attempt-status
+                ${attempt.result}
+              "
+            >
+
+              ${
+                attempt.result ===
+                "pass"
+                  ? "✓ Pass"
+                  : "× Fail"
+              }
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <div class="attempt-actions">
+
+              <button
+                class="
+                  attempt-btn
+                  fail
+                  ${
+                    attempt.result ===
+                    "fail"
+                      ? "active"
+                      : ""
+                  }
+                "
+                onclick="
+                  setAttemptResult(
+                    ${index},
+                    'fail'
+                  )
+                "
+              >
+
+                ×
+
+              </button>
+
+
+              <button
+                class="
+                  attempt-btn
+                  pass
+                  ${
+                    attempt.result ===
+                    "pass"
+                      ? "active"
+                      : ""
+                  }
+                "
+                onclick="
+                  setAttemptResult(
+                    ${index},
+                    'pass'
+                  )
+                "
+              >
+
+                ✓
+
+              </button>
+
+            </div>
+
+          </td>
+
+        `;
+
+
+        body.appendChild(
+          row
+        );
+
+      }
+    );
 
 }
 
 
-/* SAVE EVENT */
+function setAttemptResult(
+  index,
+  result
+) {
+
+  if (
+    currentEvent ===
+    null
+  ) {
+    return;
+  }
+
+
+  events[
+    currentEvent
+  ]
+  .attempts[
+    index
+  ]
+  .result =
+    result;
+
+
+  renderAttempts();
+
+}
+
+
+function addAttempt() {
+
+  if (
+    currentEvent ===
+    null
+  ) {
+    return;
+  }
+
+
+  events[
+    currentEvent
+  ]
+  .attempts
+  .push(
+    {
+      result:
+        "fail"
+    }
+  );
+
+
+  renderAttempts();
+
+}
+
+
+/* ================================================= */
+/* SAVE SAVED POINT */
+/* ================================================= */
 
 function saveEvent() {
 
   if (
-    currentEvent === null
+    currentEvent ===
+    null
   ) {
     return;
   }
 
 
   const eventData =
-    events[currentEvent];
-
-
-  eventData.repeats =
-    Number(
-      document
-        .getElementById(
-          "repeatCount"
-        )
-        .textContent
-    );
+    events[
+      currentEvent
+    ];
 
 
   eventData.comments =
     document
-      .getElementById("comments")
+      .getElementById(
+        "comments"
+      )
       .value;
 
 
-  const eventNode =
+  const node =
     document
       .querySelector(
         `[data-event="${currentEvent}"]`
       );
 
 
-  eventNode
+  const attempts =
+    eventData.attempts;
+
+
+  const finalAttempt =
+    attempts[
+      attempts.length - 1
+    ];
+
+
+  node
     .classList
     .remove(
       "pass",
@@ -2821,13 +3977,13 @@ function saveEvent() {
 
 
   if (
-    eventData.result
+    finalAttempt
   ) {
 
-    eventNode
+    node
       .classList
       .add(
-        eventData.result
+        finalAttempt.result
       );
 
   }
@@ -2835,27 +3991,138 @@ function saveEvent() {
 
   closeDrawer();
 
-
-  showToast("Saved");
+  showToast(
+    "Changes saved"
+  );
 
 }
 
 
-/* OPEN ADD EVENT */
+/* ================================================= */
+/* DRAWER */
+/* ================================================= */
+
+function closeDrawer() {
+
+  document
+    .getElementById(
+      "drawer"
+    )
+    .classList
+    .remove(
+      "open"
+    );
+
+}
+
+
+/* ================================================= */
+/* CREATE SESSION MODAL */
+/* ================================================= */
 
 function openAddModal() {
+
+  editingBuilderElement =
+    null;
+
+
+  document
+    .getElementById(
+      "modalTitle"
+    )
+    .textContent =
+      "Add event";
+
+
+  document
+    .getElementById(
+      "modalSaveBtn"
+    )
+    .textContent =
+      "Add";
+
 
   document
     .getElementById(
       "modalBackdrop"
     )
     .classList
-    .add("open");
+    .add(
+      "open"
+    );
 
 }
 
 
-/* CLOSE ADD EVENT */
+function editBuilderEvent(
+  element
+) {
+
+  editingBuilderElement =
+    element;
+
+
+  const title =
+    element
+      .querySelector(
+        "b"
+      )
+      .textContent
+      .trim();
+
+
+  const phase =
+    element
+      .querySelector(
+        "small"
+      )
+      .textContent
+      .trim();
+
+
+  document
+    .getElementById(
+      "newEventName"
+    )
+    .value =
+      title;
+
+
+  document
+    .getElementById(
+      "newEventPhase"
+    )
+    .value =
+      phase;
+
+
+  document
+    .getElementById(
+      "modalTitle"
+    )
+    .textContent =
+      "Edit event";
+
+
+  document
+    .getElementById(
+      "modalSaveBtn"
+    )
+    .textContent =
+      "Save";
+
+
+  document
+    .getElementById(
+      "modalBackdrop"
+    )
+    .classList
+    .add(
+      "open"
+    );
+
+}
+
 
 function closeAddModal() {
 
@@ -2864,14 +4131,20 @@ function closeAddModal() {
       "modalBackdrop"
     )
     .classList
-    .remove("open");
+    .remove(
+      "open"
+    );
+
+
+  editingBuilderElement =
+    null;
 
 }
 
 
-/* CLOSE MODAL WHEN CLICKING BACKDROP */
-
-function modalBackdropClick(event) {
+function modalBackdropClick(
+  event
+) {
 
   if (
     event.target.id ===
@@ -2885,9 +4158,7 @@ function modalBackdropClick(event) {
 }
 
 
-/* ADD BUILDER EVENT */
-
-function addBuilderEvent() {
+function saveBuilderModal() {
 
   const title =
     document
@@ -2905,6 +4176,38 @@ function addBuilderEvent() {
       .value;
 
 
+  if (
+    editingBuilderElement
+  ) {
+
+    editingBuilderElement
+      .querySelector(
+        "b"
+      )
+      .textContent =
+        title;
+
+
+    editingBuilderElement
+      .querySelector(
+        "small"
+      )
+      .textContent =
+        phase;
+
+
+    showToast(
+      "Event updated"
+    );
+
+
+    closeAddModal();
+
+    return;
+
+  }
+
+
   const holder =
     document
       .getElementById(
@@ -2912,23 +4215,35 @@ function addBuilderEvent() {
       );
 
 
-  const addButton =
+  const addBox =
     holder
       .querySelector(
         ".add-event"
       );
 
 
-  const newEvent =
+  const element =
     document
-      .createElement("div");
+      .createElement(
+        "div"
+      );
 
 
-  newEvent.className =
+  element.className =
     "builder-event";
 
 
-  newEvent.innerHTML = `
+  element.onclick =
+    function() {
+
+      editBuilderEvent(
+        element
+      );
+
+    };
+
+
+  element.innerHTML = `
 
     <div class="mini-dot"></div>
 
@@ -2944,8 +4259,8 @@ function addBuilderEvent() {
 
 
   holder.insertBefore(
-    newEvent,
-    addButton
+    element,
+    addBox
   );
 
 
@@ -2957,20 +4272,21 @@ function addBuilderEvent() {
       "eventCount"
     )
     .textContent =
-      builderCount +
-      (
-        builderCount === 1
-        ? " event"
-        : " events"
-      );
+      `${builderCount} events`;
 
 
   closeAddModal();
 
+  showToast(
+    "Event added"
+  );
+
 }
 
 
+/* ================================================= */
 /* CREATE SESSION */
+/* ================================================= */
 
 function createSession() {
 
@@ -3046,7 +4362,9 @@ function createSession() {
       `${training} · ${aircraft}`;
 
 
-  showView("debrief");
+  showView(
+    "debrief"
+  );
 
 
   showToast(
@@ -3056,9 +4374,13 @@ function createSession() {
 }
 
 
-/* SAFE HTML */
+/* ================================================= */
+/* HELPERS */
+/* ================================================= */
 
-function escapeHtml(string) {
+function escapeHtml(
+  string
+) {
 
   return string.replace(
 
@@ -3066,11 +4388,20 @@ function escapeHtml(string) {
 
     character => ({
 
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
+      "&":
+        "&amp;",
+
+      "<":
+        "&lt;",
+
+      ">":
+        "&gt;",
+
+      '"':
+        "&quot;",
+
+      "'":
+        "&#039;"
 
     }[character])
 
@@ -3079,9 +4410,9 @@ function escapeHtml(string) {
 }
 
 
-/* TOAST */
-
-function showToast(text) {
+function showToast(
+  text
+) {
 
   const toast =
     document
@@ -3096,21 +4427,26 @@ function showToast(text) {
 
   toast
     .classList
-    .add("show");
+    .add(
+      "show"
+    );
 
 
-  setTimeout(() => {
+  setTimeout(
+    () => {
 
-    toast
-      .classList
-      .remove("show");
+      toast
+        .classList
+        .remove(
+          "show"
+        );
 
-  },1400);
+    },
+    1500
+  );
 
 }
 
-
-/* ESCAPE KEY */
 
 document
   .addEventListener(
