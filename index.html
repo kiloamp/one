@@ -1,335 +1,3137 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>A320 Type Rating Portal</title>
-    <meta
-      name="description"
-      content="Student training dashboard for A320 type rating progress, simulator detail, class schedule, instructor notes, and exam outcomes."
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Debrief</title>
+
+<style>
+:root {
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --ink: #17191d;
+  --muted: #7b818b;
+  --line: #dfe2e7;
+  --line-strong: #c7ccd3;
+  --ok: #2e7d54;
+  --bad: #ba3f3f;
+  --shadow: 0 14px 40px rgba(17,24,39,.08);
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: var(--ink);
+  background: var(--bg);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* HEADER */
+
+.topbar {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 34px;
+
+  border-bottom: 1px solid var(--line);
+
+  background: rgba(244,245,247,.94);
+  backdrop-filter: blur(14px);
+
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.brand {
+  font-weight: 720;
+  letter-spacing: -.035em;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.top-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn {
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  color: var(--ink);
+
+  border-radius: 11px;
+
+  min-height: 40px;
+
+  padding: 0 15px;
+
+  font-weight: 620;
+
+  transition: .18s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(17,24,39,.07);
+}
+
+.btn.primary {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.btn.ghost {
+  background: transparent;
+}
+
+.btn.icon {
+  width: 40px;
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+
+  font-size: 20px;
+}
+
+/* VIEWS */
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+/* DASHBOARD */
+
+.dashboard {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 58px 34px 80px;
+}
+
+.hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  margin-bottom: 34px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+
+  letter-spacing: .13em;
+
+  color: var(--muted);
+
+  font-size: 11px;
+  font-weight: 760;
+
+  margin-bottom: 11px;
+}
+
+h1 {
+  margin: 0;
+
+  font-size: clamp(38px,5vw,64px);
+
+  letter-spacing: -.055em;
+  line-height: .96;
+
+  font-weight: 720;
+}
+
+.hero p {
+  margin: 13px 0 0;
+
+  max-width: 520px;
+
+  color: var(--muted);
+
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.section-head {
+  margin: 42px 0 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-head h2 {
+  margin: 0;
+
+  font-size: 16px;
+
+  letter-spacing: -.02em;
+}
+
+.section-head span {
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+/* SESSION CARDS */
+
+.cards {
+  display: grid;
+
+  grid-template-columns: repeat(3,minmax(0,1fr));
+
+  gap: 15px;
+}
+
+.sim-card {
+  border: 1px solid var(--line);
+
+  background: var(--panel);
+
+  border-radius: var(--radius);
+
+  padding: 22px;
+
+  min-height: 190px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  text-align: left;
+
+  color: inherit;
+
+  transition: .2s ease;
+}
+
+.sim-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow: var(--shadow);
+
+  border-color: #d3d7dd;
+}
+
+.sim-card.new {
+  background: transparent;
+
+  border: 1px dashed #bac0c9;
+}
+
+.card-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.pill {
+  font-size: 11px;
+
+  font-weight: 720;
+
+  letter-spacing: .04em;
+
+  text-transform: uppercase;
+
+  border: 1px solid var(--line);
+
+  padding: 6px 8px;
+
+  border-radius: 999px;
+
+  color: #555c66;
+}
+
+.arrow {
+  font-size: 20px;
+
+  color: #9ca2aa;
+}
+
+.route {
+  font-size: 27px;
+
+  font-weight: 710;
+
+  letter-spacing: -.045em;
+
+  margin: 20px 0 5px;
+}
+
+.meta {
+  color: var(--muted);
+
+  font-size: 13px;
+
+  display: flex;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+.plus-card {
+  font-size: 34px;
+
+  font-weight: 300;
+
+  color: #6d737c;
+}
+
+/* DEBRIEF */
+
+.debrief-shell {
+  min-height: calc(100vh - 72px);
+
+  overflow: hidden;
+}
+
+.debrief-head {
+  height: 104px;
+
+  padding: 24px 34px 18px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.debrief-route {
+  font-size: 29px;
+
+  font-weight: 720;
+
+  letter-spacing: -.045em;
+}
+
+.debrief-sub {
+  color: var(--muted);
+
+  font-size: 13px;
+
+  margin-top: 5px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+.legend i {
+  display: inline-block;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  margin-right: 5px;
+}
+
+.legend .g {
+  background: var(--ok);
+}
+
+.legend .r {
+  background: var(--bad);
+}
+
+.legend .n {
+  background: #9096a0;
+}
+
+.mobile-scroll-hint {
+  display: none;
+}
+
+.timeline-wrap {
+  height: calc(100vh - 176px);
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: thin;
+
+  scrollbar-color: #b8bec7 transparent;
+
+  -webkit-overflow-scrolling: touch;
+
+  overscroll-behavior-x: contain;
+
+  touch-action: pan-x;
+}
+
+.timeline {
+  width: 2100px;
+
+  min-height: 100%;
+
+  position: relative;
+
+  padding: 42px 90px 80px;
+}
+
+.phase-labels {
+  height: 54px;
+
+  display: grid;
+
+  grid-template-columns:
+    260px
+    280px
+    570px
+    340px
+    310px;
+
+  align-items: end;
+
+  color: #959ba4;
+
+  text-transform: uppercase;
+
+  letter-spacing: .12em;
+
+  font-size: 10px;
+
+  font-weight: 750;
+
+  padding: 0 28px;
+}
+
+.route-canvas {
+  position: relative;
+
+  height: 430px;
+}
+
+.flight-svg {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+.flight-svg path.track {
+  fill: none;
+
+  stroke: #c9cdd3;
+
+  stroke-width: 2.2;
+}
+
+.flight-svg path.track-dash {
+  fill: none;
+
+  stroke: #e4e6ea;
+
+  stroke-width: 1;
+
+  stroke-dasharray: 4 8;
+}
+
+/* AIRPORTS */
+
+.airport {
+  position: absolute;
+
+  bottom: 45px;
+
+  width: 150px;
+}
+
+.airport.arrival {
+  right: 0;
+
+  text-align: right;
+}
+
+.airport.departure {
+  left: 0;
+}
+
+.airport-code {
+  font-size: 23px;
+
+  font-weight: 720;
+
+  letter-spacing: -.04em;
+}
+
+.airport-name {
+  font-size: 11px;
+
+  color: var(--muted);
+
+  margin-top: 4px;
+}
+
+.runway {
+  height: 7px;
+
+  width: 82px;
+
+  background: #30343a;
+
+  border-radius: 2px;
+
+  margin-top: 12px;
+
+  position: relative;
+}
+
+.arrival .runway {
+  margin-left: auto;
+}
+
+.runway::after {
+  content: "";
+
+  position: absolute;
+
+  left: 8px;
+  right: 8px;
+  top: 3px;
+
+  border-top: 1px dashed white;
+}
+
+/* EVENTS */
+
+.event {
+  position: absolute;
+
+  transform: translate(-50%,-50%);
+
+  width: 170px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: inherit;
+
+  text-align: center;
+
+  padding: 0;
+}
+
+.event .dot {
+  width: 15px;
+  height: 15px;
+
+  border-radius: 50%;
+
+  background: #8d939d;
+
+  border: 4px solid var(--bg);
+
+  box-shadow: 0 0 0 1px #aab0b9;
+
+  margin: 0 auto;
+
+  transition: .2s ease;
+}
+
+.event.pass .dot {
+  background: var(--ok);
+
+  box-shadow: 0 0 0 1px var(--ok);
+}
+
+.event.fail .dot {
+  background: var(--bad);
+
+  box-shadow: 0 0 0 1px var(--bad);
+}
+
+.event:hover .dot {
+  transform: scale(1.2);
+}
+
+.event-title {
+  margin-top: 10px;
+
+  font-size: 12px;
+
+  line-height: 1.25;
+
+  font-weight: 690;
+
+  letter-spacing: -.01em;
+
+  background: rgba(244,245,247,.88);
+
+  padding: 4px 7px;
+
+  border-radius: 6px;
+
+  display: inline-block;
+}
+
+.event-time {
+  font-size: 10px;
+
+  color: var(--muted);
+
+  margin-top: 4px;
+}
+
+/* DETAILS DRAWER */
+
+.drawer {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  width: min(430px,92vw);
+
+  background: var(--panel);
+
+  border-left: 1px solid var(--line);
+
+  z-index: 50;
+
+  box-shadow:
+    -20px 0 55px rgba(17,24,39,.12);
+
+  transform: translateX(101%);
+
+  transition:
+    .28s cubic-bezier(.2,.75,.25,1);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-top {
+  padding: 25px 25px 19px;
+
+  border-bottom: 1px solid var(--line);
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  align-items: flex-start;
+}
+
+.drawer h3 {
+  font-size: 25px;
+
+  letter-spacing: -.04em;
+
+  margin: 6px 0 0;
+}
+
+.drawer-body {
+  padding: 23px 25px;
+
+  overflow: auto;
+
+  flex: 1;
+}
+
+.field {
+  margin-bottom: 24px;
+}
+
+.field label,
+.form-group label {
+  display: block;
+
+  font-size: 11px;
+
+  text-transform: uppercase;
+
+  letter-spacing: .1em;
+
+  color: var(--muted);
+
+  font-weight: 760;
+
+  margin-bottom: 9px;
+}
+
+/* COUNTER */
+
+.counter {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.counter button {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 9px;
+
+  border: 1px solid var(--line);
+
+  background: white;
+
+  font-size: 18px;
+}
+
+.counter strong {
+  min-width: 24px;
+
+  text-align: center;
+
+  font-size: 18px;
+}
+
+/* FORMS */
+
+textarea,
+input,
+select {
+  width: 100%;
+
+  border: 1px solid var(--line-strong);
+
+  border-radius: 10px;
+
+  background: white;
+
+  padding: 11px 12px;
+
+  outline: none;
+
+  color: var(--ink);
+}
+
+textarea {
+  min-height: 140px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+  border-color: #6f7680;
+}
+
+/* PASS FAIL */
+
+.result-toggle {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 9px;
+}
+
+.result {
+  height: 46px;
+
+  border-radius: 10px;
+
+  border: 1px solid var(--line);
+
+  background: white;
+
+  font-weight: 700;
+}
+
+.result.active.pass {
+  border-color: #b8d8c6;
+
+  background: #f1f8f4;
+
+  color: var(--ok);
+}
+
+.result.active.fail {
+  border-color: #e7c1c1;
+
+  background: #fff4f4;
+
+  color: var(--bad);
+}
+
+.drawer-footer {
+  padding: 18px 25px;
+
+  border-top: 1px solid var(--line);
+}
+
+.drawer-footer .btn {
+  width: 100%;
+}
+
+/* CREATE PAGE */
+
+.create-page {
+  max-width: 1180px;
+
+  margin: 0 auto;
+
+  padding: 46px 34px 90px;
+}
+
+.create-title {
+  font-size: 42px;
+
+  font-weight: 720;
+
+  letter-spacing: -.05em;
+
+  margin: 0 0 28px;
+}
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap: 12px;
+
+  margin-bottom: 44px;
+}
+
+/* BUILDER */
+
+.builder {
+  background: white;
+
+  border: 1px solid var(--line);
+
+  border-radius: 20px;
+
+  padding: 28px;
+}
+
+.builder-head {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.builder-head h2 {
+  margin: 0;
+
+  font-size: 18px;
+}
+
+.builder-track {
+  position: relative;
+
+  min-height: 250px;
+
+  padding: 65px 25px 40px;
+
+  overflow-x: auto;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.builder-line {
+  position: absolute;
+
+  left: 60px;
+  right: 60px;
+
+  top: 122px;
+
+  border-top: 2px solid #d4d8de;
+}
+
+.builder-events {
+  min-width: 840px;
+
+  display: flex;
+
+  gap: 46px;
+
+  align-items: flex-start;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+.builder-event,
+.add-event {
+  width: 138px;
+
+  flex: 0 0 138px;
+
+  text-align: center;
+}
+
+.builder-event .mini-dot {
+  width: 17px;
+  height: 17px;
+
+  border-radius: 50%;
+
+  background: #6e747d;
+
+  border: 4px solid white;
+
+  box-shadow: 0 0 0 1px #979da6;
+
+  margin: 50px auto 12px;
+}
+
+.builder-event b {
+  display: block;
+
+  font-size: 12px;
+
+  line-height: 1.3;
+}
+
+.builder-event small {
+  display: block;
+
+  color: var(--muted);
+
+  margin-top: 5px;
+}
+
+.add-event button {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  border: 1px solid #aeb4bd;
+
+  background: white;
+
+  font-size: 25px;
+
+  margin: 38px auto 6px;
+}
+
+.add-event span {
+  font-size: 11px;
+
+  color: var(--muted);
+}
+
+.create-footer {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+/* ADD EVENT MODAL */
+
+.modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(20,23,28,.32);
+
+  z-index: 60;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.modal-backdrop.open {
+  display: flex;
+}
+
+.modal {
+  width: min(520px,96vw);
+
+  background: white;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.22);
+
+  padding: 25px;
+}
+
+.modal h3 {
+  margin: 0 0 20px;
+
+  font-size: 22px;
+
+  letter-spacing: -.035em;
+}
+
+.modal .form-group {
+  margin-bottom: 15px;
+}
+
+.modal-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 9px;
+
+  margin-top: 20px;
+}
+
+/* TOAST */
+
+.toast {
+  position: fixed;
+
+  left: 50%;
+  bottom: 28px;
+
+  transform:
+    translate(-50%,20px);
+
+  background: #181a1e;
+
+  color: white;
+
+  padding: 11px 15px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: .2s;
+
+  z-index: 100;
+}
+
+.toast.show {
+  opacity: 1;
+
+  transform:
+    translate(-50%,0);
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+
+  .cards {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .hero {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .legend {
+    display: none;
+  }
+
+  .timeline {
+    width: 1900px;
+
+    padding-left: 70px;
+    padding-right: 70px;
+  }
+
+  .event {
+    width: 150px;
+  }
+
+  .event-title {
+    max-width: 145px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 620px) {
+
+  .topbar {
+    height: 62px;
+
+    padding:
+      env(safe-area-inset-top)
+      14px
+      0;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+
+  .top-actions {
+    gap: 6px;
+  }
+
+  .top-actions .btn {
+    min-height: 38px;
+
+    padding: 0 11px;
+
+    font-size: 13px;
+  }
+
+  .dashboard,
+  .create-page {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .dashboard {
+    padding-top: 38px;
+  }
+
+  .cards {
+    grid-template-columns:
+      1fr;
+  }
+
+  .sim-card {
+    min-height: 165px;
+  }
+
+  .form-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+  .hero {
+    gap: 20px;
+  }
+
+  .hero > .btn {
+    width: 100%;
+  }
+
+  .debrief-head {
+    height: 108px;
+
+    padding:
+      18px
+      18px
+      14px;
+  }
+
+  .debrief-route {
+    font-size: 23px;
+  }
+
+  .debrief-sub {
+    font-size: 12px;
+  }
+
+  .mobile-scroll-hint {
+    display: block;
+
+    padding:
+      8px
+      18px;
+
+    font-size: 11px;
+
+    color: var(--muted);
+
+    border-bottom:
+      1px solid var(--line);
+
+    background:
+      rgba(244,245,247,.92);
+  }
+
+  .timeline-wrap {
+    height:
+      calc(100vh - 210px);
+
+    min-height: 500px;
+  }
+
+  .timeline {
+    width: 1760px;
+
+    padding:
+      25px
+      55px
+      60px;
+  }
+
+  .phase-labels {
+    grid-template-columns:
+      225px
+      250px
+      500px
+      300px
+      270px;
+
+    padding: 0 18px;
+  }
+
+  .route-canvas {
+    height: 410px;
+  }
+
+  .event {
+    width: 132px;
+  }
+
+  .event-title {
+    max-width: 128px;
+
+    font-size: 11px;
+
+    line-height: 1.2;
+
+    padding: 4px 5px;
+  }
+
+  .event-time {
+    font-size: 9px;
+  }
+
+  .airport-code {
+    font-size: 21px;
+  }
+
+  /* MOBILE BOTTOM SHEET */
+
+  .drawer {
+    top: auto;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+
+    max-height: 85vh;
+
+    border-left: 0;
+
+    border-top:
+      1px solid var(--line);
+
+    border-radius:
+      22px 22px 0 0;
+
+    transform:
+      translateY(101%);
+
+    padding-bottom:
+      env(safe-area-inset-bottom);
+
+    box-shadow:
+      0 -20px 60px
+      rgba(17,24,39,.15);
+  }
+
+  .drawer.open {
+    transform:
+      translateY(0);
+  }
+
+  .drawer-top {
+    padding:
+      20px
+      20px
+      16px;
+  }
+
+  .drawer-body {
+    padding:
+      20px;
+  }
+
+  .drawer-footer {
+    padding:
+      14px 20px
+      calc(
+        14px +
+        env(safe-area-inset-bottom)
+      );
+  }
+
+  .counter button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .result {
+    height: 50px;
+  }
+
+  textarea {
+    min-height: 115px;
+  }
+
+  .create-title {
+    font-size: 36px;
+  }
+
+  .builder {
+    padding: 20px 14px;
+  }
+
+  .builder-track {
+    margin:
+      0 -14px;
+
+    padding:
+      50px
+      20px
+      30px;
+  }
+
+  .builder-events {
+    gap: 28px;
+  }
+
+  .create-footer {
+    display: grid;
+
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .create-footer .btn {
+    width: 100%;
+  }
+
+  /* MOBILE ADD EVENT SHEET */
+
+  .modal-backdrop {
+    align-items: flex-end;
+
+    padding: 0;
+  }
+
+  .modal {
+    width: 100%;
+
+    border-radius:
+      22px 22px 0 0;
+
+    padding:
+      24px
+      20px
+      calc(
+        24px +
+        env(safe-area-inset-bottom)
+      );
+  }
+
+  .modal-actions {
+    display: grid;
+
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .modal-actions .btn {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="topbar">
+
+  <div
+    class="brand"
+    role="button"
+    tabindex="0"
+    onclick="showView('dashboard')"
+  >
+    Debrief
+  </div>
+
+  <div class="top-actions">
+
+    <button
+      class="btn ghost"
+      id="backBtn"
+      style="display:none"
+      onclick="showView('dashboard')"
     >
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <div class="shell">
-      <aside class="sidebar" aria-label="Training portal navigation">
-        <div class="brand">
-          <div class="brand-mark" aria-hidden="true">A320</div>
-          <div>
-            <p class="eyebrow">Type Rating</p>
-            <h1>Student Portal</h1>
-          </div>
-        </div>
+      Dashboard
+    </button>
 
-        <nav class="nav-list" aria-label="Primary">
-          <a class="nav-link active" href="#overview">Overview</a>
-          <a class="nav-link" href="#simulator">Simulator</a>
-          <a class="nav-link" href="#classroom">Classroom</a>
-          <a class="nav-link" href="#checks">Checks</a>
-          <a class="nav-link" href="#instructor">Instructor Notes</a>
-        </nav>
+    <button
+      class="btn primary"
+      id="newBtn"
+      onclick="showView('create')"
+    >
+      Create new
+    </button>
 
-        <div class="sidebar-card">
-          <p class="eyebrow">Training ID</p>
-          <strong>TR-A320-0426</strong>
-          <span>Line-oriented preparation</span>
-        </div>
-      </aside>
+  </div>
 
-      <main class="dashboard">
-        <header class="topbar" id="overview">
-          <div>
-            <p class="eyebrow">Friday, 07 Aug 2026</p>
-            <h2>A320 transition dashboard</h2>
-            <p class="summary">
-              Cadet: Sofia Alvarez. Course: A320 EASA type rating, Phase 4 of 6.
-            </p>
-          </div>
-          <div class="crew-panel" aria-label="Crew pairing">
-            <span>PF</span>
-            <strong>Alvarez</strong>
-            <span>PM</span>
-            <strong>Mensah</strong>
-          </div>
-        </header>
+</header>
 
-        <section class="status-strip" aria-label="Course status">
-          <article>
-            <span>Training phase</span>
-            <strong>LOFT prep</strong>
-            <small>Managed descent and abnormal ECAM flow</small>
-          </article>
-          <article>
-            <span>Next sim</span>
-            <strong>Sat 08 Aug, 06:00Z</strong>
-            <small>FFS Bay 2, Instructor R. Novak</small>
-          </article>
-          <article>
-            <span>Readiness</span>
-            <strong>82%</strong>
-            <small>Stable, with lateral-mode monitoring open</small>
-          </article>
-          <article>
-            <span>Gate</span>
-            <strong class="status-good">Cleared</strong>
-            <small>Briefing pack acknowledged</small>
-          </article>
-        </section>
+<main>
 
-        <section class="grid">
-          <article class="panel wide">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">A320 flow analogy</p>
-                <h3>Training flight phases</h3>
-              </div>
-              <span class="badge">ECAM style scan</span>
-            </div>
-            <div class="phase-rail" aria-label="Training phase progress">
-              <div class="phase complete">
-                <span>1</span>
-                <strong>Ground school</strong>
-                <small>Systems passed</small>
-              </div>
-              <div class="phase complete">
-                <span>2</span>
-                <strong>FBS handling</strong>
-                <small>Normal ops</small>
-              </div>
-              <div class="phase complete">
-                <span>3</span>
-                <strong>FFS events</strong>
-                <small>Raw data focus</small>
-              </div>
-              <div class="phase current">
-                <span>4</span>
-                <strong>LOFT prep</strong>
-                <small>Line scenario</small>
-              </div>
-              <div class="phase">
-                <span>5</span>
-                <strong>LST</strong>
-                <small>Skill test</small>
-              </div>
-              <div class="phase">
-                <span>6</span>
-                <strong>Base training</strong>
-                <small>Release gate</small>
-              </div>
-            </div>
-          </article>
+<!-- DASHBOARD -->
 
-          <article class="panel" id="simulator">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Simulator schedule</p>
-                <h3>FFS and checkride slots</h3>
-              </div>
-              <span class="badge amber">4 events</span>
-            </div>
-            <div class="timeline">
-              <div class="event active">
-                <time>08 Aug<br>06:00Z</time>
-                <div>
-                  <strong>FFS 09: LOFT LEBL to LFPG</strong>
-                  <p>Managed climb, SID constraint, ADR 2 fault, high workload arrival.</p>
-                </div>
-              </div>
-              <div class="event">
-                <time>09 Aug<br>13:30Z</time>
-                <div>
-                  <strong>FFS 10: Recurrent abnormal set</strong>
-                  <p>Engine failure after V1, dual hydraulic advisory, ECAM discipline.</p>
-                </div>
-              </div>
-              <div class="event">
-                <time>11 Aug<br>08:00Z</time>
-                <div>
-                  <strong>LST profile rehearsal</strong>
-                  <p>Precision approach, go-around, unreliable speed recognition.</p>
-                </div>
-              </div>
-              <div class="event checkride">
-                <time>12 Aug<br>07:15Z</time>
-                <div>
-                  <strong>License skill test</strong>
-                  <p>Examiner: Capt. D. Pereira. Seat support confirmed.</p>
-                </div>
-              </div>
-            </div>
-          </article>
+<section
+  id="dashboard"
+  class="view active"
+>
 
-          <article class="panel" id="classroom">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Class schedule</p>
-                <h3>Briefings and systems labs</h3>
-              </div>
-              <span class="badge">This week</span>
-            </div>
-            <table class="schedule-table">
-              <thead>
-                <tr>
-                  <th>Day</th>
-                  <th>Module</th>
-                  <th>Room</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Fri</td>
-                  <td>FCU/FMA callouts</td>
-                  <td>Brief 3</td>
-                  <td><span class="status-good">Done</span></td>
-                </tr>
-                <tr>
-                  <td>Sat</td>
-                  <td>LOFT pre-brief</td>
-                  <td>Bay 2</td>
-                  <td><span class="status-warn">Due</span></td>
-                </tr>
-                <tr>
-                  <td>Mon</td>
-                  <td>QRH memory items</td>
-                  <td>CBT 1</td>
-                  <td><span>Assigned</span></td>
-                </tr>
-                <tr>
-                  <td>Tue</td>
-                  <td>LST oral prep</td>
-                  <td>Brief 1</td>
-                  <td><span>Booked</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </article>
+<div class="dashboard">
 
-          <article class="panel compact">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">MCDU scratchpad</p>
-                <h3>Open actions</h3>
-              </div>
-            </div>
-            <ul class="task-list">
-              <li>
-                <span class="checkbox done"></span>
-                Review alternate law protections.
-              </li>
-              <li>
-                <span class="checkbox done"></span>
-                Upload FFS 08 self-critique.
-              </li>
-              <li>
-                <span class="checkbox"></span>
-                Chair-fly non-normal briefing sequence.
-              </li>
-              <li>
-                <span class="checkbox"></span>
-                Revise green-dot energy targets.
-              </li>
-            </ul>
-          </article>
+<div class="hero">
 
-          <article class="panel compact" id="checks">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Exam results</p>
-                <h3>Gates and checks</h3>
-              </div>
-            </div>
-            <div class="exam-list">
-              <div class="exam pass">
-                <span>Pass</span>
-                <strong>Aircraft systems</strong>
-                <small>92%, first attempt</small>
-              </div>
-              <div class="exam pass">
-                <span>Pass</span>
-                <strong>Performance and mass</strong>
-                <small>88%, corrected W&B worksheet</small>
-              </div>
-              <div class="exam fail">
-                <span>Retake</span>
-                <strong>FMA mode awareness quiz</strong>
-                <small>76%, retake scheduled after FFS 09</small>
-              </div>
-              <div class="exam pending">
-                <span>Pending</span>
-                <strong>LST oral</strong>
-                <small>Examiner pack not released</small>
-              </div>
-            </div>
-          </article>
+<div>
 
-          <article class="panel wide" id="instructor">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Instructor comments</p>
-                <h3>Latest training notes</h3>
-              </div>
-              <span class="badge">Capt. R. Novak</span>
-            </div>
-            <div class="notes">
-              <article>
-                <time>07 Aug, 16:20</time>
-                <p>
-                  Good crew tempo in normal flows. Keep the scan anchored on FMA changes
-                  after FCU inputs; treat it like checking the aircraft's handshake before
-                  accepting the next task.
-                </p>
-              </article>
-              <article>
-                <time>06 Aug, 11:45</time>
-                <p>
-                  Approach energy improved. On late runway change, verbalize plan, box it,
-                  then fly it. Avoid chasing the vertical profile while PM is still reading
-                  the arrival.
-                </p>
-              </article>
-              <article>
-                <time>05 Aug, 18:05</time>
-                <p>
-                  ECAM handling is methodical. Next session will stress timing: aviate,
-                  announce, confirm, then action. Do not rush the blue items.
-                </p>
-              </article>
-            </div>
-          </article>
+<div class="eyebrow">
+Simulator debriefing
+</div>
 
-          <article class="panel metrics">
-            <div class="panel-head">
-              <div>
-                <p class="eyebrow">Training tooling</p>
-                <h3>Airline readiness board</h3>
-              </div>
-            </div>
-            <div class="metric-grid">
-              <div>
-                <span>CBT</span>
-                <strong>41/44</strong>
-                <small>Modules complete</small>
-              </div>
-              <div>
-                <span>Briefs</span>
-                <strong>12h</strong>
-                <small>This week</small>
-              </div>
-              <div>
-                <span>Sim</span>
-                <strong>18.5h</strong>
-                <small>Logged FFS</small>
-              </div>
-              <div>
-                <span>Threat log</span>
-                <strong>7</strong>
-                <small>Open items</small>
-              </div>
-            </div>
-          </article>
-        </section>
-      </main>
-    </div>
-  </body>
+<h1>
+Sessions
+</h1>
+
+<p>
+Review simulator events by phase of flight,
+record repetitions, instructor comments,
+and pass or fail.
+</p>
+
+</div>
+
+<button
+  class="btn primary"
+  onclick="showView('create')"
+>
+Create new
+</button>
+
+</div>
+
+<div class="section-head">
+
+<h2>
+Recent sims
+</h2>
+
+<span>
+6 sessions
+</span>
+
+</div>
+
+<div class="cards">
+
+<button
+  class="sim-card preset"
+  onclick="openPreset()"
+>
+
+<div>
+
+<div class="card-top">
+
+<span class="pill">
+Type Rating
+</span>
+
+<span class="arrow">
+↗
+</span>
+
+</div>
+
+<div class="route">
+LEBL → LEPA
+</div>
+
+</div>
+
+<div class="meta">
+<span>A320</span>
+<span>6 events</span>
+<span>08 Aug 2026</span>
+</div>
+
+</button>
+
+
+<button
+  class="sim-card preset"
+  onclick="openPreset()"
+>
+
+<div>
+
+<div class="card-top">
+
+<span class="pill">
+Type Reval
+</span>
+
+<span class="arrow">
+↗
+</span>
+
+</div>
+
+<div class="route">
+LEPA → EGGC
+</div>
+
+</div>
+
+<div class="meta">
+<span>A320</span>
+<span>6 events</span>
+<span>02 Aug 2026</span>
+</div>
+
+</button>
+
+
+<button
+  class="sim-card preset"
+  onclick="openPreset()"
+>
+
+<div>
+
+<div class="card-top">
+
+<span class="pill">
+LPC
+</span>
+
+<span class="arrow">
+↗
+</span>
+
+</div>
+
+<div class="route">
+EGLL → EHAM
+</div>
+
+</div>
+
+<div class="meta">
+<span>A320</span>
+<span>6 events</span>
+<span>27 Jul 2026</span>
+</div>
+
+</button>
+
+
+<button
+  class="sim-card preset"
+  onclick="openPreset()"
+>
+
+<div>
+
+<div class="card-top">
+
+<span class="pill">
+OPC
+</span>
+
+<span class="arrow">
+↗
+</span>
+
+</div>
+
+<div class="route">
+LFPG → LEMD
+</div>
+
+</div>
+
+<div class="meta">
+<span>A320</span>
+<span>6 events</span>
+<span>19 Jul 2026</span>
+</div>
+
+</button>
+
+
+<button
+  class="sim-card preset"
+  onclick="openPreset()"
+>
+
+<div>
+
+<div class="card-top">
+
+<span class="pill">
+Base Training
+</span>
+
+<span class="arrow">
+↗
+</span>
+
+</div>
+
+<div class="route">
+LEBL → LFMN
+</div>
+
+</div>
+
+<div class="meta">
+<span>A320</span>
+<span>6 events</span>
+<span>12 Jul 2026</span>
+</div>
+
+</button>
+
+
+<button
+  class="sim-card new"
+  onclick="showView('create')"
+>
+
+<div class="plus-card">
++
+</div>
+
+<div>
+
+<div
+  class="route"
+  style="font-size:22px"
+>
+Create new
+</div>
+
+<div class="meta">
+<span>
+Build a session
+</span>
+</div>
+
+</div>
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DEBRIEF VIEW -->
+
+<section
+  id="debrief"
+  class="view"
+>
+
+<div class="debrief-shell">
+
+<div class="debrief-head">
+
+<div>
+
+<div
+  class="eyebrow"
+  style="margin-bottom:6px"
+>
+Type Rating · A320
+</div>
+
+<div class="debrief-route">
+LEBL → LEPA
+</div>
+
+<div class="debrief-sub">
+08 Aug 2026 · Instructor view
+</div>
+
+</div>
+
+<div class="legend">
+
+<span>
+<i class="g"></i>
+Pass
+</span>
+
+<span>
+<i class="r"></i>
+Fail
+</span>
+
+<span>
+<i class="n"></i>
+Not graded
+</span>
+
+</div>
+
+</div>
+
+<div class="mobile-scroll-hint">
+Swipe horizontally to follow the flight →
+</div>
+
+<div
+  class="timeline-wrap"
+  id="timelineScroll"
+>
+
+<div class="timeline">
+
+<div class="phase-labels">
+
+<span>
+Ground
+</span>
+
+<span>
+Takeoff
+</span>
+
+<span>
+Climb / Cruise
+</span>
+
+<span>
+Approach
+</span>
+
+<span>
+Landing
+</span>
+
+</div>
+
+
+<div class="route-canvas">
+
+<svg
+  class="flight-svg"
+  viewBox="0 0 1920 430"
+  preserveAspectRatio="none"
+  aria-hidden="true"
+>
+
+<path
+  class="track-dash"
+  d="
+  M 40 332
+  C 215 330 268 240 340 190
+  C 485 90 720 88 880 112
+  C 1080 142 1240 91 1390 155
+  C 1512 208 1578 310 1880 332
+  "
+/>
+
+<path
+  class="track"
+  d="
+  M 40 332
+  C 215 330 268 240 340 190
+  C 485 90 720 88 880 112
+  C 1080 142 1240 91 1390 155
+  C 1512 208 1578 310 1880 332
+  "
+/>
+
+</svg>
+
+
+<div class="airport departure">
+
+<div class="airport-code">
+LEBL
+</div>
+
+<div class="airport-name">
+Barcelona
+</div>
+
+<div class="runway"></div>
+
+</div>
+
+
+<div class="airport arrival">
+
+<div class="airport-code">
+LEPA
+</div>
+
+<div class="airport-name">
+Palma de Mallorca
+</div>
+
+<div class="runway"></div>
+
+</div>
+
+
+<button
+  class="event fail"
+  style="left:220px;top:300px"
+  data-event="0"
+  onclick="openEvent(0)"
+>
+
+<div class="dot"></div>
+
+<div class="event-title">
+ENG 2 START FAULT
+</div>
+
+<div class="event-time">
+Ground
+</div>
+
+</button>
+
+
+<button
+  class="event pass"
+  style="left:458px;top:174px"
+  data-event="1"
+  onclick="openEvent(1)"
+>
+
+<div class="dot"></div>
+
+<div class="event-title">
+ENG 1 FAIL
+</div>
+
+<div class="event-time">
+After V1
+</div>
+
+</button>
+
+
+<button
+  class="event pass"
+  style="left:790px;top:111px"
+  data-event="2"
+  onclick="openEvent(2)"
+>
+
+<div class="dot"></div>
+
+<div class="event-title">
+TCAS RA
+</div>
+
+<div class="event-time">
+FL180
+</div>
+
+</button>
+
+
+<button
+  class="event fail"
+  style="left:1115px;top:120px"
+  data-event="3"
+  onclick="openEvent(3)"
+>
+
+<div class="dot"></div>
+
+<div class="event-title">
+AIR ENG 1 BLEED FAULT
+</div>
+
+<div class="event-time">
+Cruise
+</div>
+
+</button>
+
+
+<button
+  class="event pass"
+  style="left:1452px;top:185px"
+  data-event="4"
+  onclick="openEvent(4)"
+>
+
+<div class="dot"></div>
+
+<div class="event-title">
+BRAKES A/SKID N/W STRG FAULT
+</div>
+
+<div class="event-time">
+Approach
+</div>
+
+</button>
+
+
+<button
+  class="event fail"
+  style="left:1720px;top:310px"
+  data-event="5"
+  onclick="openEvent(5)"
+>
+
+<div class="dot"></div>
+
+<div class="event-title">
+LOSS OF BRAKING
+</div>
+
+<div class="event-time">
+Landing
+</div>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CREATE SESSION -->
+
+<section
+  id="create"
+  class="view"
+>
+
+<div class="create-page">
+
+<div class="eyebrow">
+New session
+</div>
+
+<h1 class="create-title">
+Build debrief
+</h1>
+
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label>
+From
+</label>
+
+<input
+  id="fromAirport"
+  value="LEBL"
+  maxlength="4"
+/>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+To
+</label>
+
+<input
+  id="toAirport"
+  value="LEPA"
+  maxlength="4"
+/>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Training
+</label>
+
+<select id="trainingType">
+
+<option>
+Type Rating
+</option>
+
+<option>
+Type Reval
+</option>
+
+<option>
+LPC
+</option>
+
+<option>
+OPC
+</option>
+
+<option>
+Base Training
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Aircraft
+</label>
+
+<select id="aircraftType">
+
+<option>
+A320
+</option>
+
+<option>
+A319
+</option>
+
+<option>
+A321
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="builder">
+
+<div class="builder-head">
+
+<h2>
+Flight path
+</h2>
+
+<span
+  style="
+  font-size:12px;
+  color:var(--muted)
+  "
+  id="eventCount"
+>
+3 events
+</span>
+
+</div>
+
+
+<div class="builder-track">
+
+<div class="builder-line"></div>
+
+
+<div
+  class="builder-events"
+  id="builderEvents"
+>
+
+
+<div class="builder-event">
+
+<div class="mini-dot"></div>
+
+<b>
+ENG 2 START FAULT
+</b>
+
+<small>
+Ground
+</small>
+
+</div>
+
+
+<div class="builder-event">
+
+<div class="mini-dot"></div>
+
+<b>
+TCAS RA
+</b>
+
+<small>
+Cruise
+</small>
+
+</div>
+
+
+<div class="builder-event">
+
+<div class="mini-dot"></div>
+
+<b>
+LOSS OF BRAKING
+</b>
+
+<small>
+Landing
+</small>
+
+</div>
+
+
+<div class="add-event">
+
+<button onclick="openAddModal()">
++
+</button>
+
+<span>
+Add event
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="create-footer">
+
+<button
+  class="btn"
+  onclick="showView('dashboard')"
+>
+Cancel
+</button>
+
+<button
+  class="btn primary"
+  onclick="createSession()"
+>
+Create session
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- EVENT DETAILS DRAWER -->
+
+<aside
+  class="drawer"
+  id="drawer"
+>
+
+<div class="drawer-top">
+
+<div>
+
+<div
+  class="eyebrow"
+  id="drawerPhase"
+>
+Event
+</div>
+
+<h3 id="drawerTitle">
+TCAS RA
+</h3>
+
+</div>
+
+<button
+  class="btn icon"
+  onclick="closeDrawer()"
+>
+×
+</button>
+
+</div>
+
+
+<div class="drawer-body">
+
+<div class="field">
+
+<label>
+Times repeated
+</label>
+
+<div class="counter">
+
+<button onclick="changeCount(-1)">
+−
+</button>
+
+<strong id="repeatCount">
+1
+</strong>
+
+<button onclick="changeCount(1)">
++
+</button>
+
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Instructor comments
+</label>
+
+<textarea
+  id="comments"
+  placeholder="Add comments"
+></textarea>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Result
+</label>
+
+<div class="result-toggle">
+
+<button
+  class="result pass"
+  id="passBtn"
+  onclick="setResult('pass')"
+>
+✓ Pass
+</button>
+
+<button
+  class="result fail"
+  id="failBtn"
+  onclick="setResult('fail')"
+>
+× Fail
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="drawer-footer">
+
+<button
+  class="btn primary"
+  onclick="saveEvent()"
+>
+Save
+</button>
+
+</div>
+
+</aside>
+
+
+<!-- ADD EVENT MODAL -->
+
+<div
+  class="modal-backdrop"
+  id="modalBackdrop"
+  onclick="modalBackdropClick(event)"
+>
+
+<div class="modal">
+
+<h3>
+Add event
+</h3>
+
+
+<div class="form-group">
+
+<label>
+Procedure / failure
+</label>
+
+<select id="newEventName">
+
+<option>
+ENG 1 FAIL
+</option>
+
+<option>
+ENG 2 START FAULT
+</option>
+
+<option>
+ENGINE TAILPIPE FIRE
+</option>
+
+<option>
+AIR ENG 1 BLEED FAULT
+</option>
+
+<option>
+ELEC GEN 1 FAULT
+</option>
+
+<option>
+HYD G SYS LO PR
+</option>
+
+<option>
+F/CTL FLAPS FAULT
+</option>
+
+<option>
+TCAS RA
+</option>
+
+<option>
+WINDSHEAR
+</option>
+
+<option>
+BRAKES A/SKID N/W STRG FAULT
+</option>
+
+<option>
+LOSS OF BRAKING
+</option>
+
+<option>
+GO-AROUND
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Phase
+</label>
+
+<select id="newEventPhase">
+
+<option>
+Ground
+</option>
+
+<option>
+Takeoff
+</option>
+
+<option>
+Climb
+</option>
+
+<option>
+Cruise
+</option>
+
+<option>
+Approach
+</option>
+
+<option>
+Landing
+</option>
+
+</select>
+
+</div>
+
+
+<div class="modal-actions">
+
+<button
+  class="btn"
+  onclick="closeAddModal()"
+>
+Cancel
+</button>
+
+<button
+  class="btn primary"
+  onclick="addBuilderEvent()"
+>
+Add
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+  class="toast"
+  id="toast"
+>
+Saved
+</div>
+
+
+<script>
+
+/* PREMADE SESSION DATA */
+
+const events = [
+
+  {
+    title: "ENG 2 START FAULT",
+    phase: "Ground",
+    repeats: 2,
+    comments:
+      "Second attempt correctly identified the start malfunction and stopped the sequence promptly.",
+    result: "fail"
+  },
+
+  {
+    title: "ENG 1 FAIL",
+    phase: "After V1",
+    repeats: 1,
+    comments:
+      "Good control transfer and prioritisation. ECAM handling was structured.",
+    result: "pass"
+  },
+
+  {
+    title: "TCAS RA",
+    phase: "FL180",
+    repeats: 1,
+    comments:
+      "Immediate response to the RA. Correct vertical guidance follow-up.",
+    result: "pass"
+  },
+
+  {
+    title: "AIR ENG 1 BLEED FAULT",
+    phase: "Cruise",
+    repeats: 2,
+    comments:
+      "ECAM sequence improved on repeat. Review system status cross-check.",
+    result: "fail"
+  },
+
+  {
+    title:
+      "BRAKES A/SKID N/W STRG FAULT",
+    phase: "Approach",
+    repeats: 1,
+    comments:
+      "Correctly anticipated landing implications and briefed the abnormal configuration.",
+    result: "pass"
+  },
+
+  {
+    title: "LOSS OF BRAKING",
+    phase: "Landing",
+    repeats: 2,
+    comments:
+      "Initial response delayed. Second run showed faster recognition and better directional control.",
+    result: "fail"
+  }
+
+];
+
+
+let currentEvent = null;
+
+let builderCount = 3;
+
+
+/* PAGE NAVIGATION */
+
+function showView(id) {
+
+  document
+    .querySelectorAll(".view")
+    .forEach(view => {
+
+      view.classList.remove("active");
+
+    });
+
+
+  document
+    .getElementById(id)
+    .classList
+    .add("active");
+
+
+  const insideSession =
+    id !== "dashboard";
+
+
+  document
+    .getElementById("backBtn")
+    .style.display =
+      insideSession
+        ? "inline-flex"
+        : "none";
+
+
+  document
+    .getElementById("newBtn")
+    .style.display =
+      id === "create"
+        ? "none"
+        : "inline-flex";
+
+
+  closeDrawer();
+
+
+  window.scrollTo(0,0);
+
+}
+
+
+/* PRESET SESSION */
+
+function openPreset() {
+
+  showView("debrief");
+
+
+  setTimeout(() => {
+
+    document
+      .getElementById("timelineScroll")
+      .scrollLeft = 0;
+
+  },30);
+
+}
+
+
+/* OPEN FAILURE / PROCEDURE */
+
+function openEvent(index) {
+
+  currentEvent = index;
+
+
+  const eventData =
+    events[index];
+
+
+  document
+    .getElementById("drawerTitle")
+    .textContent =
+      eventData.title;
+
+
+  document
+    .getElementById("drawerPhase")
+    .textContent =
+      eventData.phase;
+
+
+  document
+    .getElementById("repeatCount")
+    .textContent =
+      eventData.repeats;
+
+
+  document
+    .getElementById("comments")
+    .value =
+      eventData.comments;
+
+
+  paintResult(
+    eventData.result
+  );
+
+
+  document
+    .getElementById("drawer")
+    .classList
+    .add("open");
+
+}
+
+
+/* CLOSE DRAWER */
+
+function closeDrawer() {
+
+  document
+    .getElementById("drawer")
+    .classList
+    .remove("open");
+
+}
+
+
+/* REPEAT COUNTER */
+
+function changeCount(change) {
+
+  if (
+    currentEvent === null
+  ) {
+    return;
+  }
+
+
+  let count =
+    Number(
+      document
+        .getElementById(
+          "repeatCount"
+        )
+        .textContent
+    );
+
+
+  count =
+    Math.max(
+      1,
+      count + change
+    );
+
+
+  document
+    .getElementById(
+      "repeatCount"
+    )
+    .textContent =
+      count;
+
+}
+
+
+/* PASS / FAIL VISUAL */
+
+function paintResult(result) {
+
+  document
+    .getElementById("passBtn")
+    .classList
+    .toggle(
+      "active",
+      result === "pass"
+    );
+
+
+  document
+    .getElementById("failBtn")
+    .classList
+    .toggle(
+      "active",
+      result === "fail"
+    );
+
+}
+
+
+/* CHANGE RESULT */
+
+function setResult(result) {
+
+  if (
+    currentEvent === null
+  ) {
+    return;
+  }
+
+
+  events[currentEvent].result =
+    result;
+
+
+  paintResult(result);
+
+}
+
+
+/* SAVE EVENT */
+
+function saveEvent() {
+
+  if (
+    currentEvent === null
+  ) {
+    return;
+  }
+
+
+  const eventData =
+    events[currentEvent];
+
+
+  eventData.repeats =
+    Number(
+      document
+        .getElementById(
+          "repeatCount"
+        )
+        .textContent
+    );
+
+
+  eventData.comments =
+    document
+      .getElementById("comments")
+      .value;
+
+
+  const eventNode =
+    document
+      .querySelector(
+        `[data-event="${currentEvent}"]`
+      );
+
+
+  eventNode
+    .classList
+    .remove(
+      "pass",
+      "fail"
+    );
+
+
+  if (
+    eventData.result
+  ) {
+
+    eventNode
+      .classList
+      .add(
+        eventData.result
+      );
+
+  }
+
+
+  closeDrawer();
+
+
+  showToast("Saved");
+
+}
+
+
+/* OPEN ADD EVENT */
+
+function openAddModal() {
+
+  document
+    .getElementById(
+      "modalBackdrop"
+    )
+    .classList
+    .add("open");
+
+}
+
+
+/* CLOSE ADD EVENT */
+
+function closeAddModal() {
+
+  document
+    .getElementById(
+      "modalBackdrop"
+    )
+    .classList
+    .remove("open");
+
+}
+
+
+/* CLOSE MODAL WHEN CLICKING BACKDROP */
+
+function modalBackdropClick(event) {
+
+  if (
+    event.target.id ===
+    "modalBackdrop"
+  ) {
+
+    closeAddModal();
+
+  }
+
+}
+
+
+/* ADD BUILDER EVENT */
+
+function addBuilderEvent() {
+
+  const title =
+    document
+      .getElementById(
+        "newEventName"
+      )
+      .value;
+
+
+  const phase =
+    document
+      .getElementById(
+        "newEventPhase"
+      )
+      .value;
+
+
+  const holder =
+    document
+      .getElementById(
+        "builderEvents"
+      );
+
+
+  const addButton =
+    holder
+      .querySelector(
+        ".add-event"
+      );
+
+
+  const newEvent =
+    document
+      .createElement("div");
+
+
+  newEvent.className =
+    "builder-event";
+
+
+  newEvent.innerHTML = `
+
+    <div class="mini-dot"></div>
+
+    <b>
+      ${escapeHtml(title)}
+    </b>
+
+    <small>
+      ${escapeHtml(phase)}
+    </small>
+
+  `;
+
+
+  holder.insertBefore(
+    newEvent,
+    addButton
+  );
+
+
+  builderCount++;
+
+
+  document
+    .getElementById(
+      "eventCount"
+    )
+    .textContent =
+      builderCount +
+      (
+        builderCount === 1
+        ? " event"
+        : " events"
+      );
+
+
+  closeAddModal();
+
+}
+
+
+/* CREATE SESSION */
+
+function createSession() {
+
+  const from =
+    document
+      .getElementById(
+        "fromAirport"
+      )
+      .value
+      .trim()
+      .toUpperCase()
+      ||
+      "LEBL";
+
+
+  const to =
+    document
+      .getElementById(
+        "toAirport"
+      )
+      .value
+      .trim()
+      .toUpperCase()
+      ||
+      "LEPA";
+
+
+  const training =
+    document
+      .getElementById(
+        "trainingType"
+      )
+      .value;
+
+
+  const aircraft =
+    document
+      .getElementById(
+        "aircraftType"
+      )
+      .value;
+
+
+  document
+    .querySelector(
+      ".debrief-route"
+    )
+    .textContent =
+      `${from} → ${to}`;
+
+
+  document
+    .querySelector(
+      ".airport.departure .airport-code"
+    )
+    .textContent =
+      from;
+
+
+  document
+    .querySelector(
+      ".airport.arrival .airport-code"
+    )
+    .textContent =
+      to;
+
+
+  document
+    .querySelector(
+      ".debrief-head .eyebrow"
+    )
+    .textContent =
+      `${training} · ${aircraft}`;
+
+
+  showView("debrief");
+
+
+  showToast(
+    "Session created"
+  );
+
+}
+
+
+/* SAFE HTML */
+
+function escapeHtml(string) {
+
+  return string.replace(
+
+    /[&<>"']/g,
+
+    character => ({
+
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+
+    }[character])
+
+  );
+
+}
+
+
+/* TOAST */
+
+function showToast(text) {
+
+  const toast =
+    document
+      .getElementById(
+        "toast"
+      );
+
+
+  toast.textContent =
+    text;
+
+
+  toast
+    .classList
+    .add("show");
+
+
+  setTimeout(() => {
+
+    toast
+      .classList
+      .remove("show");
+
+  },1400);
+
+}
+
+
+/* ESCAPE KEY */
+
+document
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key ===
+        "Escape"
+      ) {
+
+        closeDrawer();
+
+        closeAddModal();
+
+      }
+
+    }
+  );
+
+</script>
+
+</body>
 </html>
