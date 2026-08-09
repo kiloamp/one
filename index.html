@@ -9,10 +9,8 @@
 <style>
 :root {
   --bg: #0d0f12;
-  --bg-soft: #12151a;
   --panel: #171a20;
   --panel-hover: #1d2128;
-  --panel-light: #20242b;
 
   --text: #f4f6f8;
   --muted: #8b929d;
@@ -27,7 +25,8 @@
   --red: #ee6464;
   --red-bg: rgba(238,100,100,.11);
 
-  --shadow: 0 18px 60px rgba(0,0,0,.36);
+  --blue: #69a8ff;
+  --blue-bg: rgba(105,168,255,.11);
 
   --radius: 18px;
 }
@@ -58,8 +57,7 @@ body {
 
 button,
 input,
-select,
-textarea {
+select {
   font: inherit;
 }
 
@@ -67,16 +65,12 @@ button {
   cursor: pointer;
 }
 
-button,
-input,
-select,
-textarea {
-  -webkit-tap-highlight-color: transparent;
+.view {
+  display: none;
 }
 
-::selection {
-  background: #4a5160;
-  color: white;
+.view.active {
+  display: block;
 }
 
 
@@ -98,7 +92,7 @@ textarea {
   align-items: center;
   justify-content: space-between;
 
-  background: rgba(13,15,18,.88);
+  background: rgba(13,15,18,.9);
 
   backdrop-filter: blur(18px);
 
@@ -107,15 +101,19 @@ textarea {
 
 .brand {
   font-size: 22px;
-  font-weight: 750;
+  font-weight: 760;
+
   letter-spacing: -.045em;
+
   cursor: pointer;
 }
 
 .top-actions {
   display: flex;
+
+  gap: 8px;
+
   align-items: center;
-  gap: 9px;
 }
 
 .btn {
@@ -132,23 +130,18 @@ textarea {
   color: var(--text);
 
   font-weight: 650;
-
-  transition: .18s ease;
 }
 
 .btn:hover {
   background: var(--panel-hover);
-  border-color: #454c57;
 }
 
 .btn.primary {
   background: var(--text);
-  border-color: var(--text);
-  color: #101215;
-}
 
-.btn.primary:hover {
-  background: white;
+  border-color: var(--text);
+
+  color: #111318;
 }
 
 .btn.ghost {
@@ -157,25 +150,14 @@ textarea {
 
 .btn.icon {
   width: 40px;
+
   padding: 0;
 
   display: grid;
+
   place-items: center;
 
   font-size: 20px;
-}
-
-
-/* ------------------------------------------------ */
-/* VIEWS */
-/* ------------------------------------------------ */
-
-.view {
-  display: none;
-}
-
-.view.active {
-  display: block;
 }
 
 
@@ -189,9 +171,11 @@ textarea {
   color: var(--muted);
 
   font-size: 11px;
+
   font-weight: 760;
 
   text-transform: uppercase;
+
   letter-spacing: .14em;
 }
 
@@ -207,9 +191,25 @@ h1 {
   letter-spacing: -.06em;
 }
 
+.form-group label,
+.field label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+
+  font-weight: 760;
+
+  text-transform: uppercase;
+
+  letter-spacing: .11em;
+}
+
 input,
-select,
-textarea {
+select {
   width: 100%;
 
   padding: 12px 13px;
@@ -223,29 +223,6 @@ textarea {
   background: #111419;
 
   color: var(--text);
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: #646d79;
-  background: #14181d;
-}
-
-.form-group label,
-.field label {
-  display: block;
-
-  margin-bottom: 8px;
-
-  color: var(--muted);
-
-  font-size: 10px;
-  font-weight: 760;
-
-  text-transform: uppercase;
-
-  letter-spacing: .11em;
 }
 
 
@@ -274,15 +251,15 @@ textarea:focus {
 }
 
 .hero p {
-  max-width: 550px;
+  max-width: 530px;
 
   margin: 15px 0 0;
 
   color: var(--muted-light);
 
-  font-size: 15px;
-
   line-height: 1.6;
+
+  font-size: 15px;
 }
 
 .section-head {
@@ -299,8 +276,6 @@ textarea:focus {
   margin: 0;
 
   font-size: 16px;
-
-  letter-spacing: -.02em;
 }
 
 .section-head span {
@@ -308,11 +283,6 @@ textarea:focus {
 
   font-size: 12px;
 }
-
-
-/* ------------------------------------------------ */
-/* SESSION CARDS */
-/* ------------------------------------------------ */
 
 .cards {
   display: grid;
@@ -347,19 +317,15 @@ textarea:focus {
 }
 
 .sim-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 
   background: var(--panel-hover);
-
-  border-color: #3b424c;
-
-  box-shadow: var(--shadow);
 }
 
 .sim-card.new {
   background: transparent;
 
-  border: 1px dashed #404753;
+  border: 1px dashed #414853;
 }
 
 .card-top {
@@ -368,8 +334,6 @@ textarea:focus {
   align-items: center;
 
   justify-content: space-between;
-
-  gap: 12px;
 }
 
 .pill {
@@ -386,8 +350,6 @@ textarea:focus {
   font-weight: 760;
 
   text-transform: uppercase;
-
-  letter-spacing: .05em;
 }
 
 .arrow {
@@ -397,7 +359,7 @@ textarea:focus {
 }
 
 .route {
-  margin: 21px 0 5px;
+  margin: 22px 0 5px;
 
   font-size: 27px;
 
@@ -422,13 +384,11 @@ textarea:focus {
   color: #a0a6af;
 
   font-size: 38px;
-
-  font-weight: 260;
 }
 
 
 /* ------------------------------------------------ */
-/* DEBRIEF HEADER */
+/* FLIGHT HEADER */
 /* ------------------------------------------------ */
 
 .debrief-shell {
@@ -498,8 +458,8 @@ textarea:focus {
   background: var(--red);
 }
 
-.legend .n {
-  background: #6f7680;
+.legend .b {
+  background: var(--blue);
 }
 
 .mobile-scroll-hint {
@@ -515,6 +475,7 @@ textarea:focus {
   height: calc(100vh - 177px);
 
   overflow-x: auto;
+
   overflow-y: hidden;
 
   scrollbar-width: thin;
@@ -522,41 +483,37 @@ textarea:focus {
   scrollbar-color: #3c424c transparent;
 
   -webkit-overflow-scrolling: touch;
-
-  touch-action: pan-x;
 }
 
 .timeline {
   position: relative;
 
-  width: 1600px;
+  width: 1680px;
 
   min-height: 100%;
 
-  padding: 42px 50px 80px;
+  padding: 42px 40px 80px;
 }
 
 .phase-labels {
-  position: relative;
-
   height: 54px;
 
   display: grid;
 
   grid-template-columns:
+    210px
+    190px
+    200px
+    340px
     250px
-    250px
-    400px
-    250px
-    250px;
-
-  padding: 0;
+    210px
+    200px;
 
   color: #6f7680;
 
   font-size: 10px;
 
-  font-weight: 750;
+  font-weight: 760;
 
   text-transform: uppercase;
 
@@ -566,13 +523,11 @@ textarea:focus {
 .phase {
   position: relative;
 
-  height: 100%;
-
   display: flex;
 
   align-items: flex-end;
 
-  padding: 0 14px 10px;
+  padding: 0 12px 10px;
 }
 
 .phase:not(:last-child)::after {
@@ -581,15 +536,14 @@ textarea:focus {
   position: absolute;
 
   right: 0;
+
   top: 32px;
 
-  height: 395px;
+  height: 405px;
 
-  border-right: 1px dashed #343a43;
+  border-right: 1px dashed #353b44;
 
-  opacity: .95;
-
-  pointer-events: none;
+  opacity: .9;
 }
 
 .route-canvas {
@@ -600,7 +554,7 @@ textarea:focus {
 
 
 /* ------------------------------------------------ */
-/* FLIGHT PATH */
+/* STRAIGHTER FLIGHT PATH */
 /* ------------------------------------------------ */
 
 .flight-svg {
@@ -608,29 +562,25 @@ textarea:focus {
 
   inset: 0;
 
-  width: 1500px;
+  width: 1600px;
 
   height: 100%;
-
-  overflow: visible;
 }
 
 .flight-svg .track {
   fill: none;
 
-  stroke: #454c55;
+  stroke: #49505a;
 
   stroke-width: 2;
 
   stroke-linecap: round;
-
-  stroke-linejoin: round;
 }
 
-.flight-svg .track-dash {
+.flight-svg .track-shadow {
   fill: none;
 
-  stroke: #242930;
+  stroke: #23282f;
 
   stroke-width: 1;
 
@@ -639,13 +589,13 @@ textarea:focus {
 
 
 /* ------------------------------------------------ */
-/* AIRPORTS */
+/* AIRPORT TEXT */
 /* ------------------------------------------------ */
 
 .airport {
   position: absolute;
 
-  bottom: 45px;
+  bottom: 52px;
 
   width: 150px;
 }
@@ -676,45 +626,15 @@ textarea:focus {
   font-size: 11px;
 }
 
-.runway {
-  position: relative;
-
-  width: 82px;
-
-  height: 7px;
-
-  margin-top: 12px;
-
-  border-radius: 2px;
-
-  background: #8c939e;
-}
-
-.arrival .runway {
-  margin-left: auto;
-}
-
-.runway::after {
-  content: "";
-
-  position: absolute;
-
-  left: 8px;
-  right: 8px;
-  top: 3px;
-
-  border-top: 1px dashed #171a20;
-}
-
 
 /* ------------------------------------------------ */
-/* FLIGHT EVENTS */
+/* EVENTS */
 /* ------------------------------------------------ */
 
 .event {
   position: absolute;
 
-  width: 155px;
+  width: 145px;
 
   padding: 0;
 
@@ -739,15 +659,9 @@ textarea:focus {
 
   border-radius: 50%;
 
-  background: #737b86;
+  background: #747c87;
 
-  box-shadow: 0 0 0 1px #656d78;
-
-  transition: .18s ease;
-}
-
-.event:hover .dot {
-  transform: scale(1.25);
+  box-shadow: 0 0 0 1px #646d79;
 }
 
 .event.pass .dot {
@@ -762,6 +676,12 @@ textarea:focus {
   box-shadow: 0 0 0 1px var(--red);
 }
 
+.event.config .dot {
+  background: var(--blue);
+
+  box-shadow: 0 0 0 1px var(--blue);
+}
+
 .event-title {
   display: inline-block;
 
@@ -769,19 +689,15 @@ textarea:focus {
 
   padding: 5px 7px;
 
-  border: 1px solid rgba(255,255,255,.03);
-
   border-radius: 7px;
 
-  background: rgba(13,15,18,.88);
+  background: rgba(13,15,18,.9);
 
   font-size: 12px;
 
   font-weight: 690;
 
   line-height: 1.25;
-
-  letter-spacing: -.01em;
 }
 
 .event-time {
@@ -794,14 +710,16 @@ textarea:focus {
 
 
 /* ------------------------------------------------ */
-/* READ ONLY DRAWER */
+/* DRAWER */
 /* ------------------------------------------------ */
 
 .drawer {
   position: fixed;
 
   top: 0;
+
   right: 0;
+
   bottom: 0;
 
   z-index: 60;
@@ -816,11 +734,9 @@ textarea:focus {
 
   background: #14171c;
 
-  box-shadow: -30px 0 80px rgba(0,0,0,.45);
-
   transform: translateX(101%);
 
-  transition: .28s cubic-bezier(.2,.75,.25,1);
+  transition: .28s ease;
 }
 
 .drawer.open {
@@ -848,8 +764,6 @@ textarea:focus {
 
   font-weight: 720;
 
-  line-height: 1.15;
-
   letter-spacing: -.04em;
 }
 
@@ -867,7 +781,7 @@ textarea:focus {
 
 
 /* ------------------------------------------------ */
-/* ATTEMPTS TABLE */
+/* ATTEMPTS */
 /* ------------------------------------------------ */
 
 .attempts-wrapper {
@@ -895,8 +809,6 @@ textarea:focus {
 
   font-size: 10px;
 
-  font-weight: 760;
-
   text-align: left;
 
   text-transform: uppercase;
@@ -918,16 +830,8 @@ textarea:focus {
   border-bottom: 0;
 }
 
-.attempt-name {
-  font-weight: 670;
-}
-
 .attempt-status {
   display: inline-flex;
-
-  align-items: center;
-
-  gap: 6px;
 
   padding: 5px 8px;
 
@@ -952,7 +856,7 @@ textarea:focus {
 
 
 /* ------------------------------------------------ */
-/* READ ONLY COMMENTS */
+/* COMMENTS */
 /* ------------------------------------------------ */
 
 .readonly-comments {
@@ -971,6 +875,55 @@ textarea:focus {
   line-height: 1.65;
 
   white-space: pre-line;
+}
+
+
+/* ------------------------------------------------ */
+/* AIRCRAFT CONFIG */
+/* ------------------------------------------------ */
+
+.config-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+.config-item {
+  padding: 13px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 11px;
+
+  background: #111419;
+}
+
+.config-label {
+  margin-bottom: 6px;
+
+  color: var(--muted);
+
+  font-size: 9px;
+
+  font-weight: 760;
+
+  text-transform: uppercase;
+
+  letter-spacing: .08em;
+}
+
+.config-value {
+  color: var(--text);
+
+  font-size: 14px;
+
+  font-weight: 650;
+}
+
+.config-item.wide {
+  grid-column: 1 / -1;
 }
 
 
@@ -1021,9 +974,9 @@ textarea:focus {
 
   display: flex;
 
-  align-items: center;
-
   justify-content: space-between;
+
+  align-items: center;
 }
 
 .builder-head h2 {
@@ -1040,14 +993,13 @@ textarea:focus {
   padding: 65px 25px 40px;
 
   overflow-x: auto;
-
-  -webkit-overflow-scrolling: touch;
 }
 
 .builder-line {
   position: absolute;
 
   left: 60px;
+
   right: 60px;
 
   top: 122px;
@@ -1060,20 +1012,20 @@ textarea:focus {
 
   z-index: 2;
 
-  min-width: 840px;
+  min-width: 900px;
 
   display: flex;
 
-  align-items: flex-start;
+  gap: 28px;
 
-  gap: 34px;
+  align-items: flex-start;
 }
 
 .builder-event,
 .add-event {
-  flex: 0 0 128px;
-
   width: 128px;
+
+  flex: 0 0 128px;
 
   text-align: center;
 }
@@ -1150,7 +1102,7 @@ textarea:focus {
 
 
 /* ------------------------------------------------ */
-/* CREATE MODAL */
+/* MODAL */
 /* ------------------------------------------------ */
 
 .modal-backdrop {
@@ -1160,15 +1112,15 @@ textarea:focus {
 
   z-index: 80;
 
-  padding: 20px;
-
   display: none;
 
   align-items: center;
 
   justify-content: center;
 
-  background: rgba(0,0,0,.56);
+  padding: 20px;
+
+  background: rgba(0,0,0,.58);
 }
 
 .modal-backdrop.open {
@@ -1185,16 +1137,12 @@ textarea:focus {
   border-radius: 18px;
 
   background: #171a20;
-
-  box-shadow: 0 30px 100px rgba(0,0,0,.6);
 }
 
 .modal h3 {
   margin: 0 0 20px;
 
   font-size: 22px;
-
-  letter-spacing: -.035em;
 }
 
 .modal .form-group {
@@ -1220,6 +1168,7 @@ textarea:focus {
   position: fixed;
 
   left: 50%;
+
   bottom: 28px;
 
   z-index: 100;
@@ -1267,8 +1216,9 @@ textarea:focus {
   }
 
   .hero {
-    align-items: flex-start;
     flex-direction: column;
+
+    align-items: flex-start;
   }
 
   .legend {
@@ -1285,10 +1235,7 @@ textarea:focus {
 @media (max-width: 620px) {
 
   .topbar {
-    height: calc(
-      62px +
-      env(safe-area-inset-top)
-    );
+    height: calc(62px + env(safe-area-inset-top));
 
     padding:
       env(safe-area-inset-top)
@@ -1300,14 +1247,10 @@ textarea:focus {
     font-size: 20px;
   }
 
-  .top-actions {
-    gap: 6px;
-  }
-
   .top-actions .btn {
     min-height: 38px;
 
-    padding: 0 11px;
+    padding: 0 10px;
 
     font-size: 12px;
   }
@@ -1315,6 +1258,7 @@ textarea:focus {
   .dashboard,
   .create-page {
     padding-left: 18px;
+
     padding-right: 18px;
   }
 
@@ -1326,16 +1270,8 @@ textarea:focus {
     grid-template-columns: 1fr;
   }
 
-  .sim-card {
-    min-height: 165px;
-  }
-
   .form-grid {
     grid-template-columns: 1fr;
-  }
-
-  .hero {
-    gap: 20px;
   }
 
   .hero > .btn {
@@ -1359,9 +1295,9 @@ textarea:focus {
 
     border-bottom: 1px solid var(--border);
 
-    color: var(--muted);
-
     background: #111419;
+
+    color: var(--muted);
 
     font-size: 11px;
   }
@@ -1373,34 +1309,32 @@ textarea:focus {
   }
 
   .timeline {
-    width: 1500px;
+    width: 1650px;
 
     padding: 25px 35px 60px;
   }
 
   .phase-labels {
     grid-template-columns:
-      220px
-      220px
-      380px
+      200px
+      180px
+      190px
+      330px
       230px
-      230px;
+      200px
+      190px;
   }
 
   .phase:not(:last-child)::after {
-    top: 32px;
-
-    height: 380px;
+    height: 390px;
   }
 
   .event {
-    width: 132px;
+    width: 125px;
   }
 
   .event-title {
-    max-width: 128px;
-
-    padding: 4px 5px;
+    max-width: 120px;
 
     font-size: 11px;
   }
@@ -1409,7 +1343,9 @@ textarea:focus {
     top: auto;
 
     left: 0;
+
     right: 0;
+
     bottom: 0;
 
     width: 100%;
@@ -1423,30 +1359,14 @@ textarea:focus {
     border-radius: 22px 22px 0 0;
 
     transform: translateY(101%);
-
-    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .drawer.open {
     transform: translateY(0);
   }
 
-  .drawer-body {
-    padding: 20px;
-  }
-
-  .drawer-top {
-    padding: 20px;
-  }
-
-  .attempts-table th,
-  .attempts-table td {
-    padding: 10px 8px;
-  }
-
-  .readonly-comments {
-    font-size: 13px;
-    line-height: 1.6;
+  .config-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .create-title {
@@ -1457,42 +1377,20 @@ textarea:focus {
     padding: 20px 14px;
   }
 
-  .builder-track {
-    margin: 0 -14px;
-
-    padding: 50px 20px 30px;
-  }
-
-  .builder-events {
-    gap: 26px;
-  }
-
   .create-footer {
     display: grid;
 
     grid-template-columns: 1fr 1fr;
   }
 
-  .create-footer .btn {
-    width: 100%;
-  }
-
   .modal-backdrop {
-    align-items: flex-end;
-
     padding: 0;
+
+    align-items: flex-end;
   }
 
   .modal {
     width: 100%;
-
-    padding:
-      24px
-      20px
-      calc(
-        24px +
-        env(safe-area-inset-bottom)
-      );
 
     border-radius: 22px 22px 0 0;
   }
@@ -1504,6 +1402,7 @@ textarea:focus {
 <body>
 
 <div class="app">
+
 
 <header class="topbar">
 
@@ -1537,12 +1436,11 @@ textarea:focus {
 
 </header>
 
+
 <main>
 
 
-<!-- ================================================= -->
 <!-- DASHBOARD -->
-<!-- ================================================= -->
 
 <section
   id="dashboard"
@@ -1556,7 +1454,7 @@ textarea:focus {
 <div>
 
 <div class="eyebrow">
-Simulator debriefing
+Simulator sessions
 </div>
 
 <h1>
@@ -1564,9 +1462,9 @@ Sessions
 </h1>
 
 <p>
-Review simulator events by phase of flight,
-see the outcome of each attempt,
-and open the instructor debrief for every event.
+Review aircraft setup, simulator events,
+attempt history and instructor comments
+across each phase of flight.
 </p>
 
 </div>
@@ -1826,9 +1724,7 @@ Build a session
 
 
 
-<!-- ================================================= -->
 <!-- SAVED FLIGHT -->
-<!-- ================================================= -->
 
 <section
   id="debrief"
@@ -1854,13 +1750,18 @@ LEBL → LEPA
 </div>
 
 <div class="debrief-sub">
-08 Aug 2026 · Instructor debrief
+08 Aug 2026
 </div>
 
 </div>
 
 
 <div class="legend">
+
+<span>
+<i class="b"></i>
+Configuration
+</span>
 
 <span>
 <i class="g"></i>
@@ -1897,6 +1798,10 @@ Swipe horizontally to follow the flight →
 </div>
 
 <div class="phase">
+<span>Taxi</span>
+</div>
+
+<div class="phase">
 <span>Takeoff</span>
 </div>
 
@@ -1912,6 +1817,10 @@ Swipe horizontally to follow the flight →
 <span>Landing</span>
 </div>
 
+<div class="phase">
+<span>Rollout</span>
+</div>
+
 </div>
 
 
@@ -1920,31 +1829,41 @@ Swipe horizontally to follow the flight →
 
 <svg
   class="flight-svg"
-  viewBox="0 0 1500 430"
+  viewBox="0 0 1600 430"
   preserveAspectRatio="none"
 >
 
 <path
-  class="track-dash"
+  class="track-shadow"
   d="
-    M 40 332
-    C 180 328 235 245 325 190
-    C 410 138 520 125 650 126
-    C 790 127 895 130 1010 150
-    C 1120 169 1195 230 1265 285
-    C 1335 328 1400 332 1460 332
+    M 25 333
+    L 215 333
+    L 345 300
+    L 465 205
+    L 590 145
+    L 835 145
+    L 1020 165
+    L 1160 225
+    L 1280 300
+    L 1380 333
+    L 1570 333
   "
 />
 
 <path
   class="track"
   d="
-    M 40 332
-    C 180 328 235 245 325 190
-    C 410 138 520 125 650 126
-    C 790 127 895 130 1010 150
-    C 1120 169 1195 230 1265 285
-    C 1335 328 1400 332 1460 332
+    M 25 333
+    L 215 333
+    L 345 300
+    L 465 205
+    L 590 145
+    L 835 145
+    L 1020 165
+    L 1160 225
+    L 1280 300
+    L 1380 333
+    L 1570 333
   "
 />
 
@@ -1961,8 +1880,6 @@ LEBL
 Barcelona
 </div>
 
-<div class="runway"></div>
-
 </div>
 
 
@@ -1976,17 +1893,37 @@ LEPA
 Palma de Mallorca
 </div>
 
-<div class="runway"></div>
-
 </div>
+
+
+<button
+  class="event config"
+  style="
+    left:90px;
+    top:333px
+  "
+  onclick="openConfiguration()"
+>
+
+<div class="dot"></div>
+
+<div class="event-title">
+Aircraft Configuration
+</div>
+
+<div class="event-time">
+Pre-sim
+</div>
+
+</button>
 
 
 <button
   class="event pass"
   data-event="0"
   style="
-    left:165px;
-    top:303px
+    left:190px;
+    top:333px
   "
   onclick="openEvent(0)"
 >
@@ -2008,10 +1945,33 @@ Ground
   class="event pass"
   data-event="1"
   style="
-    left:365px;
-    top:168px
+    left:310px;
+    top:309px
   "
   onclick="openEvent(1)"
+>
+
+<div class="dot"></div>
+
+<div class="event-title">
+BRAKES HOT
+</div>
+
+<div class="event-time">
+Taxi
+</div>
+
+</button>
+
+
+<button
+  class="event pass"
+  data-event="2"
+  style="
+    left:470px;
+    top:201px
+  "
+  onclick="openEvent(2)"
 >
 
 <div class="dot"></div>
@@ -2029,12 +1989,12 @@ After V1
 
 <button
   class="event pass"
-  data-event="2"
+  data-event="3"
   style="
-    left:585px;
-    top:126px
+    left:680px;
+    top:145px
   "
-  onclick="openEvent(2)"
+  onclick="openEvent(3)"
 >
 
 <div class="dot"></div>
@@ -2052,12 +2012,12 @@ FL180
 
 <button
   class="event pass"
-  data-event="3"
+  data-event="4"
   style="
-    left:810px;
-    top:130px
+    left:900px;
+    top:151px
   "
-  onclick="openEvent(3)"
+  onclick="openEvent(4)"
 >
 
 <div class="dot"></div>
@@ -2075,18 +2035,18 @@ Cruise
 
 <button
   class="event pass"
-  data-event="4"
+  data-event="5"
   style="
-    left:1050px;
-    top:166px
+    left:1130px;
+    top:213px
   "
-  onclick="openEvent(4)"
+  onclick="openEvent(5)"
 >
 
 <div class="dot"></div>
 
 <div class="event-title">
-BRAKES A/SKID N/W STRG FAULT
+F/CTL FLAPS FAULT
 </div>
 
 <div class="event-time">
@@ -2098,12 +2058,12 @@ Approach
 
 <button
   class="event pass"
-  data-event="5"
+  data-event="6"
   style="
-    left:1290px;
-    top:299px
+    left:1300px;
+    top:307px
   "
-  onclick="openEvent(5)"
+  onclick="openEvent(6)"
 >
 
 <div class="dot"></div>
@@ -2114,6 +2074,29 @@ LOSS OF BRAKING
 
 <div class="event-time">
 Landing
+</div>
+
+</button>
+
+
+<button
+  class="event pass"
+  data-event="7"
+  style="
+    left:1460px;
+    top:333px
+  "
+  onclick="openEvent(7)"
+>
+
+<div class="dot"></div>
+
+<div class="event-title">
+N/W STRG FAULT
+</div>
+
+<div class="event-time">
+Rollout
 </div>
 
 </button>
@@ -2131,9 +2114,7 @@ Landing
 
 
 
-<!-- ================================================= -->
-<!-- CREATE NEW -->
-<!-- ================================================= -->
+<!-- CREATE -->
 
 <section
   id="create"
@@ -2141,6 +2122,7 @@ Landing
 >
 
 <div class="create-page">
+
 
 <div class="eyebrow">
 New session
@@ -2192,25 +2174,11 @@ Training
 
 <select id="trainingType">
 
-<option>
-Type Rating
-</option>
-
-<option>
-Type Reval
-</option>
-
-<option>
-LPC
-</option>
-
-<option>
-OPC
-</option>
-
-<option>
-Base Training
-</option>
+<option>Type Rating</option>
+<option>Type Reval</option>
+<option>LPC</option>
+<option>OPC</option>
+<option>Base Training</option>
 
 </select>
 
@@ -2225,17 +2193,9 @@ Aircraft
 
 <select id="aircraftType">
 
-<option>
-A320
-</option>
-
-<option>
-A319
-</option>
-
-<option>
-A321
-</option>
+<option>A320</option>
+<option>A319</option>
+<option>A321</option>
 
 </select>
 
@@ -2307,7 +2267,7 @@ TCAS RA
 </b>
 
 <small>
-Cruise
+Climb / Cruise
 </small>
 
 </div>
@@ -2333,9 +2293,7 @@ Landing
 
 <div class="add-event">
 
-<button
-  onclick="openAddModal()"
->
+<button onclick="openAddModal()">
 +
 </button>
 
@@ -2383,9 +2341,7 @@ Create session
 
 
 
-<!-- ================================================= -->
-<!-- READ ONLY SAVED EVENT PANEL -->
-<!-- ================================================= -->
+<!-- READ ONLY DRAWER -->
 
 <aside
   class="drawer"
@@ -2412,7 +2368,6 @@ TCAS RA
 <button
   class="btn icon"
   onclick="closeDrawer()"
-  aria-label="Close"
 >
 ×
 </button>
@@ -2420,69 +2375,17 @@ TCAS RA
 </div>
 
 
-<div class="drawer-body">
-
-
-<div class="field">
-
-<label>
-Attempts
-</label>
-
-<div class="attempts-wrapper">
-
-<table class="attempts-table">
-
-<thead>
-
-<tr>
-
-<th>
-Attempt
-</th>
-
-<th>
-Result
-</th>
-
-</tr>
-
-</thead>
-
-<tbody id="attemptsBody">
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<div class="field">
-
-<label>
-Instructor comments
-</label>
-
 <div
-  class="readonly-comments"
-  id="comments"
+  class="drawer-body"
+  id="drawerBody"
 >
-</div>
-
-</div>
-
-
 </div>
 
 </aside>
 
 
 
-<!-- ================================================= -->
-<!-- CREATE EVENT MODAL -->
-<!-- ================================================= -->
+<!-- ADD EVENT MODAL -->
 
 <div
   class="modal-backdrop"
@@ -2505,53 +2408,20 @@ Procedure / failure
 
 <select id="newEventName">
 
-<option>
-ENG 1 FAIL
-</option>
-
-<option>
-ENG 2 START FAULT
-</option>
-
-<option>
-ENGINE TAILPIPE FIRE
-</option>
-
-<option>
-AIR ENG 1 BLEED FAULT
-</option>
-
-<option>
-ELEC GEN 1 FAULT
-</option>
-
-<option>
-HYD G SYS LO PR
-</option>
-
-<option>
-F/CTL FLAPS FAULT
-</option>
-
-<option>
-TCAS RA
-</option>
-
-<option>
-WINDSHEAR
-</option>
-
-<option>
-BRAKES A/SKID N/W STRG FAULT
-</option>
-
-<option>
-LOSS OF BRAKING
-</option>
-
-<option>
-GO-AROUND
-</option>
+<option>ENG 1 FAIL</option>
+<option>ENG 2 START FAULT</option>
+<option>ENGINE TAILPIPE FIRE</option>
+<option>AIR ENG 1 BLEED FAULT</option>
+<option>ELEC GEN 1 FAULT</option>
+<option>HYD G SYS LO PR</option>
+<option>F/CTL FLAPS FAULT</option>
+<option>TCAS RA</option>
+<option>WINDSHEAR</option>
+<option>BRAKES HOT</option>
+<option>BRAKES A/SKID N/W STRG FAULT</option>
+<option>N/W STRG FAULT</option>
+<option>LOSS OF BRAKING</option>
+<option>GO-AROUND</option>
 
 </select>
 
@@ -2566,29 +2436,13 @@ Phase
 
 <select id="newEventPhase">
 
-<option>
-Ground
-</option>
-
-<option>
-Takeoff
-</option>
-
-<option>
-Climb
-</option>
-
-<option>
-Cruise
-</option>
-
-<option>
-Approach
-</option>
-
-<option>
-Landing
-</option>
+<option>Ground</option>
+<option>Taxi</option>
+<option>Takeoff</option>
+<option>Climb / Cruise</option>
+<option>Approach</option>
+<option>Landing</option>
+<option>Rollout</option>
 
 </select>
 
@@ -2614,7 +2468,6 @@ Add
 
 </div>
 
-
 </div>
 
 </div>
@@ -2628,12 +2481,68 @@ Saved
 </div>
 
 
-
 <script>
 
-/* ================================================= */
-/* SAVED SIM DATA */
-/* ================================================= */
+/* ------------------------------------------------ */
+/* AIRCRAFT CONFIGURATION */
+/* ------------------------------------------------ */
+
+const configuration = {
+
+  "Aircraft":
+    "A320-214",
+
+  "Registration":
+    "EC-ABC",
+
+  "ZFW":
+    "61.4 t",
+
+  "ZFWCG":
+    "27.3 %",
+
+  "FOB":
+    "7.6 t",
+
+  "Block Fuel":
+    "8.2 t",
+
+  "Takeoff Weight":
+    "69.0 t",
+
+  "METAR":
+    "LEBL 081430Z 16012KT 9999 FEW020 29/20 Q1015",
+
+  "QNH":
+    "1015 hPa",
+
+  "Temperature":
+    "29 °C",
+
+  "Wind":
+    "160° / 12 kt",
+
+  "Departure Runway":
+    "24L",
+
+  "Takeoff Flaps":
+    "CONF 1+F",
+
+  "FLEX Temp":
+    "54 °C",
+
+  "Cost Index":
+    "25",
+
+  "Cruise Level":
+    "FL350"
+
+};
+
+
+/* ------------------------------------------------ */
+/* SAVED EVENTS */
+/* ------------------------------------------------ */
 
 const events = [
 
@@ -2660,7 +2569,30 @@ const events = [
     ],
 
     comments:
-      "The first engine start attempt was not managed to the expected standard. Recognition of the abnormal start was delayed and the crew continued monitoring without clearly verbalising the developing condition. The shutdown decision was therefore later than desired.\n\nOn the second attempt the malfunction was identified significantly earlier. The start sequence was stopped promptly and communication between PF and PM was clearer. The crew showed a better understanding of the expected engine indications and correctly prioritised preventing further deterioration.\n\nReview the normal engine start parameters and the indications that should result in an immediate stop of the start sequence."
+      "The first engine start attempt was not managed to the expected standard. Recognition of the abnormal start was delayed and the crew continued monitoring without clearly verbalising the developing condition.\n\nOn the second attempt the malfunction was identified earlier and the start sequence was stopped promptly. Communication between PF and PM was clearer and the crew demonstrated better anticipation of the abnormal indications."
+
+  },
+
+
+  {
+
+    title:
+      "BRAKES HOT",
+
+    phase:
+      "Taxi",
+
+    attempts: [
+
+      {
+        result:
+          "pass"
+      }
+
+    ],
+
+    comments:
+      "The condition was recognised during taxi and correctly incorporated into the departure decision. The crew maintained situational awareness while completing the required actions and avoided rushing the taxi sequence."
 
   },
 
@@ -2671,7 +2603,7 @@ const events = [
       "ENG 1 FAIL",
 
     phase:
-      "After V1",
+      "Takeoff",
 
     attempts: [
 
@@ -2683,7 +2615,7 @@ const events = [
     ],
 
     comments:
-      "The engine failure was handled in a controlled manner with good aircraft control immediately after V1. Directional control was maintained and the initial flight path remained stable.\n\nTask sharing between PF and PM was effective. There was no unnecessary rush into ECAM actions before the aircraft was established. The ECAM sequence was subsequently completed methodically and both pilots retained awareness of acceleration altitude, configuration and terrain.\n\nThe return strategy was appropriate and the briefing covered the principal operational consequences. Continue to maintain clear verbal confirmation before any irreversible action."
+      "Aircraft control following the engine failure was stable. Directional control was maintained and the crew correctly prioritised the flight path before beginning the abnormal procedure."
 
   },
 
@@ -2694,7 +2626,7 @@ const events = [
       "TCAS RA",
 
     phase:
-      "FL180",
+      "Climb / Cruise",
 
     attempts: [
 
@@ -2706,7 +2638,7 @@ const events = [
     ],
 
     comments:
-      "The response to the TCAS resolution advisory was immediate and correctly prioritised over the existing ATC clearance. The required vertical response was applied smoothly without excessive control input.\n\nThe crew monitored the vertical guidance throughout the manoeuvre and avoided unnecessary lateral deviation. Communication between PF and PM was concise and the traffic situation remained understood.\n\nThe clear-of-conflict indication was correctly identified and the aircraft returned to the appropriate flight path in a controlled manner. Maintain the same discipline of responding to the RA first and coordinating with ATC afterwards."
+      "The resolution advisory was followed immediately and correctly prioritised over the existing ATC clearance. The vertical response was smooth and communication between PF and PM remained concise."
 
   },
 
@@ -2717,7 +2649,7 @@ const events = [
       "AIR ENG 1 BLEED FAULT",
 
     phase:
-      "Cruise",
+      "Climb / Cruise",
 
     attempts: [
 
@@ -2734,7 +2666,7 @@ const events = [
     ],
 
     comments:
-      "During the first run the ECAM actions were completed, but the overall system picture was not fully understood before moving into the status review. The consequences for air conditioning, pressurisation and anti-ice capability were discussed only after prompting.\n\nOn the second attempt the crew deliberately slowed the process down and developed a clearer understanding of what remained available. The status page was reviewed more effectively and the operational consequences were incorporated into the continuation decision.\n\nFurther review should focus on linking each ECAM action to the wider system consequences instead of treating the procedure as a sequence of isolated actions."
+      "The first attempt focused too heavily on completing the ECAM sequence without developing a complete understanding of the system consequences.\n\nOn the repeat the status page was reviewed more effectively and the remaining aircraft capabilities were correctly incorporated into the continuation decision."
 
   },
 
@@ -2742,7 +2674,7 @@ const events = [
   {
 
     title:
-      "BRAKES A/SKID N/W STRG FAULT",
+      "F/CTL FLAPS FAULT",
 
     phase:
       "Approach",
@@ -2757,7 +2689,7 @@ const events = [
     ],
 
     comments:
-      "The fault was identified early enough to reassess the landing plan without creating unnecessary time pressure. The crew reviewed the expected landing implications and included them in the approach briefing.\n\nRunway length, braking expectations and directional control were discussed before continuing. The PF maintained a stable approach while the PM completed the required actions and monitored the system status.\n\nThe decision to continue was supported by the runway available and prevailing conditions. Good anticipation during the approach significantly reduced workload during the landing phase."
+      "The abnormal flap condition was identified before the crew became committed to the final approach. The approach was rebriefed and the implications for configuration, speed and landing distance were discussed."
 
   },
 
@@ -2785,7 +2717,30 @@ const events = [
     ],
 
     comments:
-      "On the first attempt the crew took too long to recognise that the expected deceleration was not developing. This delayed the transition from normal braking expectations to the abnormal braking response. Directional control remained acceptable, but significant runway was consumed before the situation was fully recognised.\n\nOn the second attempt the lack of deceleration was identified much earlier. The response was more decisive and communication between both pilots was clear regarding remaining runway and aircraft behaviour.\n\nThe second run demonstrated a much better balance between maintaining directional control and taking timely action. Review the visual and kinetic cues that indicate ineffective braking immediately after touchdown."
+      "During the first attempt recognition of ineffective braking was delayed. On the repeat the lack of expected deceleration was recognised much sooner and the response was more decisive."
+
+  },
+
+
+  {
+
+    title:
+      "N/W STRG FAULT",
+
+    phase:
+      "Rollout",
+
+    attempts: [
+
+      {
+        result:
+          "pass"
+      }
+
+    ],
+
+    comments:
+      "Directional control considerations were identified promptly during rollout. Speed was reduced before attempting further manoeuvring and communication regarding aircraft control remained clear."
 
   }
 
@@ -2802,9 +2757,9 @@ let editingBuilderElement =
   null;
 
 
-/* ================================================= */
+/* ------------------------------------------------ */
 /* NAVIGATION */
-/* ================================================= */
+/* ------------------------------------------------ */
 
 function showView(id) {
 
@@ -2833,19 +2788,14 @@ function showView(id) {
     );
 
 
-  const inside =
-    id !==
-    "dashboard";
-
-
   document
     .getElementById(
       "backBtn"
     )
     .style.display =
-      inside
-        ? "inline-flex"
-        : "none";
+      id === "dashboard"
+        ? "none"
+        : "inline-flex";
 
 
   document
@@ -2853,8 +2803,7 @@ function showView(id) {
       "newBtn"
     )
     .style.display =
-      id ===
-      "create"
+      id === "create"
         ? "none"
         : "inline-flex";
 
@@ -2869,9 +2818,9 @@ function showView(id) {
 }
 
 
-/* ================================================= */
-/* OPEN SAVED FLIGHT */
-/* ================================================= */
+/* ------------------------------------------------ */
+/* OPEN PRESET */
+/* ------------------------------------------------ */
 
 function openPreset() {
 
@@ -2897,18 +2846,18 @@ function openPreset() {
 }
 
 
-/* ================================================= */
-/* OPEN SAVED POINT */
-/* ================================================= */
+/* ------------------------------------------------ */
+/* AIRCRAFT CONFIGURATION */
+/* ------------------------------------------------ */
 
-function openEvent(index) {
+function openConfiguration() {
 
-  currentEvent =
-    index;
-
-
-  const eventData =
-    events[index];
+  document
+    .getElementById(
+      "drawerPhase"
+    )
+    .textContent =
+      "Pre-sim";
 
 
   document
@@ -2916,26 +2865,72 @@ function openEvent(index) {
       "drawerTitle"
     )
     .textContent =
-      eventData.title;
+      "Aircraft Configuration";
+
+
+  let html = `
+
+    <div class="field">
+
+      <label>
+        Setup
+      </label>
+
+      <div class="config-grid">
+
+  `;
+
+
+  Object
+    .entries(
+      configuration
+    )
+    .forEach(
+      ([label,value]) => {
+
+        const wide =
+          label ===
+          "METAR";
+
+
+        html += `
+
+          <div class="
+            config-item
+            ${wide ? "wide" : ""}
+          ">
+
+            <div class="config-label">
+              ${escapeHtml(label)}
+            </div>
+
+            <div class="config-value">
+              ${escapeHtml(value)}
+            </div>
+
+          </div>
+
+        `;
+
+      }
+    );
+
+
+  html += `
+
+      </div>
+
+    </div>
+
+  `;
 
 
   document
     .getElementById(
-      "drawerPhase"
+      "drawerBody"
     )
-    .textContent =
-      eventData.phase;
-
-
-  document
-    .getElementById(
-      "comments"
-    )
-    .textContent =
-      eventData.comments;
-
-
-  renderAttempts();
+    .innerHTML =
+      html;
 
 
   document
@@ -2950,101 +2945,156 @@ function openEvent(index) {
 }
 
 
-/* ================================================= */
-/* READ ONLY ATTEMPTS */
-/* ================================================= */
+/* ------------------------------------------------ */
+/* EVENT PANEL */
+/* ------------------------------------------------ */
 
-function renderAttempts() {
+function openEvent(index) {
 
-  if (
-    currentEvent ===
-    null
-  ) {
-    return;
-  }
+  currentEvent =
+    index;
 
 
-  const body =
-    document
-      .getElementById(
-        "attemptsBody"
-      );
+  const eventData =
+    events[index];
 
 
-  const attempts =
-    events[
-      currentEvent
-    ].attempts;
+  document
+    .getElementById(
+      "drawerPhase"
+    )
+    .textContent =
+      eventData.phase;
 
 
-  body.innerHTML =
-    "";
+  document
+    .getElementById(
+      "drawerTitle"
+    )
+    .textContent =
+      eventData.title;
 
 
-  attempts.forEach(
-    (
-      attempt,
-      index
-    ) => {
+  const attemptsHtml =
+    eventData.attempts
+    .map(
+      (
+        attempt,
+        index
+      ) => {
 
-      const row =
-        document
-          .createElement(
-            "tr"
-          );
+        return `
 
+          <tr>
 
-      const passed =
-        attempt.result ===
-        "pass";
+            <td>
+              Try ${index + 1}
+            </td>
 
+            <td>
 
-      row.innerHTML = `
+              <span
+                class="
+                  attempt-status
+                  ${attempt.result}
+                "
+              >
 
-        <td>
+                ${
+                  attempt.result ===
+                  "pass"
+                    ? "✓ Pass"
+                    : "× Not passed"
+                }
 
-          <span class="attempt-name">
-            Try ${index + 1}
-          </span>
+              </span>
 
-        </td>
+            </td>
 
+          </tr>
 
-        <td>
+        `;
 
-          <span
-            class="
-              attempt-status
-              ${attempt.result}
-            "
-          >
-
-            ${
-              passed
-                ? "✓ Pass"
-                : "× Not passed"
-            }
-
-          </span>
-
-        </td>
-
-      `;
+      }
+    )
+    .join("");
 
 
-      body.appendChild(
-        row
-      );
+  document
+    .getElementById(
+      "drawerBody"
+    )
+    .innerHTML = `
 
-    }
-  );
+      <div class="field">
+
+        <label>
+          Attempts
+        </label>
+
+        <div class="attempts-wrapper">
+
+          <table class="attempts-table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Attempt
+                </th>
+
+                <th>
+                  Result
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              ${attemptsHtml}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Instructor comments
+        </label>
+
+        <div class="readonly-comments">
+          ${escapeHtml(eventData.comments)}
+        </div>
+
+      </div>
+
+    `;
+
+
+  document
+    .getElementById(
+      "drawer"
+    )
+    .classList
+    .add(
+      "open"
+    );
 
 }
 
 
-/* ================================================= */
+/* ------------------------------------------------ */
 /* DRAWER */
-/* ================================================= */
+/* ------------------------------------------------ */
 
 function closeDrawer() {
 
@@ -3060,9 +3110,9 @@ function closeDrawer() {
 }
 
 
-/* ================================================= */
-/* CREATE NEW EVENT */
-/* ================================================= */
+/* ------------------------------------------------ */
+/* CREATE EVENT */
+/* ------------------------------------------------ */
 
 function openAddModal() {
 
@@ -3098,10 +3148,6 @@ function openAddModal() {
 }
 
 
-/* ================================================= */
-/* EDIT EVENT WHILE BUILDING */
-/* ================================================= */
-
 function editBuilderEvent(
   element
 ) {
@@ -3110,30 +3156,15 @@ function editBuilderEvent(
     element;
 
 
-  const title =
-    element
-      .querySelector(
-        "b"
-      )
-      .textContent
-      .trim();
-
-
-  const phase =
-    element
-      .querySelector(
-        "small"
-      )
-      .textContent
-      .trim();
-
-
   document
     .getElementById(
       "newEventName"
     )
     .value =
-      title;
+      element
+      .querySelector("b")
+      .textContent
+      .trim();
 
 
   document
@@ -3141,7 +3172,10 @@ function editBuilderEvent(
       "newEventPhase"
     )
     .value =
-      phase;
+      element
+      .querySelector("small")
+      .textContent
+      .trim();
 
 
   document
@@ -3172,10 +3206,6 @@ function editBuilderEvent(
 }
 
 
-/* ================================================= */
-/* CLOSE EVENT MODAL */
-/* ================================================= */
-
 function closeAddModal() {
 
   document
@@ -3194,10 +3224,6 @@ function closeAddModal() {
 }
 
 
-/* ================================================= */
-/* CLICK OUTSIDE MODAL */
-/* ================================================= */
-
 function modalBackdropClick(
   event
 ) {
@@ -3213,10 +3239,6 @@ function modalBackdropClick(
 
 }
 
-
-/* ================================================= */
-/* SAVE NEW / EDITED BUILDER EVENT */
-/* ================================================= */
 
 function saveBuilderModal() {
 
@@ -3241,27 +3263,22 @@ function saveBuilderModal() {
   ) {
 
     editingBuilderElement
-      .querySelector(
-        "b"
-      )
+      .querySelector("b")
       .textContent =
         title;
 
 
     editingBuilderElement
-      .querySelector(
-        "small"
-      )
+      .querySelector("small")
       .textContent =
         phase;
 
 
+    closeAddModal();
+
     showToast(
       "Event updated"
     );
-
-
-    closeAddModal();
 
     return;
 
@@ -3337,7 +3354,6 @@ function saveBuilderModal() {
 
   closeAddModal();
 
-
   showToast(
     "Event added"
   );
@@ -3345,9 +3361,9 @@ function saveBuilderModal() {
 }
 
 
-/* ================================================= */
+/* ------------------------------------------------ */
 /* CREATE SESSION */
-/* ================================================= */
+/* ------------------------------------------------ */
 
 function createSession() {
 
@@ -3359,8 +3375,7 @@ function createSession() {
       .value
       .trim()
       .toUpperCase()
-      ||
-      "LEBL";
+      || "LEBL";
 
 
   const to =
@@ -3371,8 +3386,7 @@ function createSession() {
       .value
       .trim()
       .toUpperCase()
-      ||
-      "LEPA";
+      || "LEPA";
 
 
   const training =
@@ -3435,15 +3449,18 @@ function createSession() {
 }
 
 
-/* ================================================= */
-/* HTML ESCAPING */
-/* ================================================= */
+/* ------------------------------------------------ */
+/* HELPERS */
+/* ------------------------------------------------ */
 
 function escapeHtml(
   string
 ) {
 
-  return string.replace(
+  return String(
+    string
+  )
+  .replace(
 
     /[&<>"']/g,
 
@@ -3465,10 +3482,6 @@ function escapeHtml(
 
 }
 
-
-/* ================================================= */
-/* TOAST */
-/* ================================================= */
 
 function showToast(
   text
@@ -3507,10 +3520,6 @@ function showToast(
 
 }
 
-
-/* ================================================= */
-/* ESCAPE */
-/* ================================================= */
 
 document
   .addEventListener(
