@@ -22,15 +22,12 @@
   --border-light: #353b45;
 
   --green: #3bc47b;
-  --green-bg: rgba(59, 196, 123, .11);
+  --green-bg: rgba(59,196,123,.11);
 
   --red: #ee6464;
-  --red-bg: rgba(238, 100, 100, .11);
+  --red-bg: rgba(238,100,100,.11);
 
-  --yellow: #e6b85c;
-
-  --shadow:
-    0 18px 60px rgba(0,0,0,.36);
+  --shadow: 0 18px 60px rgba(0,0,0,.36);
 
   --radius: 18px;
 }
@@ -47,7 +44,6 @@ body {
   margin: 0;
 
   background: var(--bg);
-
   color: var(--text);
 
   font-family:
@@ -83,6 +79,7 @@ textarea {
   color: white;
 }
 
+
 /* ------------------------------------------------ */
 /* TOP BAR */
 /* ------------------------------------------------ */
@@ -95,53 +92,40 @@ textarea {
 
   z-index: 30;
 
-  padding:
-    0
-    34px;
+  padding: 0 34px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  background:
-    rgba(13,15,18,.88);
+  background: rgba(13,15,18,.88);
 
-  backdrop-filter:
-    blur(18px);
+  backdrop-filter: blur(18px);
 
-  border-bottom:
-    1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .brand {
   font-size: 22px;
-
   font-weight: 750;
-
   letter-spacing: -.045em;
-
   cursor: pointer;
 }
 
 .top-actions {
   display: flex;
-
   align-items: center;
-
   gap: 9px;
 }
 
 .btn {
   min-height: 40px;
 
-  padding:
-    0
-    15px;
+  padding: 0 15px;
 
   border-radius: 10px;
 
-  border:
-    1px solid var(--border-light);
+  border: 1px solid var(--border-light);
 
   background: var(--panel);
 
@@ -149,27 +133,18 @@ textarea {
 
   font-weight: 650;
 
-  transition:
-    .18s ease;
+  transition: .18s ease;
 }
 
 .btn:hover {
-  background:
-    var(--panel-hover);
-
-  border-color:
-    #454c57;
+  background: var(--panel-hover);
+  border-color: #454c57;
 }
 
 .btn.primary {
-  background:
-    var(--text);
-
-  border-color:
-    var(--text);
-
-  color:
-    #101215;
+  background: var(--text);
+  border-color: var(--text);
+  color: #101215;
 }
 
 .btn.primary:hover {
@@ -177,21 +152,19 @@ textarea {
 }
 
 .btn.ghost {
-  background:
-    transparent;
+  background: transparent;
 }
 
 .btn.icon {
   width: 40px;
-
   padding: 0;
 
   display: grid;
-
   place-items: center;
 
   font-size: 20px;
 }
+
 
 /* ------------------------------------------------ */
 /* VIEWS */
@@ -205,6 +178,7 @@ textarea {
   display: block;
 }
 
+
 /* ------------------------------------------------ */
 /* SHARED */
 /* ------------------------------------------------ */
@@ -215,23 +189,16 @@ textarea {
   color: var(--muted);
 
   font-size: 11px;
-
   font-weight: 760;
 
   text-transform: uppercase;
-
   letter-spacing: .14em;
 }
 
 h1 {
   margin: 0;
 
-  font-size:
-    clamp(
-      40px,
-      5vw,
-      68px
-    );
+  font-size: clamp(40px,5vw,68px);
 
   font-weight: 740;
 
@@ -245,19 +212,15 @@ select,
 textarea {
   width: 100%;
 
-  padding:
-    12px
-    13px;
+  padding: 12px 13px;
 
-  border:
-    1px solid var(--border-light);
+  border: 1px solid var(--border-light);
 
   border-radius: 10px;
 
   outline: none;
 
-  background:
-    #111419;
+  background: #111419;
 
   color: var(--text);
 }
@@ -265,19 +228,8 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-  border-color:
-    #646d79;
-
-  background:
-    #14181d;
-}
-
-textarea {
-  resize: vertical;
-
-  min-height: 180px;
-
-  line-height: 1.55;
+  border-color: #646d79;
+  background: #14181d;
 }
 
 .form-group label,
@@ -289,13 +241,13 @@ textarea {
   color: var(--muted);
 
   font-size: 10px;
-
   font-weight: 760;
 
   text-transform: uppercase;
 
   letter-spacing: .11em;
 }
+
 
 /* ------------------------------------------------ */
 /* DASHBOARD */
@@ -304,14 +256,9 @@ textarea {
 .dashboard {
   max-width: 1260px;
 
-  margin:
-    0
-    auto;
+  margin: 0 auto;
 
-  padding:
-    58px
-    34px
-    90px;
+  padding: 58px 34px 90px;
 }
 
 .hero {
@@ -319,8 +266,7 @@ textarea {
 
   align-items: flex-end;
 
-  justify-content:
-    space-between;
+  justify-content: space-between;
 
   gap: 28px;
 
@@ -330,10 +276,7 @@ textarea {
 .hero p {
   max-width: 550px;
 
-  margin:
-    15px
-    0
-    0;
+  margin: 15px 0 0;
 
   color: var(--muted-light);
 
@@ -343,17 +286,13 @@ textarea {
 }
 
 .section-head {
-  margin:
-    44px
-    0
-    16px;
+  margin: 44px 0 16px;
 
   display: flex;
 
   align-items: center;
 
-  justify-content:
-    space-between;
+  justify-content: space-between;
 }
 
 .section-head h2 {
@@ -370,6 +309,7 @@ textarea {
   font-size: 12px;
 }
 
+
 /* ------------------------------------------------ */
 /* SESSION CARDS */
 /* ------------------------------------------------ */
@@ -377,11 +317,7 @@ textarea {
 .cards {
   display: grid;
 
-  grid-template-columns:
-    repeat(
-      3,
-      minmax(0,1fr)
-    );
+  grid-template-columns: repeat(3,minmax(0,1fr));
 
   gap: 15px;
 }
@@ -395,47 +331,35 @@ textarea {
 
   flex-direction: column;
 
-  justify-content:
-    space-between;
+  justify-content: space-between;
 
-  border:
-    1px solid var(--border);
+  border: 1px solid var(--border);
 
-  border-radius:
-    var(--radius);
+  border-radius: var(--radius);
 
-  background:
-    var(--panel);
+  background: var(--panel);
 
-  color:
-    var(--text);
+  color: var(--text);
 
   text-align: left;
 
-  transition:
-    .2s ease;
+  transition: .2s ease;
 }
 
 .sim-card:hover {
-  transform:
-    translateY(-3px);
+  transform: translateY(-3px);
 
-  background:
-    var(--panel-hover);
+  background: var(--panel-hover);
 
-  border-color:
-    #3b424c;
+  border-color: #3b424c;
 
-  box-shadow:
-    var(--shadow);
+  box-shadow: var(--shadow);
 }
 
 .sim-card.new {
-  background:
-    transparent;
+  background: transparent;
 
-  border:
-    1px dashed #404753;
+  border: 1px dashed #404753;
 }
 
 .card-top {
@@ -443,343 +367,287 @@ textarea {
 
   align-items: center;
 
-  justify-content:
-    space-between;
+  justify-content: space-between;
 
   gap: 12px;
 }
 
 .pill {
-  padding:
-    6px
-    8px;
+  padding: 6px 8px;
 
-  border:
-    1px solid var(--border-light);
+  border: 1px solid var(--border-light);
 
-  border-radius:
-    999px;
+  border-radius: 999px;
 
-  color:
-    var(--muted-light);
+  color: var(--muted-light);
 
   font-size: 10px;
 
   font-weight: 760;
 
-  text-transform:
-    uppercase;
+  text-transform: uppercase;
 
-  letter-spacing:
-    .05em;
+  letter-spacing: .05em;
 }
 
 .arrow {
-  color:
-    #747c88;
+  color: #747c88;
 
-  font-size:
-    20px;
+  font-size: 20px;
 }
 
 .route {
-  margin:
-    21px
-    0
-    5px;
+  margin: 21px 0 5px;
 
-  font-size:
-    27px;
+  font-size: 27px;
 
-  font-weight:
-    720;
+  font-weight: 720;
 
-  letter-spacing:
-    -.045em;
+  letter-spacing: -.045em;
 }
 
 .meta {
   display: flex;
 
-  justify-content:
-    space-between;
+  justify-content: space-between;
 
   gap: 10px;
 
-  color:
-    var(--muted);
+  color: var(--muted);
 
-  font-size:
-    12px;
+  font-size: 12px;
 }
 
 .plus-card {
-  color:
-    #a0a6af;
+  color: #a0a6af;
 
-  font-size:
-    38px;
+  font-size: 38px;
 
-  font-weight:
-    260;
+  font-weight: 260;
 }
 
+
 /* ------------------------------------------------ */
-/* DEBRIEF */
+/* DEBRIEF HEADER */
 /* ------------------------------------------------ */
 
 .debrief-shell {
-  min-height:
-    calc(
-      100vh -
-      72px
-    );
+  min-height: calc(100vh - 72px);
 
-  overflow:
-    hidden;
+  overflow: hidden;
 }
 
 .debrief-head {
-  min-height:
-    105px;
+  min-height: 105px;
 
-  padding:
-    24px
-    34px
-    18px;
+  padding: 24px 34px 18px;
 
-  display:
-    flex;
+  display: flex;
 
-  align-items:
-    flex-end;
+  align-items: flex-end;
 
-  justify-content:
-    space-between;
+  justify-content: space-between;
 
-  border-bottom:
-    1px solid
-    var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .debrief-route {
-  font-size:
-    30px;
+  font-size: 30px;
 
-  font-weight:
-    740;
+  font-weight: 740;
 
-  letter-spacing:
-    -.05em;
+  letter-spacing: -.05em;
 }
 
 .debrief-sub {
-  margin-top:
-    5px;
+  margin-top: 5px;
 
-  color:
-    var(--muted);
+  color: var(--muted);
 
-  font-size:
-    12px;
+  font-size: 12px;
 }
 
 .legend {
-  display:
-    flex;
+  display: flex;
 
-  align-items:
-    center;
+  align-items: center;
 
-  gap:
-    16px;
+  gap: 16px;
 
-  color:
-    var(--muted);
+  color: var(--muted);
 
-  font-size:
-    11px;
+  font-size: 11px;
 }
 
 .legend i {
-  width:
-    8px;
+  width: 8px;
+  height: 8px;
 
-  height:
-    8px;
+  margin-right: 5px;
 
-  margin-right:
-    5px;
+  display: inline-block;
 
-  display:
-    inline-block;
-
-  border-radius:
-    50%;
+  border-radius: 50%;
 }
 
 .legend .g {
-  background:
-    var(--green);
+  background: var(--green);
 }
 
 .legend .r {
-  background:
-    var(--red);
+  background: var(--red);
 }
 
 .legend .n {
-  background:
-    #6f7680;
+  background: #6f7680;
 }
 
 .mobile-scroll-hint {
   display: none;
 }
 
+
+/* ------------------------------------------------ */
+/* TIMELINE */
+/* ------------------------------------------------ */
+
 .timeline-wrap {
-  height:
-    calc(
-      100vh -
-      177px
-    );
+  height: calc(100vh - 177px);
 
-  overflow-x:
-    auto;
+  overflow-x: auto;
+  overflow-y: hidden;
 
-  overflow-y:
-    hidden;
+  scrollbar-width: thin;
 
-  scrollbar-width:
-    thin;
+  scrollbar-color: #3c424c transparent;
 
-  scrollbar-color:
-    #3c424c
-    transparent;
+  -webkit-overflow-scrolling: touch;
 
-  -webkit-overflow-scrolling:
-    touch;
-
-  touch-action:
-    pan-x;
+  touch-action: pan-x;
 }
 
 .timeline {
-  position:
-    relative;
+  position: relative;
 
-  width:
-    2100px;
+  width: 1600px;
 
-  min-height:
-    100%;
+  min-height: 100%;
 
-  padding:
-    42px
-    90px
-    80px;
+  padding: 42px 50px 80px;
 }
 
 .phase-labels {
-  height:
-    54px;
+  position: relative;
 
-  padding:
-    0
-    28px;
+  height: 54px;
 
-  display:
-    grid;
+  display: grid;
 
   grid-template-columns:
-    260px
-    280px
-    570px
-    340px
-    310px;
+    250px
+    250px
+    400px
+    250px
+    250px;
 
-  align-items:
-    end;
+  padding: 0;
 
-  color:
-    #6f7680;
+  color: #6f7680;
 
-  font-size:
-    10px;
+  font-size: 10px;
 
-  font-weight:
-    750;
+  font-weight: 750;
 
-  text-transform:
-    uppercase;
+  text-transform: uppercase;
 
-  letter-spacing:
-    .12em;
+  letter-spacing: .12em;
+}
+
+.phase {
+  position: relative;
+
+  height: 100%;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  padding: 0 14px 10px;
+}
+
+.phase:not(:last-child)::after {
+  content: "";
+
+  position: absolute;
+
+  right: 0;
+  top: 32px;
+
+  height: 395px;
+
+  border-right: 1px dashed #343a43;
+
+  opacity: .95;
+
+  pointer-events: none;
 }
 
 .route-canvas {
-  position:
-    relative;
+  position: relative;
 
-  height:
-    430px;
+  height: 430px;
 }
 
+
+/* ------------------------------------------------ */
+/* FLIGHT PATH */
+/* ------------------------------------------------ */
+
 .flight-svg {
-  position:
-    absolute;
+  position: absolute;
 
-  inset:
-    0;
+  inset: 0;
 
-  width:
-    100%;
+  width: 1500px;
 
-  height:
-    100%;
+  height: 100%;
 
-  overflow:
-    visible;
+  overflow: visible;
 }
 
 .flight-svg .track {
-  fill:
-    none;
+  fill: none;
 
-  stroke:
-    #3a4048;
+  stroke: #454c55;
 
-  stroke-width:
-    2.2;
+  stroke-width: 2;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
 }
 
 .flight-svg .track-dash {
-  fill:
-    none;
+  fill: none;
 
-  stroke:
-    #22272e;
+  stroke: #242930;
 
-  stroke-width:
-    1;
+  stroke-width: 1;
 
-  stroke-dasharray:
-    4 8;
+  stroke-dasharray: 5 8;
 }
 
+
 /* ------------------------------------------------ */
-/* AIRPORT */
+/* AIRPORTS */
 /* ------------------------------------------------ */
 
 .airport {
-  position:
-    absolute;
+  position: absolute;
 
-  bottom:
-    45px;
+  bottom: 45px;
 
-  width:
-    150px;
+  width: 150px;
 }
 
 .airport.departure {
@@ -789,1395 +657,847 @@ textarea {
 .airport.arrival {
   right: 0;
 
-  text-align:
-    right;
+  text-align: right;
 }
 
 .airport-code {
-  font-size:
-    23px;
+  font-size: 23px;
 
-  font-weight:
-    740;
+  font-weight: 740;
 
-  letter-spacing:
-    -.04em;
+  letter-spacing: -.04em;
 }
 
 .airport-name {
-  margin-top:
-    4px;
+  margin-top: 4px;
 
-  color:
-    var(--muted);
+  color: var(--muted);
 
-  font-size:
-    11px;
+  font-size: 11px;
 }
 
 .runway {
-  position:
-    relative;
+  position: relative;
 
-  width:
-    82px;
+  width: 82px;
 
-  height:
-    7px;
+  height: 7px;
 
-  margin-top:
-    12px;
+  margin-top: 12px;
 
-  border-radius:
-    2px;
+  border-radius: 2px;
 
-  background:
-    #8c939e;
+  background: #8c939e;
 }
 
 .arrival .runway {
-  margin-left:
-    auto;
+  margin-left: auto;
 }
 
 .runway::after {
   content: "";
 
-  position:
-    absolute;
+  position: absolute;
 
-  left:
-    8px;
+  left: 8px;
+  right: 8px;
+  top: 3px;
 
-  right:
-    8px;
-
-  top:
-    3px;
-
-  border-top:
-    1px dashed
-    #171a20;
+  border-top: 1px dashed #171a20;
 }
 
+
 /* ------------------------------------------------ */
-/* TIMELINE EVENTS */
+/* FLIGHT EVENTS */
 /* ------------------------------------------------ */
 
 .event {
-  position:
-    absolute;
+  position: absolute;
 
-  width:
-    170px;
+  width: 155px;
 
-  padding:
-    0;
+  padding: 0;
 
-  transform:
-    translate(
-      -50%,
-      -50%
-    );
+  transform: translate(-50%,-50%);
 
-  border:
-    0;
+  border: 0;
 
-  background:
-    transparent;
+  background: transparent;
 
-  color:
-    var(--text);
+  color: var(--text);
 
-  text-align:
-    center;
+  text-align: center;
 }
 
 .event .dot {
-  width:
-    16px;
+  width: 16px;
+  height: 16px;
 
-  height:
-    16px;
+  margin: 0 auto;
 
-  margin:
-    0
-    auto;
+  border: 4px solid var(--bg);
 
-  border:
-    4px solid
-    var(--bg);
+  border-radius: 50%;
 
-  border-radius:
-    50%;
+  background: #737b86;
 
-  background:
-    #737b86;
+  box-shadow: 0 0 0 1px #656d78;
 
-  box-shadow:
-    0 0 0 1px
-    #656d78;
-
-  transition:
-    .18s ease;
+  transition: .18s ease;
 }
 
 .event:hover .dot {
-  transform:
-    scale(1.25);
+  transform: scale(1.25);
 }
 
 .event.pass .dot {
-  background:
-    var(--green);
+  background: var(--green);
 
-  box-shadow:
-    0 0 0 1px
-    var(--green);
+  box-shadow: 0 0 0 1px var(--green);
 }
 
 .event.fail .dot {
-  background:
-    var(--red);
+  background: var(--red);
 
-  box-shadow:
-    0 0 0 1px
-    var(--red);
+  box-shadow: 0 0 0 1px var(--red);
 }
 
 .event-title {
-  display:
-    inline-block;
+  display: inline-block;
 
-  margin-top:
-    10px;
+  margin-top: 10px;
 
-  padding:
-    5px
-    7px;
+  padding: 5px 7px;
 
-  border:
-    1px solid
-    rgba(
-      255,
-      255,
-      255,
-      .03
-    );
+  border: 1px solid rgba(255,255,255,.03);
 
-  border-radius:
-    7px;
+  border-radius: 7px;
 
-  background:
-    rgba(
-      13,
-      15,
-      18,
-      .88
-    );
+  background: rgba(13,15,18,.88);
 
-  font-size:
-    12px;
+  font-size: 12px;
 
-  font-weight:
-    690;
+  font-weight: 690;
 
-  line-height:
-    1.25;
+  line-height: 1.25;
 
-  letter-spacing:
-    -.01em;
+  letter-spacing: -.01em;
 }
 
 .event-time {
-  margin-top:
-    4px;
+  margin-top: 4px;
 
-  color:
-    var(--muted);
+  color: var(--muted);
 
-  font-size:
-    10px;
+  font-size: 10px;
 }
 
+
 /* ------------------------------------------------ */
-/* DRAWER */
+/* READ ONLY DRAWER */
 /* ------------------------------------------------ */
 
 .drawer {
-  position:
-    fixed;
+  position: fixed;
 
-  top:
-    0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 
-  right:
-    0;
+  z-index: 60;
 
-  bottom:
-    0;
+  width: min(480px,94vw);
 
-  z-index:
-    60;
+  display: flex;
 
-  width:
-    min(
-      480px,
-      94vw
-    );
+  flex-direction: column;
 
-  display:
-    flex;
+  border-left: 1px solid var(--border);
 
-  flex-direction:
-    column;
+  background: #14171c;
 
-  border-left:
-    1px solid
-    var(--border);
+  box-shadow: -30px 0 80px rgba(0,0,0,.45);
 
-  background:
-    #14171c;
+  transform: translateX(101%);
 
-  box-shadow:
-    -30px
-    0
-    80px
-    rgba(
-      0,
-      0,
-      0,
-      .45
-    );
-
-  transform:
-    translateX(
-      101%
-    );
-
-  transition:
-    .28s
-    cubic-bezier(
-      .2,
-      .75,
-      .25,
-      1
-    );
+  transition: .28s cubic-bezier(.2,.75,.25,1);
 }
 
 .drawer.open {
-  transform:
-    translateX(0);
+  transform: translateX(0);
 }
 
 .drawer-top {
-  padding:
-    25px
-    25px
-    19px;
+  padding: 25px 25px 19px;
 
-  display:
-    flex;
+  display: flex;
 
-  align-items:
-    flex-start;
+  align-items: flex-start;
 
-  justify-content:
-    space-between;
+  justify-content: space-between;
 
-  gap:
-    15px;
+  gap: 15px;
 
-  border-bottom:
-    1px solid
-    var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .drawer h3 {
-  margin:
-    6px
-    0
-    0;
+  margin: 6px 0 0;
 
-  font-size:
-    25px;
+  font-size: 25px;
 
-  font-weight:
-    720;
+  font-weight: 720;
 
-  line-height:
-    1.15;
+  line-height: 1.15;
 
-  letter-spacing:
-    -.04em;
+  letter-spacing: -.04em;
 }
 
 .drawer-body {
-  flex:
-    1;
+  flex: 1;
 
-  padding:
-    23px
-    25px;
+  padding: 23px 25px;
 
-  overflow:
-    auto;
-}
-
-.drawer-footer {
-  padding:
-    18px
-    25px;
-
-  border-top:
-    1px solid
-    var(--border);
-}
-
-.drawer-footer .btn {
-  width:
-    100%;
+  overflow: auto;
 }
 
 .field {
-  margin-bottom:
-    28px;
+  margin-bottom: 28px;
 }
+
 
 /* ------------------------------------------------ */
 /* ATTEMPTS TABLE */
 /* ------------------------------------------------ */
 
 .attempts-wrapper {
-  overflow:
-    hidden;
+  overflow: hidden;
 
-  border:
-    1px solid
-    var(--border);
+  border: 1px solid var(--border);
 
-  border-radius:
-    12px;
+  border-radius: 12px;
 
-  background:
-    #111419;
+  background: #111419;
 }
 
 .attempts-table {
-  width:
-    100%;
+  width: 100%;
 
-  border-collapse:
-    collapse;
+  border-collapse: collapse;
 }
 
 .attempts-table th {
-  padding:
-    11px
-    12px;
+  padding: 11px 12px;
 
-  color:
-    var(--muted);
+  color: var(--muted);
 
-  background:
-    #171b20;
+  background: #171b20;
 
-  font-size:
-    10px;
+  font-size: 10px;
 
-  font-weight:
-    760;
+  font-weight: 760;
 
-  text-align:
-    left;
+  text-align: left;
 
-  text-transform:
-    uppercase;
+  text-transform: uppercase;
 
-  letter-spacing:
-    .08em;
+  letter-spacing: .08em;
 
-  border-bottom:
-    1px solid
-    var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .attempts-table td {
-  padding:
-    12px;
+  padding: 13px 12px;
 
-  border-bottom:
-    1px solid
-    var(--border);
+  border-bottom: 1px solid var(--border);
 
-  font-size:
-    13px;
+  font-size: 13px;
 }
 
 .attempts-table tr:last-child td {
-  border-bottom:
-    0;
+  border-bottom: 0;
 }
 
 .attempt-name {
-  font-weight:
-    670;
+  font-weight: 670;
 }
 
 .attempt-status {
-  display:
-    inline-flex;
+  display: inline-flex;
 
-  align-items:
-    center;
+  align-items: center;
 
-  gap:
-    6px;
+  gap: 6px;
 
-  padding:
-    5px
-    8px;
+  padding: 5px 8px;
 
-  border-radius:
-    999px;
+  border-radius: 999px;
 
-  font-size:
-    11px;
+  font-size: 11px;
 
-  font-weight:
-    720;
+  font-weight: 720;
 }
 
 .attempt-status.pass {
-  color:
-    var(--green);
+  color: var(--green);
 
-  background:
-    var(--green-bg);
+  background: var(--green-bg);
 }
 
 .attempt-status.fail {
-  color:
-    var(--red);
+  color: var(--red);
 
-  background:
-    var(--red-bg);
+  background: var(--red-bg);
 }
 
-.attempt-actions {
-  display:
-    flex;
 
-  justify-content:
-    flex-end;
+/* ------------------------------------------------ */
+/* READ ONLY COMMENTS */
+/* ------------------------------------------------ */
 
-  gap:
-    5px;
+.readonly-comments {
+  padding: 16px 17px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  background: #111419;
+
+  color: #d5d9df;
+
+  font-size: 14px;
+
+  line-height: 1.65;
+
+  white-space: pre-line;
 }
 
-.attempt-btn {
-  min-width:
-    36px;
-
-  height:
-    32px;
-
-  padding:
-    0
-    9px;
-
-  border:
-    1px solid
-    var(--border-light);
-
-  border-radius:
-    8px;
-
-  background:
-    var(--panel);
-
-  color:
-    var(--text);
-
-  font-size:
-    12px;
-
-  font-weight:
-    700;
-}
-
-.attempt-btn.pass.active {
-  color:
-    var(--green);
-
-  border-color:
-    rgba(
-      59,
-      196,
-      123,
-      .45
-    );
-
-  background:
-    var(--green-bg);
-}
-
-.attempt-btn.fail.active {
-  color:
-    var(--red);
-
-  border-color:
-    rgba(
-      238,
-      100,
-      100,
-      .45
-    );
-
-  background:
-    var(--red-bg);
-}
-
-.add-attempt {
-  width:
-    100%;
-
-  margin-top:
-    10px;
-
-  min-height:
-    42px;
-
-  border:
-    1px dashed
-    #3b424c;
-
-  border-radius:
-    10px;
-
-  background:
-    transparent;
-
-  color:
-    var(--muted-light);
-
-  font-weight:
-    650;
-}
-
-.add-attempt:hover {
-  background:
-    var(--panel);
-
-  color:
-    var(--text);
-}
 
 /* ------------------------------------------------ */
 /* CREATE PAGE */
 /* ------------------------------------------------ */
 
 .create-page {
-  max-width:
-    1180px;
+  max-width: 1180px;
 
-  margin:
-    0
-    auto;
+  margin: 0 auto;
 
-  padding:
-    46px
-    34px
-    90px;
+  padding: 46px 34px 90px;
 }
 
 .create-title {
-  margin:
-    0
-    0
-    30px;
+  margin: 0 0 30px;
 
-  font-size:
-    44px;
+  font-size: 44px;
 
-  font-weight:
-    730;
+  font-weight: 730;
 
-  letter-spacing:
-    -.055em;
+  letter-spacing: -.055em;
 }
 
 .form-grid {
-  display:
-    grid;
+  display: grid;
 
-  grid-template-columns:
-    repeat(
-      4,
-      1fr
-    );
+  grid-template-columns: repeat(4,1fr);
 
-  gap:
-    12px;
+  gap: 12px;
 
-  margin-bottom:
-    44px;
+  margin-bottom: 44px;
 }
 
 .builder {
-  padding:
-    28px;
+  padding: 28px;
 
-  border:
-    1px solid
-    var(--border);
+  border: 1px solid var(--border);
 
-  border-radius:
-    20px;
+  border-radius: 20px;
 
-  background:
-    var(--panel);
+  background: var(--panel);
 }
 
 .builder-head {
-  margin-bottom:
-    24px;
+  margin-bottom: 24px;
 
-  display:
-    flex;
+  display: flex;
 
-  align-items:
-    center;
+  align-items: center;
 
-  justify-content:
-    space-between;
+  justify-content: space-between;
 }
 
 .builder-head h2 {
   margin: 0;
 
-  font-size:
-    18px;
+  font-size: 18px;
 }
 
 .builder-track {
-  position:
-    relative;
+  position: relative;
 
-  min-height:
-    250px;
+  min-height: 250px;
 
-  padding:
-    65px
-    25px
-    40px;
+  padding: 65px 25px 40px;
 
-  overflow-x:
-    auto;
+  overflow-x: auto;
 
-  -webkit-overflow-scrolling:
-    touch;
+  -webkit-overflow-scrolling: touch;
 }
 
 .builder-line {
-  position:
-    absolute;
+  position: absolute;
 
-  left:
-    60px;
+  left: 60px;
+  right: 60px;
 
-  right:
-    60px;
+  top: 122px;
 
-  top:
-    122px;
-
-  border-top:
-    2px solid
-    #343a43;
+  border-top: 2px solid #343a43;
 }
 
 .builder-events {
-  position:
-    relative;
+  position: relative;
 
-  z-index:
-    2;
+  z-index: 2;
 
-  min-width:
-    840px;
+  min-width: 840px;
 
-  display:
-    flex;
+  display: flex;
 
-  align-items:
-    flex-start;
+  align-items: flex-start;
 
-  gap:
-    46px;
+  gap: 34px;
 }
 
 .builder-event,
 .add-event {
-  flex:
-    0
-    0
-    138px;
+  flex: 0 0 128px;
 
-  width:
-    138px;
+  width: 128px;
 
-  text-align:
-    center;
+  text-align: center;
 }
 
 .builder-event {
-  cursor:
-    pointer;
+  cursor: pointer;
 }
 
 .builder-event .mini-dot {
-  width:
-    17px;
+  width: 17px;
+  height: 17px;
 
-  height:
-    17px;
+  margin: 50px auto 12px;
 
-  margin:
-    50px
-    auto
-    12px;
+  border: 4px solid var(--panel);
 
-  border:
-    4px solid
-    var(--panel);
+  border-radius: 50%;
 
-  border-radius:
-    50%;
+  background: #747c87;
 
-  background:
-    #747c87;
-
-  box-shadow:
-    0
-    0
-    0
-    1px
-    #646d79;
+  box-shadow: 0 0 0 1px #646d79;
 }
 
 .builder-event b {
-  display:
-    block;
+  display: block;
 
-  font-size:
-    12px;
+  font-size: 12px;
 
-  line-height:
-    1.3;
+  line-height: 1.3;
 }
 
 .builder-event small {
-  display:
-    block;
+  display: block;
 
-  margin-top:
-    5px;
+  margin-top: 5px;
 
-  color:
-    var(--muted);
+  color: var(--muted);
 
-  font-size:
-    11px;
+  font-size: 11px;
 }
 
 .add-event button {
-  width:
-    42px;
+  width: 42px;
+  height: 42px;
 
-  height:
-    42px;
+  margin: 38px auto 6px;
 
-  margin:
-    38px
-    auto
-    6px;
+  border: 1px solid #515966;
 
-  border:
-    1px solid
-    #515966;
+  border-radius: 50%;
 
-  border-radius:
-    50%;
+  background: #12151a;
 
-  background:
-    #12151a;
+  color: white;
 
-  color:
-    white;
-
-  font-size:
-    25px;
+  font-size: 25px;
 }
 
 .add-event span {
-  color:
-    var(--muted);
+  color: var(--muted);
 
-  font-size:
-    11px;
+  font-size: 11px;
 }
 
 .create-footer {
-  margin-top:
-    18px;
+  margin-top: 18px;
 
-  display:
-    flex;
+  display: flex;
 
-  justify-content:
-    flex-end;
+  justify-content: flex-end;
 
-  gap:
-    10px;
+  gap: 10px;
 }
 
+
 /* ------------------------------------------------ */
-/* MODAL */
+/* CREATE MODAL */
 /* ------------------------------------------------ */
 
 .modal-backdrop {
-  position:
-    fixed;
+  position: fixed;
 
-  inset:
-    0;
+  inset: 0;
 
-  z-index:
-    80;
+  z-index: 80;
 
-  padding:
-    20px;
+  padding: 20px;
 
-  display:
-    none;
+  display: none;
 
-  align-items:
-    center;
+  align-items: center;
 
-  justify-content:
-    center;
+  justify-content: center;
 
-  background:
-    rgba(
-      0,
-      0,
-      0,
-      .56
-    );
+  background: rgba(0,0,0,.56);
 }
 
 .modal-backdrop.open {
-  display:
-    flex;
+  display: flex;
 }
 
 .modal {
-  width:
-    min(
-      540px,
-      96vw
-    );
+  width: min(540px,96vw);
 
-  padding:
-    25px;
+  padding: 25px;
 
-  border:
-    1px solid
-    var(--border);
+  border: 1px solid var(--border);
 
-  border-radius:
-    18px;
+  border-radius: 18px;
 
-  background:
-    #171a20;
+  background: #171a20;
 
-  box-shadow:
-    0
-    30px
-    100px
-    rgba(
-      0,
-      0,
-      0,
-      .6
-    );
+  box-shadow: 0 30px 100px rgba(0,0,0,.6);
 }
 
 .modal h3 {
-  margin:
-    0
-    0
-    20px;
+  margin: 0 0 20px;
 
-  font-size:
-    22px;
+  font-size: 22px;
 
-  letter-spacing:
-    -.035em;
+  letter-spacing: -.035em;
 }
 
 .modal .form-group {
-  margin-bottom:
-    15px;
+  margin-bottom: 15px;
 }
 
 .modal-actions {
-  margin-top:
-    20px;
+  margin-top: 20px;
 
-  display:
-    flex;
+  display: flex;
 
-  justify-content:
-    flex-end;
+  justify-content: flex-end;
 
-  gap:
-    9px;
+  gap: 9px;
 }
+
 
 /* ------------------------------------------------ */
 /* TOAST */
 /* ------------------------------------------------ */
 
 .toast {
-  position:
-    fixed;
+  position: fixed;
 
-  left:
-    50%;
+  left: 50%;
+  bottom: 28px;
 
-  bottom:
-    28px;
+  z-index: 100;
 
-  z-index:
-    100;
+  padding: 11px 15px;
 
-  padding:
-    11px
-    15px;
+  border: 1px solid #333943;
 
-  border:
-    1px solid
-    #333943;
+  border-radius: 10px;
 
-  border-radius:
-    10px;
+  background: #1b1f25;
 
-  background:
-    #1b1f25;
+  color: white;
 
-  color:
-    white;
+  font-size: 13px;
 
-  font-size:
-    13px;
+  opacity: 0;
 
-  opacity:
-    0;
+  pointer-events: none;
 
-  pointer-events:
-    none;
+  transform: translate(-50%,20px);
 
-  transform:
-    translate(
-      -50%,
-      20px
-    );
-
-  transition:
-    .2s ease;
+  transition: .2s ease;
 }
 
 .toast.show {
-  opacity:
-    1;
+  opacity: 1;
 
-  transform:
-    translate(
-      -50%,
-      0
-    );
+  transform: translate(-50%,0);
 }
+
 
 /* ------------------------------------------------ */
 /* TABLET */
 /* ------------------------------------------------ */
 
-@media
-(max-width: 900px) {
+@media (max-width: 900px) {
 
   .cards {
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .form-grid {
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .hero {
-    align-items:
-      flex-start;
-
-    flex-direction:
-      column;
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .legend {
-    display:
-      none;
+    display: none;
   }
 
 }
+
 
 /* ------------------------------------------------ */
 /* MOBILE */
 /* ------------------------------------------------ */
 
-@media
-(max-width: 620px) {
+@media (max-width: 620px) {
 
   .topbar {
-    height:
-      calc(
-        62px +
-        env(
-          safe-area-inset-top
-        )
-      );
+    height: calc(
+      62px +
+      env(safe-area-inset-top)
+    );
 
     padding:
-      env(
-        safe-area-inset-top
-      )
+      env(safe-area-inset-top)
       14px
       0;
   }
 
   .brand {
-    font-size:
-      20px;
+    font-size: 20px;
   }
 
   .top-actions {
-    gap:
-      6px;
+    gap: 6px;
   }
 
   .top-actions .btn {
-    min-height:
-      38px;
+    min-height: 38px;
 
-    padding:
-      0
-      11px;
+    padding: 0 11px;
 
-    font-size:
-      12px;
+    font-size: 12px;
   }
 
   .dashboard,
   .create-page {
-    padding-left:
-      18px;
-
-    padding-right:
-      18px;
+    padding-left: 18px;
+    padding-right: 18px;
   }
 
   .dashboard {
-    padding-top:
-      38px;
+    padding-top: 38px;
   }
 
   .cards {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
   }
 
   .sim-card {
-    min-height:
-      165px;
+    min-height: 165px;
   }
 
   .form-grid {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
   }
 
   .hero {
-    gap:
-      20px;
+    gap: 20px;
   }
 
   .hero > .btn {
-    width:
-      100%;
+    width: 100%;
   }
 
   .debrief-head {
-    min-height:
-      108px;
+    min-height: 108px;
 
-    padding:
-      18px;
+    padding: 18px;
   }
 
   .debrief-route {
-    font-size:
-      23px;
+    font-size: 23px;
   }
 
   .mobile-scroll-hint {
-    display:
-      block;
+    display: block;
 
-    padding:
-      8px
-      18px;
+    padding: 8px 18px;
 
-    border-bottom:
-      1px solid
-      var(--border);
+    border-bottom: 1px solid var(--border);
 
-    color:
-      var(--muted);
+    color: var(--muted);
 
-    background:
-      #111419;
+    background: #111419;
 
-    font-size:
-      11px;
+    font-size: 11px;
   }
 
   .timeline-wrap {
-    height:
-      calc(
-        100vh -
-        220px
-      );
+    height: calc(100vh - 220px);
 
-    min-height:
-      500px;
+    min-height: 500px;
   }
 
   .timeline {
-    width:
-      1760px;
+    width: 1500px;
 
-    padding:
-      25px
-      55px
-      60px;
+    padding: 25px 35px 60px;
   }
 
   .phase-labels {
     grid-template-columns:
-      225px
-      250px
-      500px
-      300px
-      270px;
+      220px
+      220px
+      380px
+      230px
+      230px;
+  }
 
-    padding:
-      0
-      18px;
+  .phase:not(:last-child)::after {
+    top: 32px;
+
+    height: 380px;
   }
 
   .event {
-    width:
-      132px;
+    width: 132px;
   }
 
   .event-title {
-    max-width:
-      128px;
+    max-width: 128px;
 
-    padding:
-      4px
-      5px;
+    padding: 4px 5px;
 
-    font-size:
-      11px;
+    font-size: 11px;
   }
 
-  /* bottom sheet */
-
   .drawer {
-    top:
-      auto;
+    top: auto;
 
-    left:
-      0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-    right:
-      0;
+    width: 100%;
 
-    bottom:
-      0;
+    max-height: 90vh;
 
-    width:
-      100%;
+    border-left: 0;
 
-    max-height:
-      90vh;
+    border-top: 1px solid var(--border);
 
-    border-left:
-      0;
+    border-radius: 22px 22px 0 0;
 
-    border-top:
-      1px solid
-      var(--border);
+    transform: translateY(101%);
 
-    border-radius:
-      22px
-      22px
-      0
-      0;
-
-    transform:
-      translateY(
-        101%
-      );
-
-    padding-bottom:
-      env(
-        safe-area-inset-bottom
-      );
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .drawer.open {
-    transform:
-      translateY(0);
+    transform: translateY(0);
   }
 
   .drawer-body {
-    padding:
-      20px;
+    padding: 20px;
   }
 
   .drawer-top {
-    padding:
-      20px;
-  }
-
-  .drawer-footer {
-    padding:
-      14px
-      20px
-      calc(
-        14px +
-        env(
-          safe-area-inset-bottom
-        )
-      );
-  }
-
-  textarea {
-    min-height:
-      150px;
+    padding: 20px;
   }
 
   .attempts-table th,
   .attempts-table td {
-    padding:
-      10px
-      8px;
+    padding: 10px 8px;
   }
 
-  .attempt-btn {
-    min-width:
-      32px;
-
-    padding:
-      0
-      7px;
+  .readonly-comments {
+    font-size: 13px;
+    line-height: 1.6;
   }
 
   .create-title {
-    font-size:
-      36px;
+    font-size: 36px;
   }
 
   .builder {
-    padding:
-      20px
-      14px;
+    padding: 20px 14px;
   }
 
   .builder-track {
-    margin:
-      0
-      -14px;
+    margin: 0 -14px;
 
-    padding:
-      50px
-      20px
-      30px;
+    padding: 50px 20px 30px;
   }
 
   .builder-events {
-    gap:
-      28px;
+    gap: 26px;
   }
 
   .create-footer {
-    display:
-      grid;
+    display: grid;
 
-    grid-template-columns:
-      1fr
-      1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .create-footer .btn {
-    width:
-      100%;
+    width: 100%;
   }
 
   .modal-backdrop {
-    align-items:
-      flex-end;
+    align-items: flex-end;
 
-    padding:
-      0;
+    padding: 0;
   }
 
   .modal {
-    width:
-      100%;
+    width: 100%;
 
     padding:
       24px
       20px
       calc(
         24px +
-        env(
-          safe-area-inset-bottom
-        )
+        env(safe-area-inset-bottom)
       );
 
-    border-radius:
-      22px
-      22px
-      0
-      0;
+    border-radius: 22px 22px 0 0;
   }
 
 }
-
 </style>
 </head>
 
@@ -2217,8 +1537,8 @@ textarea {
 
 </header>
 
-
 <main>
+
 
 <!-- ================================================= -->
 <!-- DASHBOARD -->
@@ -2245,9 +1565,8 @@ Sessions
 
 <p>
 Review simulator events by phase of flight,
-edit instructor assessments,
-track individual attempts,
-and build new sessions.
+see the outcome of each attempt,
+and open the instructor debrief for every event.
 </p>
 
 </div>
@@ -2277,6 +1596,7 @@ Recent sims
 
 <div class="cards">
 
+
 <button
   class="sim-card"
   onclick="openPreset()"
@@ -2304,17 +1624,11 @@ LEBL → LEPA
 
 <div class="meta">
 
-<span>
-A320
-</span>
+<span>A320</span>
 
-<span>
-6 events
-</span>
+<span>6 events</span>
 
-<span>
-08 Aug 2026
-</span>
+<span>08 Aug 2026</span>
 
 </div>
 
@@ -2348,17 +1662,11 @@ LEPA → EGGC
 
 <div class="meta">
 
-<span>
-A320
-</span>
+<span>A320</span>
 
-<span>
-6 events
-</span>
+<span>6 events</span>
 
-<span>
-02 Aug 2026
-</span>
+<span>02 Aug 2026</span>
 
 </div>
 
@@ -2392,17 +1700,11 @@ EGLL → EHAM
 
 <div class="meta">
 
-<span>
-A320
-</span>
+<span>A320</span>
 
-<span>
-6 events
-</span>
+<span>6 events</span>
 
-<span>
-27 Jul 2026
-</span>
+<span>27 Jul 2026</span>
 
 </div>
 
@@ -2436,17 +1738,11 @@ LFPG → LEMD
 
 <div class="meta">
 
-<span>
-A320
-</span>
+<span>A320</span>
 
-<span>
-6 events
-</span>
+<span>6 events</span>
 
-<span>
-19 Jul 2026
-</span>
+<span>19 Jul 2026</span>
 
 </div>
 
@@ -2480,17 +1776,11 @@ LEBL → LFMN
 
 <div class="meta">
 
-<span>
-A320
-</span>
+<span>A320</span>
 
-<span>
-6 events
-</span>
+<span>6 events</span>
 
-<span>
-12 Jul 2026
-</span>
+<span>12 Jul 2026</span>
 
 </div>
 
@@ -2510,9 +1800,7 @@ A320
 
 <div
   class="route"
-  style="
-    font-size:22px
-  "
+  style="font-size:22px"
 >
 Create new
 </div>
@@ -2529,6 +1817,7 @@ Build a session
 
 </button>
 
+
 </div>
 
 </div>
@@ -2536,8 +1825,9 @@ Build a session
 </section>
 
 
+
 <!-- ================================================= -->
-<!-- SAVED DEBRIEF -->
+<!-- SAVED FLIGHT -->
 <!-- ================================================= -->
 
 <section
@@ -2554,9 +1844,7 @@ Build a session
 
 <div
   class="eyebrow"
-  style="
-    margin-bottom:6px
-  "
+  style="margin-bottom:6px"
 >
 Type Rating · A320
 </div>
@@ -2566,7 +1854,7 @@ LEBL → LEPA
 </div>
 
 <div class="debrief-sub">
-08 Aug 2026 · Instructor view
+08 Aug 2026 · Instructor debrief
 </div>
 
 </div>
@@ -2576,17 +1864,12 @@ LEBL → LEPA
 
 <span>
 <i class="g"></i>
-Pass
+Passed
 </span>
 
 <span>
 <i class="r"></i>
-Fail
-</span>
-
-<span>
-<i class="n"></i>
-Not graded
+Not passed
 </span>
 
 </div>
@@ -2606,27 +1889,28 @@ Swipe horizontally to follow the flight →
 
 <div class="timeline">
 
+
 <div class="phase-labels">
 
-<span>
-Ground
-</span>
+<div class="phase">
+<span>Ground</span>
+</div>
 
-<span>
-Takeoff
-</span>
+<div class="phase">
+<span>Takeoff</span>
+</div>
 
-<span>
-Climb / Cruise
-</span>
+<div class="phase">
+<span>Climb / Cruise</span>
+</div>
 
-<span>
-Approach
-</span>
+<div class="phase">
+<span>Approach</span>
+</div>
 
-<span>
-Landing
-</span>
+<div class="phase">
+<span>Landing</span>
+</div>
 
 </div>
 
@@ -2636,7 +1920,7 @@ Landing
 
 <svg
   class="flight-svg"
-  viewBox="0 0 1920 430"
+  viewBox="0 0 1500 430"
   preserveAspectRatio="none"
 >
 
@@ -2644,10 +1928,11 @@ Landing
   class="track-dash"
   d="
     M 40 332
-    C 215 330 268 240 340 190
-    C 485 90 720 88 880 112
-    C 1080 142 1240 91 1390 155
-    C 1512 208 1578 310 1880 332
+    C 180 328 235 245 325 190
+    C 410 138 520 125 650 126
+    C 790 127 895 130 1010 150
+    C 1120 169 1195 230 1265 285
+    C 1335 328 1400 332 1460 332
   "
 />
 
@@ -2655,10 +1940,11 @@ Landing
   class="track"
   d="
     M 40 332
-    C 215 330 268 240 340 190
-    C 485 90 720 88 880 112
-    C 1080 142 1240 91 1390 155
-    C 1512 208 1578 310 1880 332
+    C 180 328 235 245 325 190
+    C 410 138 520 125 650 126
+    C 790 127 895 130 1010 150
+    C 1120 169 1195 230 1265 285
+    C 1335 328 1400 332 1460 332
   "
 />
 
@@ -2696,11 +1982,11 @@ Palma de Mallorca
 
 
 <button
-  class="event fail"
+  class="event pass"
   data-event="0"
   style="
-    left:220px;
-    top:300px
+    left:165px;
+    top:303px
   "
   onclick="openEvent(0)"
 >
@@ -2722,8 +2008,8 @@ Ground
   class="event pass"
   data-event="1"
   style="
-    left:458px;
-    top:174px
+    left:365px;
+    top:168px
   "
   onclick="openEvent(1)"
 >
@@ -2745,8 +2031,8 @@ After V1
   class="event pass"
   data-event="2"
   style="
-    left:790px;
-    top:111px
+    left:585px;
+    top:126px
   "
   onclick="openEvent(2)"
 >
@@ -2765,11 +2051,11 @@ FL180
 
 
 <button
-  class="event fail"
+  class="event pass"
   data-event="3"
   style="
-    left:1115px;
-    top:120px
+    left:810px;
+    top:130px
   "
   onclick="openEvent(3)"
 >
@@ -2791,8 +2077,8 @@ Cruise
   class="event pass"
   data-event="4"
   style="
-    left:1452px;
-    top:185px
+    left:1050px;
+    top:166px
   "
   onclick="openEvent(4)"
 >
@@ -2811,11 +2097,11 @@ Approach
 
 
 <button
-  class="event fail"
+  class="event pass"
   data-event="5"
   style="
-    left:1720px;
-    top:310px
+    left:1290px;
+    top:299px
   "
   onclick="openEvent(5)"
 >
@@ -2844,8 +2130,9 @@ Landing
 </section>
 
 
+
 <!-- ================================================= -->
-<!-- CREATE -->
+<!-- CREATE NEW -->
 <!-- ================================================= -->
 
 <section
@@ -2865,6 +2152,7 @@ Build debrief
 
 
 <div class="form-grid">
+
 
 <div class="form-group">
 
@@ -2953,6 +2241,7 @@ A321
 
 </div>
 
+
 </div>
 
 
@@ -2961,7 +2250,7 @@ A321
 <div class="builder-head">
 
 <h2>
-Flight path
+Flight events
 </h2>
 
 <span
@@ -2990,11 +2279,7 @@ Flight path
 
 <div
   class="builder-event"
-  onclick="
-    editBuilderEvent(
-      this
-    )
-  "
+  onclick="editBuilderEvent(this)"
 >
 
 <div class="mini-dot"></div>
@@ -3012,11 +2297,7 @@ Ground
 
 <div
   class="builder-event"
-  onclick="
-    editBuilderEvent(
-      this
-    )
-  "
+  onclick="editBuilderEvent(this)"
 >
 
 <div class="mini-dot"></div>
@@ -3034,11 +2315,7 @@ Cruise
 
 <div
   class="builder-event"
-  onclick="
-    editBuilderEvent(
-      this
-    )
-  "
+  onclick="editBuilderEvent(this)"
 >
 
 <div class="mini-dot"></div>
@@ -3057,9 +2334,7 @@ Landing
 <div class="add-event">
 
 <button
-  onclick="
-    openAddModal()
-  "
+  onclick="openAddModal()"
 >
 +
 </button>
@@ -3069,6 +2344,7 @@ Add event
 </span>
 
 </div>
+
 
 </div>
 
@@ -3081,37 +2357,34 @@ Add event
 
 <button
   class="btn"
-  onclick="
-    showView(
-      'dashboard'
-    )
-  "
+  onclick="showView('dashboard')"
 >
 Cancel
 </button>
 
 <button
   class="btn primary"
-  onclick="
-    createSession()
-  "
+  onclick="createSession()"
 >
 Create session
 </button>
 
 </div>
 
+
 </div>
 
 </section>
+
 
 </main>
 
 </div>
 
 
+
 <!-- ================================================= -->
-<!-- SAVED POINT EDIT DRAWER -->
+<!-- READ ONLY SAVED EVENT PANEL -->
 <!-- ================================================= -->
 
 <aside
@@ -3136,12 +2409,10 @@ TCAS RA
 
 </div>
 
-
 <button
   class="btn icon"
-  onclick="
-    closeDrawer()
-  "
+  onclick="closeDrawer()"
+  aria-label="Close"
 >
 ×
 </button>
@@ -3158,7 +2429,6 @@ TCAS RA
 Attempts
 </label>
 
-
 <div class="attempts-wrapper">
 
 <table class="attempts-table">
@@ -3168,43 +2438,23 @@ Attempts
 <tr>
 
 <th>
-Try
+Attempt
 </th>
 
 <th>
 Result
 </th>
 
-<th
-  style="
-    text-align:right
-  "
->
-Edit
-</th>
-
 </tr>
 
 </thead>
 
-
 <tbody id="attemptsBody">
-
 </tbody>
 
 </table>
 
 </div>
-
-
-<button
-  class="add-attempt"
-  onclick="
-    addAttempt()
-  "
->
-+ Add attempt
-</button>
 
 </div>
 
@@ -3215,44 +2465,29 @@ Edit
 Instructor comments
 </label>
 
-<textarea
+<div
+  class="readonly-comments"
   id="comments"
-  placeholder="Add instructor comments"
-></textarea>
-
-</div>
-
-</div>
-
-
-<div class="drawer-footer">
-
-<button
-  class="btn primary"
-  onclick="
-    saveEvent()
-  "
 >
-Save changes
-</button>
+</div>
+
+</div>
+
 
 </div>
 
 </aside>
 
 
+
 <!-- ================================================= -->
-<!-- ADD / EDIT BUILDER EVENT -->
+<!-- CREATE EVENT MODAL -->
 <!-- ================================================= -->
 
 <div
   class="modal-backdrop"
   id="modalBackdrop"
-  onclick="
-    modalBackdropClick(
-      event
-    )
-  "
+  onclick="modalBackdropClick(event)"
 >
 
 <div class="modal">
@@ -3364,9 +2599,7 @@ Landing
 
 <button
   class="btn"
-  onclick="
-    closeAddModal()
-  "
+  onclick="closeAddModal()"
 >
 Cancel
 </button>
@@ -3374,14 +2607,13 @@ Cancel
 <button
   class="btn primary"
   id="modalSaveBtn"
-  onclick="
-    saveBuilderModal()
-  "
+  onclick="saveBuilderModal()"
 >
 Add
 </button>
 
 </div>
+
 
 </div>
 
@@ -3394,6 +2626,7 @@ Add
 >
 Saved
 </div>
+
 
 
 <script>
@@ -3427,7 +2660,7 @@ const events = [
     ],
 
     comments:
-      "The first engine start attempt was not managed to the expected standard. Recognition of the abnormal start was delayed and the crew continued monitoring without clearly verbalising the developing condition. The shutdown decision was therefore later than desired. On the second attempt the malfunction was identified much earlier. The correct priorities were established, the start sequence was stopped promptly, and communication between PF and PM was significantly clearer. Review the normal engine start parameters and the cues that should trigger an immediate stop of the start sequence."
+      "The first engine start attempt was not managed to the expected standard. Recognition of the abnormal start was delayed and the crew continued monitoring without clearly verbalising the developing condition. The shutdown decision was therefore later than desired.\n\nOn the second attempt the malfunction was identified significantly earlier. The start sequence was stopped promptly and communication between PF and PM was clearer. The crew showed a better understanding of the expected engine indications and correctly prioritised preventing further deterioration.\n\nReview the normal engine start parameters and the indications that should result in an immediate stop of the start sequence."
 
   },
 
@@ -3450,7 +2683,7 @@ const events = [
     ],
 
     comments:
-      "The engine failure was handled in a controlled manner with good aircraft control immediately after V1. Directional control was maintained and the initial flight path was stable. Task sharing between PF and PM was effective and there was no unnecessary rush into ECAM actions before the aircraft was established. The ECAM sequence was completed methodically and the crew maintained awareness of terrain, acceleration altitude and configuration changes. The return strategy was sensible and the briefing covered the main operational consequences. Continue to emphasise clear confirmation before any irreversible action."
+      "The engine failure was handled in a controlled manner with good aircraft control immediately after V1. Directional control was maintained and the initial flight path remained stable.\n\nTask sharing between PF and PM was effective. There was no unnecessary rush into ECAM actions before the aircraft was established. The ECAM sequence was subsequently completed methodically and both pilots retained awareness of acceleration altitude, configuration and terrain.\n\nThe return strategy was appropriate and the briefing covered the principal operational consequences. Continue to maintain clear verbal confirmation before any irreversible action."
 
   },
 
@@ -3473,7 +2706,7 @@ const events = [
     ],
 
     comments:
-      "The response to the TCAS resolution advisory was immediate and correctly prioritised over the existing ATC clearance. The required vertical response was applied smoothly without excessive control input. The crew monitored the vertical speed guidance throughout the manoeuvre and avoided unnecessary lateral deviation. Communication was concise and the PM correctly supported the event by monitoring the traffic display and subsequent clear-of-conflict indication. The return to the previous clearance was well managed. Maintain the same discipline of responding to the RA first and resolving ATC coordination afterwards."
+      "The response to the TCAS resolution advisory was immediate and correctly prioritised over the existing ATC clearance. The required vertical response was applied smoothly without excessive control input.\n\nThe crew monitored the vertical guidance throughout the manoeuvre and avoided unnecessary lateral deviation. Communication between PF and PM was concise and the traffic situation remained understood.\n\nThe clear-of-conflict indication was correctly identified and the aircraft returned to the appropriate flight path in a controlled manner. Maintain the same discipline of responding to the RA first and coordinating with ATC afterwards."
 
   },
 
@@ -3501,7 +2734,7 @@ const events = [
     ],
 
     comments:
-      "During the first run the ECAM actions were completed, but the overall system picture was not fully understood before moving into the status review. The consequences for air conditioning, pressurisation and anti-ice capability were discussed only after prompting. On the repeat, the crew slowed the process down and built a clearer understanding of what remained available. The status page was reviewed more effectively and the operational implications were incorporated into the continuation decision. Further review should focus on linking individual ECAM actions to the wider system consequences rather than treating the procedure as a sequence of isolated steps."
+      "During the first run the ECAM actions were completed, but the overall system picture was not fully understood before moving into the status review. The consequences for air conditioning, pressurisation and anti-ice capability were discussed only after prompting.\n\nOn the second attempt the crew deliberately slowed the process down and developed a clearer understanding of what remained available. The status page was reviewed more effectively and the operational consequences were incorporated into the continuation decision.\n\nFurther review should focus on linking each ECAM action to the wider system consequences instead of treating the procedure as a sequence of isolated actions."
 
   },
 
@@ -3524,7 +2757,7 @@ const events = [
     ],
 
     comments:
-      "The fault was identified early enough to allow the approach plan to be reassessed without unnecessary time pressure. The crew reviewed the expected landing implications and incorporated them into the approach briefing. Runway length, braking expectations and directional control considerations were discussed. The PF maintained a stable approach while the PM completed the required actions. The decision to continue was supported by the available runway and conditions. Good anticipation of the landing phase reduced workload later in the exercise. Continue to make the operational consequences explicit during the briefing rather than relying only on the ECAM status presentation."
+      "The fault was identified early enough to reassess the landing plan without creating unnecessary time pressure. The crew reviewed the expected landing implications and included them in the approach briefing.\n\nRunway length, braking expectations and directional control were discussed before continuing. The PF maintained a stable approach while the PM completed the required actions and monitored the system status.\n\nThe decision to continue was supported by the runway available and prevailing conditions. Good anticipation during the approach significantly reduced workload during the landing phase."
 
   },
 
@@ -3552,7 +2785,7 @@ const events = [
     ],
 
     comments:
-      "On the first attempt the crew took too long to recognise that the expected deceleration was not developing. This delayed the transition from normal braking expectations to the abnormal braking response. Directional control remained acceptable, but the available runway was being consumed rapidly. On the second attempt the lack of deceleration was identified much sooner. The response was more decisive and both pilots communicated clearly about the remaining runway and the aircraft behaviour. The second run demonstrated a much better balance between maintaining directional control and taking timely action. Review the visual and kinetic cues that indicate ineffective braking immediately after touchdown."
+      "On the first attempt the crew took too long to recognise that the expected deceleration was not developing. This delayed the transition from normal braking expectations to the abnormal braking response. Directional control remained acceptable, but significant runway was consumed before the situation was fully recognised.\n\nOn the second attempt the lack of deceleration was identified much earlier. The response was more decisive and communication between both pilots was clear regarding remaining runway and aircraft behaviour.\n\nThe second run demonstrated a much better balance between maintaining directional control and taking timely action. Review the visual and kinetic cues that indicate ineffective braking immediately after touchdown."
 
   }
 
@@ -3698,7 +2931,7 @@ function openEvent(index) {
     .getElementById(
       "comments"
     )
-    .value =
+    .textContent =
       eventData.comments;
 
 
@@ -3718,7 +2951,7 @@ function openEvent(index) {
 
 
 /* ================================================= */
-/* ATTEMPTS TABLE */
+/* READ ONLY ATTEMPTS */
 /* ================================================= */
 
 function renderAttempts() {
@@ -3748,251 +2981,62 @@ function renderAttempts() {
     "";
 
 
-  attempts
-    .forEach(
-      (
-        attempt,
-        index
-      ) => {
+  attempts.forEach(
+    (
+      attempt,
+      index
+    ) => {
 
-        const row =
-          document
-            .createElement(
-              "tr"
-            );
-
-
-        const tryNumber =
-          index + 1;
+      const row =
+        document
+          .createElement(
+            "tr"
+          );
 
 
-        row.innerHTML = `
-
-          <td>
-
-            <span class="attempt-name">
-
-              Try ${tryNumber}
-
-            </span>
-
-          </td>
+      const passed =
+        attempt.result ===
+        "pass";
 
 
-          <td>
+      row.innerHTML = `
 
-            <span
-              class="
-                attempt-status
-                ${attempt.result}
-              "
-            >
+        <td>
 
-              ${
-                attempt.result ===
-                "pass"
-                  ? "✓ Pass"
-                  : "× Fail"
-              }
+          <span class="attempt-name">
+            Try ${index + 1}
+          </span>
 
-            </span>
-
-          </td>
+        </td>
 
 
-          <td>
+        <td>
 
-            <div class="attempt-actions">
+          <span
+            class="
+              attempt-status
+              ${attempt.result}
+            "
+          >
 
-              <button
-                class="
-                  attempt-btn
-                  fail
-                  ${
-                    attempt.result ===
-                    "fail"
-                      ? "active"
-                      : ""
-                  }
-                "
-                onclick="
-                  setAttemptResult(
-                    ${index},
-                    'fail'
-                  )
-                "
-              >
+            ${
+              passed
+                ? "✓ Pass"
+                : "× Not passed"
+            }
 
-                ×
+          </span>
 
-              </button>
+        </td>
+
+      `;
 
 
-              <button
-                class="
-                  attempt-btn
-                  pass
-                  ${
-                    attempt.result ===
-                    "pass"
-                      ? "active"
-                      : ""
-                  }
-                "
-                onclick="
-                  setAttemptResult(
-                    ${index},
-                    'pass'
-                  )
-                "
-              >
+      body.appendChild(
+        row
+      );
 
-                ✓
-
-              </button>
-
-            </div>
-
-          </td>
-
-        `;
-
-
-        body.appendChild(
-          row
-        );
-
-      }
-    );
-
-}
-
-
-function setAttemptResult(
-  index,
-  result
-) {
-
-  if (
-    currentEvent ===
-    null
-  ) {
-    return;
-  }
-
-
-  events[
-    currentEvent
-  ]
-  .attempts[
-    index
-  ]
-  .result =
-    result;
-
-
-  renderAttempts();
-
-}
-
-
-function addAttempt() {
-
-  if (
-    currentEvent ===
-    null
-  ) {
-    return;
-  }
-
-
-  events[
-    currentEvent
-  ]
-  .attempts
-  .push(
-    {
-      result:
-        "fail"
     }
-  );
-
-
-  renderAttempts();
-
-}
-
-
-/* ================================================= */
-/* SAVE SAVED POINT */
-/* ================================================= */
-
-function saveEvent() {
-
-  if (
-    currentEvent ===
-    null
-  ) {
-    return;
-  }
-
-
-  const eventData =
-    events[
-      currentEvent
-    ];
-
-
-  eventData.comments =
-    document
-      .getElementById(
-        "comments"
-      )
-      .value;
-
-
-  const node =
-    document
-      .querySelector(
-        `[data-event="${currentEvent}"]`
-      );
-
-
-  const attempts =
-    eventData.attempts;
-
-
-  const finalAttempt =
-    attempts[
-      attempts.length - 1
-    ];
-
-
-  node
-    .classList
-    .remove(
-      "pass",
-      "fail"
-    );
-
-
-  if (
-    finalAttempt
-  ) {
-
-    node
-      .classList
-      .add(
-        finalAttempt.result
-      );
-
-  }
-
-
-  closeDrawer();
-
-  showToast(
-    "Changes saved"
   );
 
 }
@@ -4017,7 +3061,7 @@ function closeDrawer() {
 
 
 /* ================================================= */
-/* CREATE SESSION MODAL */
+/* CREATE NEW EVENT */
 /* ================================================= */
 
 function openAddModal() {
@@ -4053,6 +3097,10 @@ function openAddModal() {
 
 }
 
+
+/* ================================================= */
+/* EDIT EVENT WHILE BUILDING */
+/* ================================================= */
 
 function editBuilderEvent(
   element
@@ -4124,6 +3172,10 @@ function editBuilderEvent(
 }
 
 
+/* ================================================= */
+/* CLOSE EVENT MODAL */
+/* ================================================= */
+
 function closeAddModal() {
 
   document
@@ -4142,6 +3194,10 @@ function closeAddModal() {
 }
 
 
+/* ================================================= */
+/* CLICK OUTSIDE MODAL */
+/* ================================================= */
+
 function modalBackdropClick(
   event
 ) {
@@ -4157,6 +3213,10 @@ function modalBackdropClick(
 
 }
 
+
+/* ================================================= */
+/* SAVE NEW / EDITED BUILDER EVENT */
+/* ================================================= */
 
 function saveBuilderModal() {
 
@@ -4277,6 +3337,7 @@ function saveBuilderModal() {
 
   closeAddModal();
 
+
   showToast(
     "Event added"
   );
@@ -4375,7 +3436,7 @@ function createSession() {
 
 
 /* ================================================= */
-/* HELPERS */
+/* HTML ESCAPING */
 /* ================================================= */
 
 function escapeHtml(
@@ -4388,20 +3449,15 @@ function escapeHtml(
 
     character => ({
 
-      "&":
-        "&amp;",
+      "&": "&amp;",
 
-      "<":
-        "&lt;",
+      "<": "&lt;",
 
-      ">":
-        "&gt;",
+      ">": "&gt;",
 
-      '"':
-        "&quot;",
+      '"': "&quot;",
 
-      "'":
-        "&#039;"
+      "'": "&#039;"
 
     }[character])
 
@@ -4409,6 +3465,10 @@ function escapeHtml(
 
 }
 
+
+/* ================================================= */
+/* TOAST */
+/* ================================================= */
 
 function showToast(
   text
@@ -4447,6 +3507,10 @@ function showToast(
 
 }
 
+
+/* ================================================= */
+/* ESCAPE */
+/* ================================================= */
 
 document
   .addEventListener(
