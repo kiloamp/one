@@ -2,34 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
 <title>Debrief</title>
 
 <style>
 :root {
-  --bg: #0c0e11;
-  --panel: #14171b;
-  --panel-2: #191d22;
-  --panel-3: #101317;
+  --bg: #0d0f12;
+  --panel: #15181d;
+  --panel-hover: #1b1f25;
+  --panel-soft: #111419;
 
-  --text: #f3f5f7;
-  --muted: #858d98;
-  --muted-2: #b1b7c0;
+  --text: #f4f6f8;
+  --muted: #858c96;
+  --muted-light: #adb3bc;
 
   --border: #292e35;
-  --border-2: #373d46;
+  --border-light: #373d46;
 
-  --green: #45c985;
-  --green-soft: rgba(69, 201, 133, .12);
-  --green-reposition: #8ddfb4;
+  --green: #43c982;
+  --green-soft: rgba(67, 201, 130, .12);
 
   --red: #ef6969;
-  --red-soft: rgba(239, 105, 105, .11);
+  --red-soft: rgba(239, 105, 105, .12);
 
-  --blue: #76a9fa;
-  --blue-soft: rgba(118, 169, 250, .12);
+  --blue: #71a8ff;
+  --blue-soft: rgba(113, 168, 255, .12);
 
-  --radius: 16px;
+  --reposition: #8bdfb2;
+  --reposition-bg: rgba(139, 223, 178, .11);
+
+  --radius: 17px;
 }
 
 * {
@@ -42,6 +47,7 @@ html {
 
 body {
   margin: 0;
+
   background: var(--bg);
   color: var(--text);
 
@@ -55,20 +61,13 @@ body {
     sans-serif;
 }
 
-button,
-input,
-select {
-  font: inherit;
-}
-
 button {
+  font: inherit;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
+button:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 2px;
 }
@@ -99,29 +98,34 @@ select:focus-visible {
   align-items: center;
   justify-content: space-between;
 
-  background: rgba(12,14,17,.91);
+  background: rgba(13, 15, 18, .9);
+
   backdrop-filter: blur(18px);
 
   border-bottom: 1px solid var(--border);
 }
 
 .brand {
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 760;
+
   letter-spacing: -.045em;
+
   cursor: pointer;
 }
 
 .top-actions {
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 
 .btn {
   min-height: 39px;
+
   padding: 0 14px;
 
-  border: 1px solid var(--border-2);
+  border: 1px solid var(--border-light);
   border-radius: 9px;
 
   background: var(--panel);
@@ -131,13 +135,7 @@ select:focus-visible {
 }
 
 .btn:hover {
-  background: var(--panel-2);
-}
-
-.btn.primary {
-  background: var(--text);
-  border-color: var(--text);
-  color: #111318;
+  background: var(--panel-hover);
 }
 
 .btn.ghost {
@@ -175,38 +173,12 @@ h1 {
   margin: 0;
 
   font-size: clamp(40px, 5vw, 66px);
-  line-height: .98;
+
+  line-height: .97;
 
   font-weight: 740;
+
   letter-spacing: -.06em;
-}
-
-.form-group label,
-.field label {
-  display: block;
-
-  margin-bottom: 8px;
-
-  color: var(--muted);
-
-  font-size: 10px;
-  font-weight: 760;
-
-  text-transform: uppercase;
-  letter-spacing: .11em;
-}
-
-input,
-select {
-  width: 100%;
-
-  padding: 11px 12px;
-
-  border: 1px solid var(--border-2);
-  border-radius: 9px;
-
-  background: var(--panel-3);
-  color: var(--text);
 }
 
 
@@ -216,55 +188,51 @@ select {
 
 .dashboard {
   max-width: 1280px;
+
   margin: 0 auto;
 
-  padding: 54px 30px 90px;
+  padding: 55px 30px 90px;
 }
 
 .hero {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-
-  gap: 30px;
-
   margin-bottom: 40px;
 }
 
 .hero p {
   max-width: 570px;
 
-  margin: 14px 0 0;
+  margin: 15px 0 0;
 
-  color: var(--muted-2);
+  color: var(--muted-light);
 
   font-size: 14px;
   line-height: 1.6;
 }
 
 .section-head {
-  margin: 42px 0 15px;
+  margin: 43px 0 15px;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .section-head h2 {
   margin: 0;
+
   font-size: 15px;
 }
 
 .section-head span {
   color: var(--muted);
+
   font-size: 12px;
 }
 
 .cards {
   display: grid;
 
-  grid-template-columns:
-    repeat(3, minmax(0,1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 
   gap: 14px;
 }
@@ -279,6 +247,7 @@ select {
   justify-content: space-between;
 
   border: 1px solid var(--border);
+
   border-radius: var(--radius);
 
   background: var(--panel);
@@ -291,8 +260,10 @@ select {
 
 .sim-card:hover {
   transform: translateY(-2px);
-  border-color: #3b424b;
-  background: var(--panel-2);
+
+  background: var(--panel-hover);
+
+  border-color: #3c424b;
 }
 
 .card-top {
@@ -303,34 +274,37 @@ select {
   gap: 12px;
 }
 
-.ffs-label {
+.ffs-number {
   color: var(--muted);
 
   font-size: 10px;
   font-weight: 760;
 
+  letter-spacing: .13em;
+
   text-transform: uppercase;
-  letter-spacing: .12em;
 }
 
 .arrow {
-  color: #777f8a;
+  color: #747c87;
+
   font-size: 19px;
 }
 
 .card-title {
-  margin-top: 19px;
+  max-width: 320px;
 
-  max-width: 310px;
+  margin-top: 18px;
 
   font-size: 20px;
   line-height: 1.2;
 
   font-weight: 710;
+
   letter-spacing: -.035em;
 }
 
-.card-meta {
+.card-bottom {
   display: flex;
   justify-content: space-between;
 
@@ -351,31 +325,32 @@ select {
 }
 
 .session-head {
-  min-height: 112px;
+  min-height: 110px;
 
-  padding: 21px 30px 18px;
+  padding: 22px 30px 18px;
 
   display: flex;
-  justify-content: space-between;
   align-items: flex-end;
+  justify-content: space-between;
 
-  gap: 20px;
+  gap: 24px;
 
   border-bottom: 1px solid var(--border);
 }
 
-.session-name {
-  max-width: 850px;
+.session-title {
+  max-width: 860px;
 
   font-size: 27px;
-  line-height: 1.1;
+  line-height: 1.12;
 
   font-weight: 730;
+
   letter-spacing: -.045em;
 }
 
-.session-sub {
-  margin-top: 7px;
+.session-route {
+  margin-top: 6px;
 
   color: var(--muted);
 
@@ -386,7 +361,7 @@ select {
   display: flex;
   align-items: center;
 
-  gap: 14px;
+  gap: 15px;
 
   color: var(--muted);
 
@@ -395,7 +370,7 @@ select {
   white-space: nowrap;
 }
 
-.legend i {
+.legend-dot {
   width: 8px;
   height: 8px;
 
@@ -406,35 +381,39 @@ select {
   border-radius: 50%;
 }
 
-.legend .info {
+.legend-dot.blue {
   background: var(--blue);
 }
 
-.legend .pass {
+.legend-dot.green {
   background: var(--green);
 }
 
-.legend .fail {
+.legend-dot.red {
   background: var(--red);
 }
 
-.legend .repos {
-  width: 13px;
+.legend-bar {
+  width: 15px;
   height: 4px;
 
-  border-radius: 2px;
+  display: inline-block;
 
-  background: var(--green-reposition);
+  margin-right: 5px;
+
+  border-radius: 4px;
+
+  background: var(--reposition);
 }
-
-
-/* ================================================= */
-/* TIMELINE */
-/* ================================================= */
 
 .mobile-scroll-hint {
   display: none;
 }
+
+
+/* ================================================= */
+/* FLIGHT TIMELINE */
+/* ================================================= */
 
 .timeline-scroll {
   width: 100%;
@@ -444,8 +423,8 @@ select {
 
   -webkit-overflow-scrolling: touch;
 
-  scrollbar-color: #3c424b transparent;
   scrollbar-width: thin;
+  scrollbar-color: #3a4048 transparent;
 }
 
 .timeline {
@@ -455,100 +434,74 @@ select {
 
   padding:
     36px
-    80px
     70px
-    175px;
+    80px;
 }
 
-.timeline-inner {
+.flight-area {
   position: relative;
 
-  height: 510px;
+  height: 500px;
 }
 
-.stage-labels {
+
+/* ================================================= */
+/* PRE-SIM */
+/* ================================================= */
+
+.preflight-zone {
   position: absolute;
 
-  left: -150px;
+  left: 0;
   top: 0;
 
-  width: 130px;
-  height: 510px;
+  width: 300px;
+  height: 500px;
+
+  border-right: 1px dashed #343a43;
 }
 
-.stage-name {
+.preflight-label {
   position: absolute;
 
-  right: 0;
+  top: 2px;
+  left: 12px;
 
-  transform: translateY(-50%);
+  color: #69717b;
 
-  color: #747c87;
-
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 760;
 
   text-transform: uppercase;
-  letter-spacing: .1em;
 
-  white-space: nowrap;
+  letter-spacing: .12em;
 }
 
-.stage-line {
+.origin-label {
   position: absolute;
 
-  left: 0;
-  right: 0;
+  left: 330px;
+  bottom: 30px;
 
-  border-top: 1px dashed #282d34;
-
-  pointer-events: none;
+  z-index: 8;
 }
 
-.flight-svg {
+.destination-label {
   position: absolute;
 
-  inset: 0;
+  right: 10px;
+  bottom: 30px;
 
-  width: 100%;
-  height: 510px;
-
-  overflow: visible;
-
-  pointer-events: none;
-}
-
-.flight-path {
-  fill: none;
-
-  stroke: #4c535d;
-  stroke-width: 2;
-
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.timeline-airport {
-  position: absolute;
-
-  transform: translateY(-50%);
-
-  z-index: 4;
-}
-
-.timeline-airport.start {
-  left: 0;
-}
-
-.timeline-airport.end {
-  right: 0;
+  z-index: 8;
 
   text-align: right;
 }
 
 .airport-code {
-  font-size: 21px;
+  font-size: 22px;
+
   font-weight: 740;
+
   letter-spacing: -.04em;
 }
 
@@ -562,26 +515,132 @@ select {
 
 
 /* ================================================= */
-/* EVENT POINTS */
+/* FLIGHT SEGMENTS */
+/* ================================================= */
+
+.segment {
+  position: absolute;
+
+  top: 0;
+
+  height: 500px;
+}
+
+.segment-stage-row {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  top: 0;
+
+  height: 55px;
+
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.segment-stage {
+  position: relative;
+
+  padding:
+    0
+    8px
+    11px;
+
+  display: flex;
+  align-items: flex-end;
+
+  color: #727a84;
+
+  font-size: 8px;
+  font-weight: 760;
+
+  text-transform: uppercase;
+
+  letter-spacing: .09em;
+
+  white-space: nowrap;
+}
+
+.segment-stage:not(:last-child)::after {
+  content: "";
+
+  position: absolute;
+
+  right: 0;
+  top: 34px;
+
+  height: 400px;
+
+  border-right: 1px dashed #30363e;
+
+  pointer-events: none;
+}
+
+
+/* ================================================= */
+/* PATH */
+/* ================================================= */
+
+.flight-svg {
+  position: absolute;
+
+  left: 0;
+  top: 54px;
+
+  width: 100%;
+  height: 390px;
+
+  overflow: visible;
+
+  pointer-events: none;
+}
+
+.flight-path-shadow {
+  fill: none;
+
+  stroke: #22272e;
+
+  stroke-width: 1;
+
+  stroke-dasharray: 5 8;
+}
+
+.flight-path {
+  fill: none;
+
+  stroke: #4a515b;
+
+  stroke-width: 2;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* ================================================= */
+/* EVENTS */
 /* ================================================= */
 
 .event {
   position: absolute;
 
-  width: 170px;
+  width: 148px;
 
   padding: 0;
 
   transform: translate(-50%, -50%);
 
   border: 0;
+
   background: transparent;
 
   color: var(--text);
 
   text-align: center;
 
-  z-index: 10;
+  z-index: 15;
 }
 
 .event-dot {
@@ -591,47 +650,52 @@ select {
   margin: 0 auto;
 
   border: 4px solid var(--bg);
+
   border-radius: 50%;
 
   background: #747c86;
 
-  box-shadow: 0 0 0 1px #666e79;
+  box-shadow: 0 0 0 1px #626a75;
 }
 
 .event.pass .event-dot {
   background: var(--green);
+
   box-shadow: 0 0 0 1px var(--green);
 }
 
 .event.fail .event-dot {
   background: var(--red);
+
   box-shadow: 0 0 0 1px var(--red);
 }
 
 .event.info .event-dot {
   background: var(--blue);
+
   box-shadow: 0 0 0 1px var(--blue);
 }
 
 .event-title {
   display: inline-block;
 
-  max-width: 165px;
+  max-width: 142px;
 
   margin-top: 9px;
+
   padding: 4px 6px;
 
   border-radius: 6px;
 
-  background: rgba(12,14,17,.91);
+  background: rgba(13, 15, 18, .92);
 
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1.25;
 
-  font-weight: 670;
+  font-weight: 680;
 }
 
-.event-stage {
+.event-sub {
   margin-top: 3px;
 
   color: var(--muted);
@@ -644,54 +708,53 @@ select {
 /* REPOSITION */
 /* ================================================= */
 
-.reposition {
+.reposition-divider {
   position: absolute;
 
   top: 7px;
-  bottom: 4px;
+  bottom: 14px;
 
   width: 4px;
 
   transform: translateX(-50%);
 
-  border-radius: 4px;
+  border-radius: 5px;
 
-  background: var(--green-reposition);
+  background: var(--reposition);
 
-  opacity: .88;
-
-  z-index: 6;
+  z-index: 18;
 }
 
-.reposition-label {
+.reposition-pill {
   position: absolute;
 
-  top: 6px;
+  top: 5px;
   left: 50%;
 
   transform: translateX(-50%);
 
   padding: 5px 8px;
 
-  border: 1px solid rgba(141,223,180,.25);
+  border: 1px solid rgba(139, 223, 178, .25);
+
   border-radius: 999px;
 
-  background: #16241d;
+  background: #15231c;
 
-  color: var(--green-reposition);
+  color: var(--reposition);
 
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 760;
 
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: .09em;
 
   white-space: nowrap;
 }
 
 
 /* ================================================= */
-/* READ-ONLY DRAWER */
+/* SIDE PANEL */
 /* ================================================= */
 
 .drawer {
@@ -734,12 +797,13 @@ select {
 }
 
 .drawer h3 {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
 
   font-size: 24px;
   line-height: 1.15;
 
   font-weight: 720;
+
   letter-spacing: -.04em;
 }
 
@@ -755,22 +819,27 @@ select {
   margin-bottom: 28px;
 }
 
-.readonly-comments {
-  padding: 15px 16px;
+.field-label {
+  margin-bottom: 9px;
 
-  border: 1px solid var(--border);
-  border-radius: 11px;
+  color: var(--muted);
 
-  background: var(--panel-3);
+  font-size: 9px;
+  font-weight: 760;
 
-  color: #d5d9df;
+  text-transform: uppercase;
 
-  font-size: 13px;
-  line-height: 1.65;
+  letter-spacing: .11em;
 }
+
+
+/* ================================================= */
+/* DETAIL PANELS */
+/* ================================================= */
 
 .detail-list {
   display: grid;
+
   gap: 8px;
 }
 
@@ -780,24 +849,26 @@ select {
   display: grid;
 
   grid-template-columns:
-    minmax(110px,.65fr)
-    minmax(0,1.35fr);
+    minmax(115px, .7fr)
+    minmax(0, 1.3fr);
 
   gap: 14px;
 
   border: 1px solid var(--border);
+
   border-radius: 10px;
 
-  background: var(--panel-3);
+  background: var(--panel-soft);
 }
 
 .detail-key {
   color: var(--muted);
 
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 750;
 
   text-transform: uppercase;
+
   letter-spacing: .07em;
 }
 
@@ -806,8 +877,21 @@ select {
 
   font-size: 13px;
   line-height: 1.45;
+}
 
-  font-weight: 570;
+.readonly-comments {
+  padding: 15px 16px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 11px;
+
+  background: var(--panel-soft);
+
+  color: #d5d9df;
+
+  font-size: 13px;
+  line-height: 1.65;
 }
 
 
@@ -819,9 +903,10 @@ select {
   overflow: hidden;
 
   border: 1px solid var(--border);
+
   border-radius: 11px;
 
-  background: var(--panel-3);
+  background: var(--panel-soft);
 }
 
 .attempts table {
@@ -833,9 +918,9 @@ select {
 .attempts th {
   padding: 10px 12px;
 
-  border-bottom: 1px solid var(--border);
-
   background: var(--panel);
+
+  border-bottom: 1px solid var(--border);
 
   color: var(--muted);
 
@@ -843,7 +928,9 @@ select {
   font-weight: 760;
 
   text-align: left;
+
   text-transform: uppercase;
+
   letter-spacing: .08em;
 }
 
@@ -872,17 +959,19 @@ select {
 
 .status.pass {
   color: var(--green);
+
   background: var(--green-soft);
 }
 
 .status.fail {
   color: var(--red);
+
   background: var(--red-soft);
 }
 
 
 /* ================================================= */
-/* RESPONSIVE */
+/* TABLET */
 /* ================================================= */
 
 @media (max-width: 950px) {
@@ -895,6 +984,11 @@ select {
   }
 }
 
+
+/* ================================================= */
+/* MOBILE */
+/* ================================================= */
+
 @media (max-width: 650px) {
   .topbar {
     height: calc(62px + env(safe-area-inset-top));
@@ -905,16 +999,15 @@ select {
       0;
   }
 
+  .brand {
+    font-size: 20px;
+  }
+
   .dashboard {
     padding:
       38px
       17px
       70px;
-  }
-
-  .hero {
-    align-items: flex-start;
-    flex-direction: column;
   }
 
   .cards {
@@ -926,12 +1019,12 @@ select {
   }
 
   .session-head {
-    padding: 17px;
+    min-height: 105px;
 
-    min-height: 108px;
+    padding: 17px;
   }
 
-  .session-name {
+  .session-title {
     font-size: 21px;
   }
 
@@ -940,36 +1033,36 @@ select {
 
     padding: 8px 17px;
 
+    border-bottom: 1px solid var(--border);
+
+    background: var(--panel-soft);
+
     color: var(--muted);
 
     font-size: 10px;
-
-    border-bottom: 1px solid var(--border);
-
-    background: var(--panel-3);
   }
 
   .timeline {
-    padding-left: 145px;
-    padding-right: 55px;
-  }
-
-  .stage-labels {
-    left: -125px;
-    width: 105px;
-  }
-
-  .stage-name {
-    font-size: 9px;
+    padding:
+      25px
+      40px
+      60px;
   }
 
   .event {
-    width: 145px;
+    width: 128px;
   }
 
   .event-title {
-    max-width: 140px;
-    font-size: 10px;
+    max-width: 124px;
+
+    font-size: 9px;
+  }
+
+  .segment-stage {
+    font-size: 7px;
+
+    letter-spacing: .06em;
   }
 
   .drawer {
@@ -980,6 +1073,7 @@ select {
     bottom: 0;
 
     width: 100%;
+
     max-height: 90vh;
 
     border-left: 0;
@@ -996,6 +1090,7 @@ select {
 
   .detail-row {
     grid-template-columns: 1fr;
+
     gap: 5px;
   }
 }
@@ -1005,142 +1100,188 @@ select {
 <body>
 
 <header class="topbar">
-  <div class="brand" id="brand">Debrief</div>
+
+  <div
+    class="brand"
+    id="brand"
+  >
+    Debrief
+  </div>
 
   <div class="top-actions">
-    <button class="btn ghost" id="dashboardBtn" style="display:none">
+
+    <button
+      class="btn ghost"
+      id="dashboardButton"
+      style="display:none"
+    >
       Dashboard
     </button>
+
   </div>
+
 </header>
 
 
 <main>
 
-<section id="dashboardView" class="view active">
 
-  <div class="dashboard">
+<!-- ================================================= -->
+<!-- DASHBOARD -->
+<!-- ================================================= -->
 
-    <div class="hero">
+<section
+  id="dashboardView"
+  class="view active"
+>
 
-      <div>
-        <div class="eyebrow">A320 Type Rating</div>
+<div class="dashboard">
 
-        <h1>FFS Sessions</h1>
+  <div class="hero">
 
-        <p>
-          Full-flight simulator syllabus from SOP introduction
-          through emergency electrical configuration,
-          smoke and EFATO revision.
-        </p>
-      </div>
-
+    <div class="eyebrow">
+      A320 Type Rating
     </div>
 
+    <h1>
+      FFS Sessions
+    </h1>
 
-    <div class="section-head">
-      <h2>Conversion course</h2>
-      <span>8 FFS sessions</span>
-    </div>
-
-
-    <div class="cards" id="ffsCards">
-    </div>
+    <p>
+      Type Rating simulator sequence from SOP introduction
+      through abnormal systems, UPRT, EFATO,
+      emergency electrical configuration and smoke.
+    </p>
 
   </div>
+
+
+  <div class="section-head">
+
+    <h2>
+      Conversion course
+    </h2>
+
+    <span>
+      8 FFS sessions
+    </span>
+
+  </div>
+
+
+  <div
+    class="cards"
+    id="sessionCards"
+  >
+  </div>
+
+</div>
 
 </section>
 
 
-<section id="sessionView" class="view">
 
-  <div class="session-shell">
+<!-- ================================================= -->
+<!-- SESSION -->
+<!-- ================================================= -->
 
-    <div class="session-head">
+<section
+  id="sessionView"
+  class="view"
+>
 
-      <div>
+<div class="session-shell">
 
-        <div
-          class="eyebrow"
-          id="sessionEyebrow"
-        >
-          FFS 1 · Conversion Detail 1
-        </div>
 
-        <div
-          class="session-name"
-          id="sessionName"
-        >
-        </div>
+  <div class="session-head">
 
-        <div
-          class="session-sub"
-          id="sessionSub"
-        >
-        </div>
+    <div>
 
+      <div
+        class="eyebrow"
+        id="sessionEyebrow"
+      >
       </div>
 
+      <div
+        class="session-title"
+        id="sessionTitle"
+      >
+      </div>
 
-      <div class="legend">
-
-        <span>
-          <i class="info"></i>
-          Briefing / setup
-        </span>
-
-        <span>
-          <i class="pass"></i>
-          Passed
-        </span>
-
-        <span>
-          <i class="fail"></i>
-          Not passed
-        </span>
-
-        <span>
-          <i class="repos"></i>
-          Reposition
-        </span>
-
+      <div
+        class="session-route"
+        id="sessionRoute"
+      >
       </div>
 
     </div>
 
 
-    <div class="mobile-scroll-hint">
-      Swipe horizontally to follow the session →
+    <div class="legend">
+
+      <span>
+        <i class="legend-dot blue"></i>
+        Briefing / setup
+      </span>
+
+      <span>
+        <i class="legend-dot green"></i>
+        Passed
+      </span>
+
+      <span>
+        <i class="legend-dot red"></i>
+        Not passed
+      </span>
+
+      <span>
+        <i class="legend-bar"></i>
+        Reposition
+      </span>
+
     </div>
 
+  </div>
+
+
+  <div class="mobile-scroll-hint">
+    Swipe horizontally to follow the session →
+  </div>
+
+
+  <div
+    class="timeline-scroll"
+    id="timelineScroll"
+  >
 
     <div
-      class="timeline-scroll"
-      id="timelineScroll"
+      class="timeline"
+      id="timeline"
     >
 
       <div
-        class="timeline"
-        id="timeline"
+        class="flight-area"
+        id="flightArea"
       >
-
-        <div
-          class="timeline-inner"
-          id="timelineInner"
-        >
-        </div>
-
       </div>
 
     </div>
 
   </div>
 
+</div>
+
 </section>
+
 
 </main>
 
 
+
+<!-- ================================================= -->
+<!-- READ ONLY SIDE PANEL -->
+<!-- ================================================= -->
 
 <aside
   class="drawer"
@@ -1157,14 +1298,17 @@ select {
       >
       </div>
 
-      <h3 id="drawerTitle">
+      <h3
+        id="drawerTitle"
+      >
       </h3>
 
     </div>
 
+
     <button
       class="btn icon"
-      id="closeDrawer"
+      id="drawerClose"
       aria-label="Close"
     >
       ×
@@ -1186,7 +1330,7 @@ select {
 <script>
 
 /* ================================================= */
-/* CONSTANTS */
+/* STAGES */
 /* ================================================= */
 
 const STAGES = [
@@ -1200,37 +1344,32 @@ const STAGES = [
 ];
 
 
+/*
+  Local Y coordinates inside each segment.
+  Higher altitude = smaller Y.
+*/
+
 const STAGE_Y = {
-  "Ground": 430,
-  "Taxi": 390,
-  "Take Off": 325,
-  "Climb/Cruise": 140,
-  "Approach": 245,
-  "Landing": 335,
-  "Rollout": 390
+  "Ground": 374,
+  "Taxi": 348,
+  "Take Off": 288,
+  "Climb/Cruise": 115,
+  "Approach": 205,
+  "Landing": 298,
+  "Rollout": 348
 };
-
-
-const STAGE_ALIASES = {
-  "Takeoff": "Take Off",
-  "Take Off": "Take Off",
-  "Climb/Cruise": "Climb/Cruise",
-  "Climb / Cruise": "Climb/Cruise"
-};
-
-
-const DEFAULT_ATTEMPTS = [
-  {
-    result: "pass"
-  }
-];
 
 
 /* ================================================= */
-/* DATA */
+/* FFS CONTENT */
 /* ================================================= */
 
 const FFS = [
+
+
+/* ================================================= */
+/* FFS 1 */
+/* ================================================= */
 
 {
   number: 1,
@@ -1246,24 +1385,24 @@ const FFS = [
 
   briefing: {
     "Session focus":
-      "SOP introduction, normal operation, basic ECAM handling and repeated ILS profiles.",
+      "SOP introduction, basic ECAM handling and repeated ILS profiles.",
 
     "Crew sequence":
-      "CM1 first sector, reposition, then CM2 repeat.",
+      "CM1 first, followed by reposition and CM2.",
 
-    "Primary techniques":
-      "Normal SOP flow, ECAM discipline, holding, decelerated and stabilised approaches, manual thrust and raw-data ILS.",
+    "Approach exercises":
+      "Decelerated AP approach, stabilised manual-thrust approach and No Flight Director ILS.",
 
-    "Reposition plan":
-      "After the first shutdown, reposition for CM2 and repeat the principal take-off, holding and ILS exercises."
+    "Training emphasis":
+      "Normal SOP discipline, task sharing, holding procedures, go-around and normal landing."
   },
 
   setup: {
-    "Initial state":
+    "Aircraft state":
       "Cold aircraft",
 
     "Performance":
-      "Complete take-off performance calculation before engine start.",
+      "Take-off performance calculation required",
 
     "ZFW":
       "Training value",
@@ -1274,8 +1413,8 @@ const FFS = [
     "FOB":
       "Training value",
 
-    "Weather":
-      "Instructor-selected METAR",
+    "METAR":
+      "Instructor-selected training weather",
 
     "Departure":
       "LEBL",
@@ -1307,6 +1446,10 @@ const FFS = [
 },
 
 
+/* ================================================= */
+/* FFS 2 */
+/* ================================================= */
+
 {
   number: 2,
 
@@ -1321,24 +1464,24 @@ const FFS = [
 
   briefing: {
     "Session focus":
-      "Flight-control protections, alternate-law handling, upset recovery, TCAS and procedural non-precision approaches.",
+      "Flight-control protections, Alternate Law, UPRT, TCAS and procedural VOR approaches.",
 
     "Crew sequence":
-      "CM1 exercise block followed by reposition and CM2 repeat.",
+      "CM1 exercise block followed by CM2 repeat.",
 
-    "Primary techniques":
-      "Normal Law and Alternate Law handling, speed protections, upset recovery, TCAS response, VOR procedures and crosswind landing.",
+    "UPRT":
+      "Normal Law protections, Alternate Law stability and nose-high/nose-low recovery.",
 
-    "Reposition plan":
-      "Reposition after the first crosswind landing and repeat the main exercise block for CM2."
+    "Approach":
+      "Procedural VOR approach with autopilot and crosswind landing."
   },
 
   setup: {
-    "Initial state":
+    "Aircraft state":
       "Cold aircraft",
 
     "Performance":
-      "Normal performance calculation with crosswind departure conditions.",
+      "Normal performance calculation",
 
     "ZFW":
       "Training value",
@@ -1349,14 +1492,11 @@ const FFS = [
     "FOB":
       "Training value",
 
-    "Weather":
-      "Crosswind conditions",
+    "METAR":
+      "Crosswind training conditions",
 
     "Training altitude":
-      "FL200",
-
-    "Navigation":
-      "VOR procedural approach"
+      "FL200"
   },
 
   items: [
@@ -1382,6 +1522,10 @@ const FFS = [
 },
 
 
+/* ================================================= */
+/* FFS 3 */
+/* ================================================= */
+
 {
   number: 3,
 
@@ -1396,24 +1540,24 @@ const FFS = [
 
   briefing: {
     "Session focus":
-      "Ground ECAM malfunctions, windshear, EGPWS, stall exercises, raw-data ILS and circling.",
+      "Ground ECAM failures, windshear, EGPWS, stalls, raw-data ILS and circling.",
 
     "Crew sequence":
-      "CM1 sequence with several targeted resets, followed by CM2 repeat.",
+      "CM1 sequence with repeated take-off resets followed by CM2 repeat.",
 
-    "Primary techniques":
-      "Engine-start malfunction management, windshear escape, EGPWS response, stall recovery and circle-to-land.",
+    "Ground failures":
+      "Engine No Light Up / IGN and Hot Start.",
 
-    "Reposition plan":
-      "Multiple take-off-position resets are used to isolate windshear and departure exercises."
+    "Airborne focus":
+      "Windshear escape, EGPWS response, stall recovery and circle-to-land."
   },
 
   setup: {
-    "Initial state":
+    "Aircraft state":
       "Transit checks",
 
     "Performance":
-      "Take-off data available for repeated departure exercises.",
+      "Take-off data prepared for repeated departures",
 
     "ZFW":
       "Training value",
@@ -1424,14 +1568,11 @@ const FFS = [
     "FOB":
       "Training value",
 
-    "Weather":
-      "Windshear and circling scenario",
+    "METAR":
+      "Windshear and circling training scenario",
 
     "Initial crew":
-      "CM1",
-
-    "Final block":
-      "CM2 repeat"
+      "CM1"
   },
 
   items: [
@@ -1458,6 +1599,10 @@ const FFS = [
 },
 
 
+/* ================================================= */
+/* FFS 4 */
+/* ================================================= */
+
 {
   number: 4,
 
@@ -1472,24 +1617,24 @@ const FFS = [
 
   briefing: {
     "Session focus":
-      "Rejected take-off, engine failure around V1, evacuation, EFATO and single-engine approach operations.",
+      "Rejected take-off, V1 failures, evacuation, EFATO and single-engine operations.",
 
     "Crew sequence":
-      "Multiple isolated take-off exercises followed by complete EFATO profiles and CM2 repetition.",
+      "Individual V1 exercises, complete EFATO profiles and CM2 repeat.",
 
-    "Primary techniques":
-      "Stop/go decision discipline, RTO control, engine-fire management, pilot incapacitation, EFATO and single-engine approach/go-around.",
+    "Take-off exercises":
+      "Engine failure, fire, tyre burst, pilot incapacitation and evacuation.",
 
-    "Reposition plan":
-      "Frequent resets to the take-off position separate each high-workload V1 exercise."
+    "Single-engine":
+      "ILS, go-around, VOR/ME approach and landing."
   },
 
   setup: {
-    "Initial state":
+    "Aircraft state":
       "Holding point, ready for departure",
 
     "Performance":
-      "Take-off performance complete before session begins.",
+      "Take-off performance complete",
 
     "ZFW":
       "Training value",
@@ -1500,13 +1645,10 @@ const FFS = [
     "FOB":
       "Training value",
 
-    "Configuration":
+    "Initial configuration":
       "Departure configuration set",
 
-    "Initial condition":
-      "Ready at holding point",
-
-    "Exercise focus":
+    "Training reference":
       "V1 and EFATO"
   },
 
@@ -1538,6 +1680,10 @@ const FFS = [
 },
 
 
+/* ================================================= */
+/* FFS 5 */
+/* ================================================= */
+
 {
   number: 5,
 
@@ -1552,24 +1698,24 @@ const FFS = [
 
   briefing: {
     "Session focus":
-      "EFATO consolidation, single-engine approaches, evacuation, raw-data departure, radio-altimeter faults and PBN.",
+      "EFATO consolidation, PBN, single-engine approaches, evacuation, raw data and RA faults.",
 
     "Crew sequence":
-      "CM1 consolidation block followed by full CM2 repeat.",
+      "CM1 exercise block followed by CM2 repeat.",
 
-    "Primary techniques":
-      "Single-engine ILS/NPA/PBN, circling, RTO and evacuation, raw-data departure and RA-fault management.",
+    "Approach work":
+      "Single-engine ILS, NPA, PBN, circling and rejected landing.",
 
-    "Reposition plan":
-      "Weight and position resets are used between single-engine, overweight and raw-data exercise blocks."
+    "Raw data":
+      "RMPs and Flight Directors OFF during departure."
   },
 
   setup: {
-    "Initial state":
+    "Aircraft state":
       "Holding point, ready for departure",
 
     "Performance":
-      "Initial single-engine exercise weights followed by overweight-landing adjustment.",
+      "Single-engine profile followed by overweight landing exercise",
 
     "ZFW":
       "Training value",
@@ -1580,14 +1726,11 @@ const FFS = [
     "FOB":
       "Training value",
 
-    "Weight changes":
-      "Instructor-adjusted for overweight landing exercise",
+    "Weight adjustment":
+      "Overweight landing training block",
 
     "Navigation":
-      "ILS, NPA and PBN",
-
-    "Automation":
-      "Includes raw-data departure"
+      "ILS / NPA / PBN"
   },
 
   items: [
@@ -1614,6 +1757,10 @@ const FFS = [
 },
 
 
+/* ================================================= */
+/* FFS 6 */
+/* ================================================= */
+
 {
   number: 6,
 
@@ -1628,24 +1775,24 @@ const FFS = [
 
   briefing: {
     "Session focus":
-      "ADR and IR failures, decompression, flap/slat failures, unreliable airspeed and abnormal landing profiles.",
+      "ADR/IR failures, decompression, flap/slat failures and unreliable airspeed.",
 
     "Crew sequence":
-      "Systems exercises at FL80/FL350 followed by repeated approach and take-off repositioning.",
+      "Systems training at FL80 and FL350 followed by repeated approach blocks.",
 
-    "Primary techniques":
-      "ADIRU reconfiguration, ATT mode, emergency descent, no-flap/no-slat handling and unreliable IAS.",
+    "High-level exercises":
+      "ADR faults, IR failure, emergency descent and explosive decompression.",
 
-    "Reposition plan":
-      "Altitude resets to FL350 and take-off resets to 3500 ft isolate each decompression and approach exercise."
+    "Approach exercises":
+      "No Flaps / No Slats and Unreliable IAS."
   },
 
   setup: {
-    "Initial state":
+    "Aircraft state":
       "Cold aircraft",
 
     "Performance":
-      "Normal departure data plus repeated approach configurations.",
+      "Normal departure data",
 
     "ZFW":
       "Training value",
@@ -1656,14 +1803,14 @@ const FFS = [
     "FOB":
       "Training value",
 
-    "Initial climb":
+    "Initial level":
       "FL80",
 
-    "Decompression start":
+    "Decompression level":
       "FL350",
 
-    "Approach training":
-      "3500 ft reposition"
+    "Approach reposition":
+      "3500 ft"
   },
 
   items: [
@@ -1698,6 +1845,10 @@ const FFS = [
 },
 
 
+/* ================================================= */
+/* FFS 7 */
+/* ================================================= */
+
 {
   number: 7,
 
@@ -1712,20 +1863,20 @@ const FFS = [
 
   briefing: {
     "Session focus":
-      "Dual hydraulic failures, mechanical backup, thrust-lever fault, TCAS and abnormal visual/ILS handling.",
+      "Dual hydraulic failure combinations, Mechanical Backup, TCAS and sidestep.",
 
     "Crew sequence":
-      "G+Y exercise, CM2 repeat, G+B exercise, mechanical-backup blocks and final TCAS/sidestep sequence.",
+      "G+Y, G+B and Mechanical Backup blocks with CM2 repetition.",
 
-    "Primary techniques":
-      "Hydraulic system management, degraded flight controls, mechanical backup, TCAS and approach adaptation.",
+    "Hydraulic failures":
+      "Green + Yellow and Green + Blue system failures.",
 
-    "Reposition plan":
-      "Aircraft is repaired and repositioned between hydraulic and mechanical-backup scenarios."
+    "Final exercise":
+      "TCAS, ILS sidestep and APU fire during taxi."
   },
 
   setup: {
-    "Initial state":
+    "Aircraft state":
       "Cold aircraft",
 
     "Performance":
@@ -1743,11 +1894,8 @@ const FFS = [
     "Initial altitude":
       "FL80",
 
-    "Mechanical backup":
-      "2000 ft exercise",
-
-    "Final phase":
-      "Taxi APU fire"
+    "Mechanical Backup":
+      "2000 ft exercise"
   },
 
   items: [
@@ -1781,6 +1929,10 @@ const FFS = [
 },
 
 
+/* ================================================= */
+/* FFS 8 */
+/* ================================================= */
+
 {
   number: 8,
 
@@ -1795,24 +1947,24 @@ const FFS = [
 
   briefing: {
     "Session focus":
-      "Emergency electrical configuration, avionics smoke, evacuation, dual-engine failure comparison and EFATO revision.",
+      "Emergency Electrical Configuration, smoke, evacuation and EFATO revision.",
 
     "Crew sequence":
-      "Electrical and smoke scenarios followed by CM1 and CM2 EFATO revision blocks.",
+      "Electrical and smoke exercises followed by CM1 and CM2 EFATO revision.",
 
-    "Primary techniques":
-      "ELEC EMER CONF, smoke procedures, evacuation, dual-generator/dual-engine comparison and single-engine approaches.",
+    "Electrical":
+      "Dual Generator Failure and comparison with Dual Engine Failure.",
 
-    "Reposition plan":
-      "Aircraft repairs and take-off resets separate electrical, smoke and EFATO revision scenarios."
+    "Smoke":
+      "Avionics Smoke with continuous smoke through landing and evacuation."
   },
 
   setup: {
-    "Initial state":
+    "Aircraft state":
       "Transit checks",
 
     "Performance":
-      "Take-off performance available for repeated departure resets.",
+      "Take-off performance prepared for repeated departure resets",
 
     "ZFW":
       "Training value",
@@ -1823,14 +1975,11 @@ const FFS = [
     "FOB":
       "Training value",
 
-    "Initial climb":
+    "Initial level":
       "FL60",
 
-    "Smoke exercise":
-      "FL100",
-
-    "EFATO revision":
-      "CM1 then CM2"
+    "Smoke level":
+      "FL100"
   },
 
   items: [
@@ -1869,7 +2018,7 @@ const FFS = [
 /* STATE */
 /* ================================================= */
 
-let activeFFS = null;
+let currentSession = null;
 
 
 /* ================================================= */
@@ -1880,7 +2029,7 @@ function renderDashboard() {
 
   const holder =
     document.getElementById(
-      "ffsCards"
+      "sessionCards"
     );
 
 
@@ -1890,14 +2039,14 @@ function renderDashboard() {
 
         <button
           class="sim-card"
-          data-ffs="${session.number}"
+          data-session="${session.number}"
         >
 
           <div>
 
             <div class="card-top">
 
-              <div class="ffs-label">
+              <div class="ffs-number">
                 FFS ${session.number}
               </div>
 
@@ -1915,7 +2064,7 @@ function renderDashboard() {
           </div>
 
 
-          <div class="card-meta">
+          <div class="card-bottom">
 
             <span>
               ${escapeHtml(session.detail)}
@@ -1947,7 +2096,7 @@ function renderDashboard() {
 
             openSession(
               Number(
-                card.dataset.ffs
+                card.dataset.session
               )
             );
 
@@ -1961,20 +2110,22 @@ function renderDashboard() {
 
 
 /* ================================================= */
-/* SESSION */
+/* SESSION OPEN */
 /* ================================================= */
 
-function openSession(number) {
+function openSession(
+  number
+) {
 
-  activeFFS =
+  currentSession =
     FFS.find(
-      session =>
-        session.number ===
+      item =>
+        item.number ===
         number
     );
 
 
-  if (!activeFFS) {
+  if (!currentSession) {
     return;
   }
 
@@ -1984,27 +2135,27 @@ function openSession(number) {
       "sessionEyebrow"
     )
     .textContent =
-      `FFS ${activeFFS.number} · ${activeFFS.detail}`;
+      `FFS ${currentSession.number} · ${currentSession.detail}`;
 
 
   document
     .getElementById(
-      "sessionName"
+      "sessionTitle"
     )
     .textContent =
-      activeFFS.title;
+      currentSession.title;
 
 
   document
     .getElementById(
-      "sessionSub"
+      "sessionRoute"
     )
     .textContent =
-      activeFFS.route;
+      currentSession.route;
 
 
-  renderTimeline(
-    activeFFS
+  renderFlight(
+    currentSession
   );
 
 
@@ -2031,14 +2182,117 @@ function openSession(number) {
 
 
 /* ================================================= */
-/* TIMELINE */
+/* BUILD SEGMENTS */
 /* ================================================= */
 
-function renderTimeline(session) {
+function buildSegments(
+  session
+) {
 
-  const holder =
+  const segments = [];
+
+  let current = [];
+
+
+  session.items.forEach(
+    (
+      item,
+      index
+    ) => {
+
+      const [
+        title,
+        stage,
+        marker
+      ] =
+        item;
+
+
+      const reposition =
+        marker ===
+        "reposition" ||
+        /^reposition/i.test(
+          title
+        ) ||
+        /^repeat items/i.test(
+          title
+        ) ||
+        /^repeat applicable/i.test(
+          title
+        ) ||
+        /repair aircraft/i.test(
+          title
+        );
+
+
+      if (
+        reposition &&
+        current.length
+      ) {
+
+        segments.push({
+          items:
+            current,
+
+          reposition:
+            {
+              title,
+              index
+            }
+        });
+
+
+        current = [];
+
+        return;
+
+      }
+
+
+      current.push({
+        title,
+        stage:
+          normalizeStage(
+            stage
+          ),
+        index
+      });
+
+    }
+  );
+
+
+  if (
+    current.length
+  ) {
+
+    segments.push({
+      items:
+        current,
+
+      reposition:
+        null
+    });
+
+  }
+
+
+  return segments;
+
+}
+
+
+/* ================================================= */
+/* RENDER FLIGHT */
+/* ================================================= */
+
+function renderFlight(
+  session
+) {
+
+  const flightArea =
     document.getElementById(
-      "timelineInner"
+      "flightArea"
     );
 
 
@@ -2048,94 +2302,105 @@ function renderTimeline(session) {
     );
 
 
-  const specialCount =
-    2;
-
-
-  const count =
-    session.items.length +
-    specialCount;
-
-
-  const step =
-    150;
-
-
-  const width =
-    Math.max(
-      1450,
-      count * step + 300
+  const segments =
+    buildSegments(
+      session
     );
 
 
+  const preflightWidth =
+    360;
+
+
+  const segmentWidth =
+    790;
+
+
+  const repositionGap =
+    105;
+
+
+  const totalWidth =
+    preflightWidth +
+    (
+      segments.length *
+      segmentWidth
+    ) +
+    (
+      Math.max(
+        0,
+        segments.length - 1
+      ) *
+      repositionGap
+    ) +
+    150;
+
+
   timeline.style.width =
-    `${width + 175}px`;
+    `${totalWidth + 140}px`;
 
 
-  holder.style.width =
-    `${width}px`;
+  flightArea.style.width =
+    `${totalWidth}px`;
 
 
-  let html = "";
+  let html = `
 
+    <div class="preflight-zone">
 
-  /* stage guides */
+      <div class="preflight-label">
+        Pre-sim
+      </div>
 
-  html += `
-    <div class="stage-labels">
-  `;
-
-
-  STAGES.forEach(
-    stage => {
-
-      const y =
-        STAGE_Y[stage];
-
-
-      html += `
-
-        <div
-          class="stage-name"
-          style="top:${y}px"
-        >
-          ${stage}
-        </div>
-
-      `;
-
-    }
-  );
-
-
-  html += `
     </div>
-  `;
 
 
-  STAGES.forEach(
-    stage => {
+    <button
+      class="event info"
+      data-type="briefing"
+      style="
+        left:95px;
+        top:390px
+      "
+    >
 
-      html += `
+      <div class="event-dot"></div>
 
-        <div
-          class="stage-line"
-          style="top:${STAGE_Y[stage]}px"
-        ></div>
+      <div class="event-title">
+        Briefing
+      </div>
 
-      `;
+      <div class="event-sub">
+        Pre-sim
+      </div>
 
-    }
-  );
+    </button>
 
 
-  /* airports */
+    <button
+      class="event info"
+      data-type="setup"
+      style="
+        left:225px;
+        top:390px
+      "
+    >
 
-  html += `
+      <div class="event-dot"></div>
+
+      <div class="event-title">
+        Aircraft Setup
+      </div>
+
+      <div class="event-sub">
+        Pre-sim
+      </div>
+
+    </button>
+
 
     <div
-      class="timeline-airport start"
-      style="top:${STAGE_Y["Ground"] + 50}px"
+      class="origin-label"
     >
 
       <div class="airport-code">
@@ -2148,10 +2413,75 @@ function renderTimeline(session) {
 
     </div>
 
+  `;
+
+
+  let segmentLeft =
+    preflightWidth;
+
+
+  segments.forEach(
+    (
+      segment,
+      segmentIndex
+    ) => {
+
+      html +=
+        renderSegment(
+          session,
+          segment,
+          segmentLeft,
+          segmentWidth,
+          segmentIndex
+        );
+
+
+      segmentLeft +=
+        segmentWidth;
+
+
+      if (
+        segment.reposition &&
+        segmentIndex <
+        segments.length - 1
+      ) {
+
+        const dividerX =
+          segmentLeft +
+          repositionGap / 2;
+
+
+        html += `
+
+          <div
+            class="reposition-divider"
+            style="
+              left:${dividerX}px
+            "
+          >
+
+            <div class="reposition-pill">
+              Reposition
+            </div>
+
+          </div>
+
+        `;
+
+
+        segmentLeft +=
+          repositionGap;
+
+      }
+
+    }
+  );
+
+
+  html += `
 
     <div
-      class="timeline-airport end"
-      style="top:${STAGE_Y["Rollout"] + 50}px"
+      class="destination-label"
     >
 
       <div class="airport-code">
@@ -2167,140 +2497,144 @@ function renderTimeline(session) {
   `;
 
 
-  const points = [];
+  flightArea.innerHTML =
+    html;
 
 
-  /* briefing point */
+  bindFlightEvents(
+    session
+  );
 
-  points.push({
-    x: 150,
-    y: STAGE_Y["Ground"],
-    type: "info",
-    title: "Briefing",
-    stage: "Pre-sim",
-    action: "briefing"
-  });
+}
 
 
-  /* aircraft setup point */
+/* ================================================= */
+/* RENDER ONE FLIGHT SEGMENT */
+/* ================================================= */
 
-  points.push({
-    x: 300,
-    y: STAGE_Y["Ground"],
-    type: "info",
-    title: "Aircraft Setup",
-    stage: "Pre-sim",
-    action: "setup"
-  });
+function renderSegment(
+  session,
+  segment,
+  left,
+  width,
+  segmentIndex
+) {
 
-
-  /* actual syllabus */
-
-  let x =
-    450;
-
-
-  session.items.forEach(
-    (item, index) => {
-
-      const [
-        title,
-        rawStage,
-        marker
-      ] =
-        item;
+  const stageWidth =
+    width /
+    STAGES.length;
 
 
-      const stage =
-        normalizeStage(
-          rawStage
-        );
+  const stageCounts = {};
 
 
-      const isReposition =
-        marker ===
-        "reposition" ||
-        /reposition/i.test(
-          title
-        ) ||
-        /^repeat items/i.test(
-          title
-        ) ||
-        /^repeat applicable items/i.test(
-          title
-        );
+  STAGES.forEach(
+    stage => {
 
-
-      if (isReposition) {
-
-        points.push({
-          x,
-          y:
-            STAGE_Y[stage],
-          type:
-            "reposition",
-          title,
-          stage,
-          index
-        });
-
-        x +=
-          115;
-
-      }
-
-
-      points.push({
-        x,
-        y:
-          STAGE_Y[stage],
-        type:
-          "event",
-        title,
-        stage,
-        index
-      });
-
-
-      x +=
-        step;
+      stageCounts[stage] =
+        0;
 
     }
   );
 
 
-  /* draw path segments */
+  const points =
+    segment.items.map(
+      item => {
 
-  const segments =
-    buildPathSegments(
-      points
+        const stageIndex =
+          STAGES.indexOf(
+            item.stage
+          );
+
+
+        const occurrence =
+          stageCounts[
+            item.stage
+          ]++;
+
+
+        const baseX =
+          left +
+          (
+            stageIndex *
+            stageWidth
+          ) +
+          stageWidth / 2;
+
+
+        const x =
+          baseX +
+          (
+            occurrence *
+            24
+          ) -
+          Math.min(
+            occurrence,
+            2
+          ) * 8;
+
+
+        const y =
+          STAGE_Y[
+            item.stage
+          ];
+
+
+        return {
+          ...item,
+          x,
+          y
+        };
+
+      }
     );
 
 
-  html += `
+  let html = `
 
-    <svg
-      class="flight-svg"
-      viewBox="0 0 ${width} 510"
-      preserveAspectRatio="none"
-      aria-hidden="true"
+    <div
+      class="segment"
+      style="
+        left:${left}px;
+        width:${width}px
+      "
     >
 
-      ${segments
-        .map(
-          path => `
+      <div class="segment-stage-row">
 
-            <path
-              class="flight-path"
-              d="${path}"
-            ></path>
+        ${
+          STAGES.map(
+            stage => `
 
-          `
-        )
-        .join("")
-      }
+              <div class="segment-stage">
+                ${stage}
+              </div>
 
-    </svg>
+            `
+          )
+          .join("")
+        }
+
+      </div>
+
+
+      <svg
+        class="flight-svg"
+        viewBox="0 0 ${width} 390"
+        preserveAspectRatio="none"
+      >
+
+        ${
+          renderPath(
+            points,
+            left
+          )
+        }
+
+      </svg>
+
+    </div>
 
   `;
 
@@ -2308,52 +2642,12 @@ function renderTimeline(session) {
   points.forEach(
     point => {
 
-      if (
-        point.type ===
-        "reposition"
-      ) {
-
-        html += `
-
-          <div
-            class="reposition"
-            style="left:${point.x}px"
-          >
-
-            <div class="reposition-label">
-              Reposition
-            </div>
-
-          </div>
-
-        `;
-
-        return;
-
-      }
-
-
-      const action =
-        point.action
-          ? point.action
-          : `event-${point.index}`;
-
-
-      const resultClass =
-        point.type ===
-        "info"
-          ? "info"
-          : getPointResultClass(
-              session,
-              point.index
-            );
-
-
       html += `
 
         <button
-          class="event ${resultClass}"
-          data-action="${action}"
+          class="event ${getResultClass(session, point.index)}"
+          data-type="event"
+          data-index="${point.index}"
           style="
             left:${point.x}px;
             top:${point.y}px
@@ -2370,12 +2664,8 @@ function renderTimeline(session) {
             )}
           </div>
 
-          <div class="event-stage">
-            ${
-              point.type === "info"
-                ? "Pre-sim"
-                : point.stage
-            }
+          <div class="event-sub">
+            ${escapeHtml(point.stage)}
           </div>
 
         </button>
@@ -2386,11 +2676,124 @@ function renderTimeline(session) {
   );
 
 
-  holder.innerHTML =
-    html;
+  return html;
+
+}
 
 
-  holder
+/* ================================================= */
+/* PATH */
+/* ================================================= */
+
+function renderPath(
+  points,
+  segmentLeft
+) {
+
+  if (
+    points.length <
+    2
+  ) {
+    return "";
+  }
+
+
+  const local =
+    points.map(
+      point => ({
+        x:
+          point.x -
+          segmentLeft,
+
+        y:
+          point.y -
+          54
+      })
+    );
+
+
+  const path =
+    createSmoothPath(
+      local
+    );
+
+
+  return `
+
+    <path
+      class="flight-path-shadow"
+      d="${path}"
+    ></path>
+
+    <path
+      class="flight-path"
+      d="${path}"
+    ></path>
+
+  `;
+
+}
+
+
+function createSmoothPath(
+  points
+) {
+
+  let d =
+    `M ${points[0].x} ${points[0].y}`;
+
+
+  for (
+    let i = 1;
+    i < points.length;
+    i++
+  ) {
+
+    const a =
+      points[
+        i - 1
+      ];
+
+
+    const b =
+      points[i];
+
+
+    const dx =
+      b.x -
+      a.x;
+
+
+    const c1 =
+      a.x +
+      dx * .42;
+
+
+    const c2 =
+      a.x +
+      dx * .58;
+
+
+    d +=
+      ` C ${c1} ${a.y}, ${c2} ${b.y}, ${b.x} ${b.y}`;
+
+  }
+
+
+  return d;
+
+}
+
+
+/* ================================================= */
+/* CLICK EVENTS */
+/* ================================================= */
+
+function bindFlightEvents(
+  session
+) {
+
+  document
     .querySelectorAll(
       ".event"
     )
@@ -2401,12 +2804,12 @@ function renderTimeline(session) {
           "click",
           () => {
 
-            const action =
-              button.dataset.action;
+            const type =
+              button.dataset.type;
 
 
             if (
-              action ===
+              type ===
               "briefing"
             ) {
 
@@ -2415,11 +2818,12 @@ function renderTimeline(session) {
               );
 
               return;
+
             }
 
 
             if (
-              action ===
+              type ===
               "setup"
             ) {
 
@@ -2428,27 +2832,20 @@ function renderTimeline(session) {
               );
 
               return;
+
             }
 
 
             if (
-              action.startsWith(
-                "event-"
-              )
+              type ===
+              "event"
             ) {
-
-              const index =
-                Number(
-                  action.replace(
-                    "event-",
-                    ""
-                  )
-                );
-
 
               openEvent(
                 session,
-                index
+                Number(
+                  button.dataset.index
+                )
               );
 
             }
@@ -2458,137 +2855,6 @@ function renderTimeline(session) {
 
       }
     );
-
-}
-
-
-/* ================================================= */
-/* PATH */
-/* ================================================= */
-
-function buildPathSegments(
-  points
-) {
-
-  const segments =
-    [];
-
-
-  let current =
-    [];
-
-
-  for (
-    const point
-    of points
-  ) {
-
-    if (
-      point.type ===
-      "reposition"
-    ) {
-
-      if (
-        current.length > 1
-      ) {
-
-        segments.push(
-          createPolylinePath(
-            current
-          )
-        );
-
-      }
-
-
-      current =
-        [];
-
-      continue;
-
-    }
-
-
-    current.push(
-      point
-    );
-
-  }
-
-
-  if (
-    current.length > 1
-  ) {
-
-    segments.push(
-      createPolylinePath(
-        current
-      )
-    );
-
-  }
-
-
-  return segments;
-
-}
-
-
-function createPolylinePath(
-  points
-) {
-
-  if (!points.length) {
-    return "";
-  }
-
-
-  let path =
-    `M ${points[0].x} ${points[0].y}`;
-
-
-  for (
-    let i = 1;
-    i < points.length;
-    i++
-  ) {
-
-    const previous =
-      points[i - 1];
-
-
-    const current =
-      points[i];
-
-
-    const dx =
-      current.x -
-      previous.x;
-
-
-    /*
-      Mostly straight segments.
-      Tiny control offset removes harsh corners
-      without making the path wobbly.
-    */
-
-    const control1X =
-      previous.x +
-      dx * .42;
-
-
-    const control2X =
-      previous.x +
-      dx * .58;
-
-
-    path +=
-      ` C ${control1X} ${previous.y}, ${control2X} ${current.y}, ${current.x} ${current.y}`;
-
-  }
-
-
-  return path;
 
 }
 
@@ -2621,10 +2887,21 @@ function openBriefing(
     .getElementById(
       "drawerBody"
     )
-    .innerHTML =
-      detailRows(
-        session.briefing
-      );
+    .innerHTML = `
+
+      <div class="field">
+
+        <div class="field-label">
+          Briefing items
+        </div>
+
+        ${renderDetailRows(
+          session.briefing
+        )}
+
+      </div>
+
+    `;
 
 
   openDrawer();
@@ -2633,7 +2910,7 @@ function openBriefing(
 
 
 /* ================================================= */
-/* SETUP */
+/* AIRCRAFT SETUP */
 /* ================================================= */
 
 function openSetup(
@@ -2664,58 +2941,56 @@ function openSetup(
 
       <div class="field">
 
-        <label>
-          Aircraft
-        </label>
+        <div class="field-label">
+          Aircraft data
+        </div>
 
-        ${detailRows(
-          {
-            "Type":
-              "A320",
+        ${renderDetailRows({
+          "Aircraft":
+            "A320",
 
-            "ZFW":
-              session.setup.ZFW ||
-              "Training value",
+          "ZFW":
+            session.setup.ZFW ||
+            "Training value",
 
-            "ZFWCG":
-              session.setup.ZFWCG ||
-              "Training value",
+          "ZFWCG":
+            session.setup.ZFWCG ||
+            "Training value",
 
-            "FOB":
-              session.setup.FOB ||
-              "Training value"
-          },
-          false
-        )}
+          "FOB":
+            session.setup.FOB ||
+            "Training value"
+        })}
 
       </div>
 
 
       <div class="field">
 
-        <label>
+        <div class="field-label">
           Session setup
-        </label>
+        </div>
 
-        ${detailRows(
-          Object.fromEntries(
-            Object.entries(
-              session.setup
+        ${
+          renderDetailRows(
+            Object.fromEntries(
+              Object.entries(
+                session.setup
+              )
+              .filter(
+                ([key]) =>
+                  ![
+                    "ZFW",
+                    "ZFWCG",
+                    "FOB"
+                  ]
+                  .includes(
+                    key
+                  )
+              )
             )
-            .filter(
-              ([key]) =>
-                ![
-                  "ZFW",
-                  "ZFWCG",
-                  "FOB"
-                ]
-                .includes(
-                  key
-                )
-            )
-          ),
-          false
-        )}
+          )
+        }
 
       </div>
 
@@ -2728,7 +3003,7 @@ function openSetup(
 
 
 /* ================================================= */
-/* EVENT DETAILS */
+/* SAVED EVENT */
 /* ================================================= */
 
 function openEvent(
@@ -2737,7 +3012,9 @@ function openEvent(
 ) {
 
   const item =
-    session.items[index];
+    session.items[
+      index
+    ];
 
 
   if (!item) {
@@ -2745,11 +3022,14 @@ function openEvent(
   }
 
 
-  const [
-    title,
-    stage
-  ] =
-    item;
+  const title =
+    item[0];
+
+
+  const stage =
+    normalizeStage(
+      item[1]
+    );
 
 
   const attempts =
@@ -2764,7 +3044,7 @@ function openEvent(
       "drawerEyebrow"
     )
     .textContent =
-      `${normalizeStage(stage)} · Item ${index + 1}`;
+      `${stage} · Item ${index + 1}`;
 
 
   document
@@ -2783,9 +3063,9 @@ function openEvent(
 
       <div class="field">
 
-        <label>
+        <div class="field-label">
           Attempts
-        </label>
+        </div>
 
         <div class="attempts">
 
@@ -2862,21 +3142,17 @@ function openEvent(
 
       <div class="field">
 
-        <label>
+        <div class="field-label">
           Instructor comments
-        </label>
+        </div>
 
         <div class="readonly-comments">
-
-          ${
-            escapeHtml(
-              getInstructorComment(
-                session,
-                index
-              )
+          ${escapeHtml(
+            getComment(
+              session,
+              index
             )
-          }
-
+          )}
         </div>
 
       </div>
@@ -2890,7 +3166,7 @@ function openEvent(
 
 
 /* ================================================= */
-/* MOCK DEBRIEF RESULT DATA */
+/* MOCK ATTEMPTS */
 /* ================================================= */
 
 function getAttempts(
@@ -2898,20 +3174,17 @@ function getAttempts(
   index
 ) {
 
-  /*
-    A handful of events show retraining so the
-    UI demonstrates Try 1 / Try 2 history.
-  */
-
   const retrained =
     (
-      index +
-      sessionNumber
-    ) % 6 ===
+      sessionNumber +
+      index
+    ) % 7 ===
     0;
 
 
-  if (retrained) {
+  if (
+    retrained
+  ) {
 
     return [
       {
@@ -2928,12 +3201,17 @@ function getAttempts(
   }
 
 
-  return DEFAULT_ATTEMPTS;
+  return [
+    {
+      result:
+        "pass"
+    }
+  ];
 
 }
 
 
-function getPointResultClass(
+function getResultClass(
   session,
   index
 ) {
@@ -2952,13 +3230,19 @@ function getPointResultClass(
 }
 
 
-function getInstructorComment(
+/* ================================================= */
+/* COMMENTS */
+/* ================================================= */
+
+function getComment(
   session,
   index
 ) {
 
   const title =
-    session.items[index][0];
+    session.items[
+      index
+    ][0];
 
 
   const attempts =
@@ -2969,30 +3253,30 @@ function getInstructorComment(
 
 
   if (
-    attempts.length > 1
+    attempts.length >
+    1
   ) {
 
     return (
       "The first attempt did not reach the required standard. " +
-      "Recognition and sequencing were slower than expected and the exercise required a reset. " +
-      "On the repeat, the scenario was managed with clearer task sharing, earlier recognition and better prioritisation. " +
-      "The second attempt met the expected standard. " +
-      "Further review should concentrate on maintaining the same structured response without instructor prompting."
+      "Recognition and sequencing were slower than expected and the exercise required a repeat. " +
+      "During the second attempt the crew identified the situation earlier, prioritised the aircraft correctly and maintained clearer task sharing. " +
+      "The repeated exercise was completed to the expected standard with less instructor intervention."
     );
 
   }
 
 
   if (
-    /take-off|takeoff|V1|EFATO/i.test(
+    /ECAM|Fault|Failure|FIRE|Smoke|HYD|ADR|IR|Generator|Pump/i.test(
       title
     )
   ) {
 
     return (
-      "Aircraft control and task sharing were maintained throughout the exercise. " +
-      "The crew prioritised the flight path before progressing into the abnormal procedure and avoided unnecessary rushing. " +
-      "Callouts were clear and the sequence remained structured. " +
+      "The malfunction was identified correctly and the crew maintained an orderly response. " +
+      "The aircraft state remained understood while the abnormal actions were completed and the operational consequences were reviewed before continuing. " +
+      "PF and PM duties were clear and irreversible actions were confirmed appropriately. " +
       "The exercise met the expected standard."
     );
 
@@ -3000,32 +3284,30 @@ function getInstructorComment(
 
 
   if (
-    /approach|ILS|VOR|NPA|PBN|circle/i.test(
+    /ILS|VOR|NPA|PBN|approach|circle|landing/i.test(
       title
     )
   ) {
 
     return (
       "The approach was prepared in sufficient time and the crew maintained awareness of configuration, automation and landing implications. " +
-      "PF and PM duties remained clear and the approach profile was monitored effectively. " +
-      "Required changes were incorporated into the briefing without destabilising the aircraft. " +
-      "The exercise met the expected standard."
+      "The flight path remained controlled while the required changes were incorporated into the briefing. " +
+      "Monitoring between PF and PM was effective and the exercise was completed to the expected standard."
     );
 
   }
 
 
   if (
-    /ECAM|Fault|Failure|FIRE|Smoke|HYD|ADR|IR|Generator/i.test(
+    /take-off|takeoff|V1|EFATO|windshear/i.test(
       title
     )
   ) {
 
     return (
-      "The malfunction was identified correctly and the crew maintained a disciplined ECAM sequence. " +
-      "Actions were completed without losing awareness of the aircraft state and the operational consequences were reviewed before continuing. " +
-      "Communication between PF and PM was concise and irreversible actions were confirmed. " +
-      "The exercise met the expected standard."
+      "Aircraft control was prioritised correctly throughout the exercise. " +
+      "Callouts and task sharing remained clear and the crew avoided rushing into secondary actions before the flight path was stabilised. " +
+      "The required sequence was completed in a structured manner and the exercise met the expected standard."
     );
 
   }
@@ -3045,13 +3327,26 @@ function getInstructorComment(
 /* ================================================= */
 
 function normalizeStage(
-  value
+  stage
 ) {
 
-  return (
-    STAGE_ALIASES[value] ||
-    value
-  );
+  if (
+    stage ===
+    "Takeoff"
+  ) {
+    return "Take Off";
+  }
+
+
+  if (
+    stage ===
+    "Climb / Cruise"
+  ) {
+    return "Climb/Cruise";
+  }
+
+
+  return stage;
 
 }
 
@@ -3061,31 +3356,35 @@ function shortenTitle(
 ) {
 
   return title
+
     .replace(
       /^Radar vectors to /i,
       ""
     )
+
     .replace(
       /^Radar-vectored /i,
       ""
     )
+
     .replace(
-      /^Reposition\/start-up and /i,
+      /^Vectors to /i,
       ""
     )
+
     .replace(
-      /^Reposition and /i,
+      /^During climb to /i,
       ""
     );
+
 }
 
 
-function detailRows(
-  object,
-  wrap = true
+function renderDetailRows(
+  object
 ) {
 
-  const body = `
+  return `
 
     <div class="detail-list">
 
@@ -3094,7 +3393,7 @@ function detailRows(
           object
         )
         .map(
-          ([key,value]) => `
+          ([key, value]) => `
 
             <div class="detail-row">
 
@@ -3112,26 +3411,6 @@ function detailRows(
         )
         .join("")
       }
-
-    </div>
-
-  `;
-
-
-  if (!wrap) {
-    return body;
-  }
-
-
-  return `
-
-    <div class="field">
-
-      <label>
-        Session briefing
-      </label>
-
-      ${body}
 
     </div>
 
@@ -3230,7 +3509,7 @@ function showView(
 
   document
     .getElementById(
-      "dashboardBtn"
+      "dashboardButton"
     )
     .style.display =
       id ===
@@ -3241,6 +3520,7 @@ function showView(
 
   closeDrawer();
 
+
   window.scrollTo(
     0,
     0
@@ -3250,7 +3530,7 @@ function showView(
 
 
 /* ================================================= */
-/* EVENTS */
+/* GLOBAL EVENTS */
 /* ================================================= */
 
 document
@@ -3271,7 +3551,7 @@ document
 
 document
   .getElementById(
-    "dashboardBtn"
+    "dashboardButton"
   )
   .addEventListener(
     "click",
@@ -3287,7 +3567,7 @@ document
 
 document
   .getElementById(
-    "closeDrawer"
+    "drawerClose"
   )
   .addEventListener(
     "click",
