@@ -93,6 +93,290 @@ function renderDashboard() {
 }
 
 
+function renderTaskMatrix() {
+
+  const holder =
+    document.getElementById(
+      "taskMatrix"
+    );
+
+
+  const count =
+    document.getElementById(
+      "taskCount"
+    );
+
+
+  const tasks =
+    getTrainingTasks();
+
+
+  count.textContent =
+    `${tasks.length} individual tasks`;
+
+
+  holder.innerHTML = `
+
+    <table class="task-table">
+
+      <thead>
+
+        <tr>
+          <th>EASA basis</th>
+          <th>Training task</th>
+          <th>FSTD / tool</th>
+          <th>FCS capability area</th>
+          <th>Evidence to retain</th>
+          <th>Training credit</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        ${
+          tasks
+            .map(
+              task => `
+
+                <tr>
+                  <td>
+                    <strong>${escapeHtml(task.basis)}</strong>
+                    ${escapeHtml(task.source)}
+                  </td>
+                  <td>
+                    <strong>FFS ${task.session} · Item ${task.item}</strong>
+                    ${escapeHtml(task.title)}
+                  </td>
+                  <td>
+                    <span class="task-pill">${escapeHtml(task.tool)}</span>
+                  </td>
+                  <td>${escapeHtml(task.capability)}</td>
+                  <td>${escapeHtml(task.evidence)}</td>
+                  <td>${escapeHtml(task.credit)}</td>
+                </tr>
+
+              `
+            )
+            .join("")
+        }
+
+      </tbody>
+
+    </table>
+
+  `;
+
+}
+
+
+function getTrainingTasks() {
+
+  return FFS.flatMap(
+    session =>
+      session.items.map(
+        (
+          item,
+          index
+        ) => {
+
+          const [
+            title,
+            stage,
+            marker
+          ] =
+            item;
+
+          const category =
+            classifyTask(
+              title,
+              normalizeStage(
+                stage
+              )
+            );
+
+          return {
+            session:
+              session.number,
+
+            item:
+              index + 1,
+
+            title,
+
+            basis:
+              category.basis,
+
+            source:
+              category.source,
+
+            tool:
+              marker ===
+              "reposition"
+                ? `${category.tool} + reposition`
+                : category.tool,
+
+            capability:
+              category.capability,
+
+            evidence:
+              category.evidence,
+
+            credit:
+              category.credit
+          };
+
+        }
+      )
+  );
+
+}
+
+
+function classifyTask(
+  title,
+  stage
+) {
+
+  if (
+    /ECAM|Fault|Failure|FIRE|Smoke|HYD|ADR|IR|Generator|Pump|decompression|unreliable/i.test(
+      title
+    )
+  ) {
+
+    return {
+      basis:
+        "Part-FCL training programme",
+      source:
+        "ORA.ATO.135 suitability check; CS-FSTD capability evidence",
+      tool:
+        "FFS qualified for A320 abnormal/system simulation",
+      capability:
+        "Aircraft systems, failures, alerts, procedures, instructor station",
+      evidence:
+        "Approved syllabus item, FSTD certificate/ESL, defect status, instructor scenario notes",
+      credit:
+        "Type-rating synthetic training credit when programme approval and FSTD suitability align"
+    };
+
+  }
+
+
+  if (
+    /UPRT|stall|protections|Alternate Law|Mechanical Backup|Alpha Lock/i.test(
+      title
+    )
+  ) {
+
+    return {
+      basis:
+        "Part-FCL UPRT/type-rating task",
+      source:
+        "Reg. (EU) 2026/781 and CS-FSTD Issue 1 capability framework",
+      tool:
+        "FFS with flight model and control-law fidelity",
+      capability:
+        "Flight envelope, flight controls, cueing, aerodynamic model",
+      evidence:
+        "Task objective, fidelity need, FSTD qualification limits, instructor grading record",
+      credit:
+        "Credit limited to approved manoeuvres and simulator qualification envelope"
+    };
+
+  }
+
+
+  if (
+    /ILS|VOR|NPA|PBN|approach|circle|landing|go-around|sidestep/i.test(
+      title
+    )
+  ) {
+
+    return {
+      basis:
+        "Part-FCL type-rating manoeuvre",
+      source:
+        "ATO approved training programme; FSTD certificate and ESL",
+      tool:
+        "FFS or suitable FSTD with navigation/visual capability",
+      capability:
+        "Navigation, visual scene, flight guidance, weather, landing cues",
+      evidence:
+        "Approach type, required visual/weather setup, FSTD capability match, assessment result",
+      credit:
+        "Synthetic training credit per approved programme and device suitability"
+    };
+
+  }
+
+
+  if (
+    /take-off|takeoff|V1|EFATO|windshear|RTO|Reject/i.test(
+      title
+    )
+  ) {
+
+    return {
+      basis:
+        "Part-FCL take-off/abnormal task",
+      source:
+        "ATO syllabus, ORA.ATO.135, CS-FSTD qualification evidence",
+      tool:
+        "FFS with runway, motion/visual and failure insertion",
+      capability:
+        "Ground roll, engine failure, windshear cues, visual/motion, performance",
+      evidence:
+        "Performance data, event trigger, FSTD setup, crew role, pass/fail record",
+      credit:
+        "Creditable when the selected FSTD covers the required task effects"
+    };
+
+  }
+
+
+  if (
+    stage ===
+    "Ground" ||
+    stage ===
+    "Taxi"
+  ) {
+
+    return {
+      basis:
+        "Part-ORA ATO procedure",
+      source:
+        "Training Manual/OM and approved simulator session plan",
+      tool:
+        "FFS cockpit procedures or classroom briefing as approved",
+      capability:
+        "Cockpit layout, controls, displays, ground/taxi environment, instructor control",
+      evidence:
+        "Lesson plan, setup data, instructor briefing, student completion record",
+      credit:
+        "Credit follows approved programme allocation"
+    };
+
+  }
+
+
+  return {
+    basis:
+      "ATO approved syllabus",
+    source:
+      "Part-FCL/Part-ORA programme approval and FSTD suitability",
+    tool:
+      "Selected FSTD per certificate and ESL",
+    capability:
+      "Scenario, aircraft response, environment, instructor control",
+    evidence:
+      "Task objective, selected device, limitations, mitigations, assessment",
+    credit:
+      "Credit recorded against the approved training programme"
+  };
+
+}
+
+
 /* ================================================= */
 /* SESSION OPEN */
 /* ================================================= */
@@ -296,19 +580,26 @@ function renderFlight(
     360;
 
 
-  const segmentWidth =
-    1085;
-
-
   const repositionGap =
     105;
 
 
+  const segmentWidths =
+    segments.map(
+      getSegmentWidth
+    );
+
+
   const totalWidth =
     preflightWidth +
-    (
-      segments.length *
-      segmentWidth
+    segmentWidths.reduce(
+      (
+        total,
+        width
+      ) =>
+        total +
+        width,
+      0
     ) +
     (
       Math.max(
@@ -339,29 +630,7 @@ function renderFlight(
     </div>
 
 
-    <button
-      class="event info"
-      data-type="briefing"
-      style="
-        left:95px;
-        top:390px
-      "
-    >
-
-      <div class="event-dot"></div>
-
-      <div class="event-title">
-        Briefing
-      </div>
-
-      <div class="event-sub">
-        Pre-sim
-      </div>
-
-    </button>
-
-
-    ${renderSetupBlock(session)}
+    ${renderPreSimBlock(session)}
 
 
     <div
@@ -396,13 +665,17 @@ function renderFlight(
           session,
           segment,
           segmentLeft,
-          segmentWidth,
+          segmentWidths[
+            segmentIndex
+          ],
           segmentIndex
         );
 
 
       segmentLeft +=
-        segmentWidth;
+        segmentWidths[
+          segmentIndex
+        ];
 
 
       if (
@@ -470,86 +743,157 @@ function renderFlight(
     session
   );
 
+
+  bindPreSimTabs();
+
 }
 
 
 /* ================================================= */
-/* OPEN SETUP BLOCK */
+/* PRE-SIM BLOCK */
 /* ================================================= */
 
-function renderSetupBlock(
+function renderPreSimBlock(
   session
 ) {
-
-  const setupRows =
-    Object.entries({
-      "Aircraft":
-        "A320",
-
-      "State":
-        session.setup[
-          "Aircraft state"
-        ] ||
-        "Training setup",
-
-      "ZFW":
-        session.setup.ZFW ||
-        "Training value",
-
-      "ZFWCG":
-        session.setup.ZFWCG ||
-        "Training value",
-
-      "FOB":
-        session.setup.FOB ||
-        "Training value",
-
-      "Weather":
-        session.setup.METAR ||
-        "Instructor selected"
-    });
-
 
   return `
 
     <section
       class="setup-block"
-      aria-label="Aircraft setup"
+      aria-label="Pre-sim briefing and aircraft setup"
     >
 
-      <div class="setup-block-title">
-        Aircraft Setup
+      <div
+        class="pre-sim-tabs"
+        role="tablist"
+        aria-label="Pre-sim data"
+      >
+
+        <button
+          class="pre-sim-tab active"
+          type="button"
+          data-pre-sim-tab="briefing"
+          aria-selected="true"
+        >
+          Briefing
+        </button>
+
+        <button
+          class="pre-sim-tab"
+          type="button"
+          data-pre-sim-tab="setup"
+          aria-selected="false"
+        >
+          Setup
+        </button>
+
       </div>
 
-      <div class="setup-mini-list">
 
-        ${
-          setupRows
-            .map(
-              ([key, value]) => `
+      <div
+        class="pre-sim-panel active"
+        data-pre-sim-panel="briefing"
+      >
 
-                <div class="setup-mini-row">
+        ${renderMiniRows(session.briefing)}
 
-                  <div class="setup-mini-key">
-                    ${escapeHtml(key)}
-                  </div>
+      </div>
 
-                  <div class="setup-mini-value">
-                    ${escapeHtml(value)}
-                  </div>
 
-                </div>
+      <div
+        class="pre-sim-panel"
+        data-pre-sim-panel="setup"
+      >
 
-              `
-            )
-            .join("")
-        }
+        ${renderMiniRows(getSetupRows(session))}
 
       </div>
 
     </section>
 
   `;
+
+}
+
+
+function renderMiniRows(
+  object
+) {
+
+  return `
+
+    <div class="setup-mini-list">
+
+      ${
+        Object.entries(
+          object
+        )
+          .map(
+            ([key, value]) => `
+
+              <div class="setup-mini-row">
+
+                <div class="setup-mini-key">
+                  ${escapeHtml(key)}
+                </div>
+
+                <div class="setup-mini-value">
+                  ${escapeHtml(value)}
+                </div>
+
+              </div>
+
+            `
+          )
+          .join("")
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+function getSetupRows(
+  session
+) {
+
+  return {
+    "Aircraft":
+      "A320-214",
+
+    "State":
+      session.setup[
+        "Aircraft state"
+      ] ||
+      "Training setup",
+
+    "ZFW":
+      session.setup.ZFW ||
+      "Training value",
+
+    "ZFWCG":
+      session.setup.ZFWCG ||
+      "Training value",
+
+    "FOB":
+      session.setup.FOB ||
+      "Training value",
+
+    "METAR":
+      session.setup.METAR ||
+      "Instructor selected",
+
+    "Departure":
+      session.setup.Departure ||
+      "LEBL",
+
+    "Arrival":
+      session.setup.Arrival ||
+      "LEPA"
+  };
 
 }
 
@@ -566,9 +910,32 @@ function renderSegment(
   segmentIndex
 ) {
 
-  const stageWidth =
-    width /
-    STAGES.length;
+  const stageWidths =
+    getStageWidths(
+      segment
+    );
+
+
+  const stageStarts = {};
+
+  let currentStageLeft =
+    0;
+
+
+  STAGES.forEach(
+    (
+      stage,
+      index
+    ) => {
+
+      stageStarts[stage] =
+        currentStageLeft;
+
+      currentStageLeft +=
+        stageWidths[index];
+
+    }
+  );
 
 
   const stageCounts = {};
@@ -599,12 +966,6 @@ function renderSegment(
     segment.items.map(
       item => {
 
-        const stageIndex =
-          STAGES.indexOf(
-            item.stage
-          );
-
-
         const occurrence =
           stageCounts[
             item.stage
@@ -619,22 +980,29 @@ function renderSegment(
 
         const stagePadding =
           Math.min(
-            34,
-            stageWidth * .18
+            54,
+            stageWidths[
+              STAGES.indexOf(
+                item.stage
+              )
+            ] * .16
           );
 
 
         const usableStageWidth =
-          stageWidth -
+          stageWidths[
+            STAGES.indexOf(
+              item.stage
+            )
+          ] -
           stagePadding * 2;
 
 
         const x =
           left +
-          (
-            stageIndex *
-            stageWidth
-          ) +
+          stageStarts[
+            item.stage
+          ] +
           stagePadding +
           (
             usableStageWidth *
@@ -683,7 +1051,12 @@ function renderSegment(
       "
     >
 
-      <div class="segment-stage-row">
+      <div
+        class="segment-stage-row"
+        style="
+          grid-template-columns:${stageWidths.map(width => `${width}px`).join(" ")}
+        "
+      >
 
         ${
           STAGES.map(
@@ -759,6 +1132,61 @@ function renderSegment(
 
 
   return html;
+
+}
+
+
+function getSegmentWidth(
+  segment
+) {
+
+  return getStageWidths(
+    segment
+  )
+    .reduce(
+      (
+        total,
+        width
+      ) =>
+        total +
+        width,
+      0
+    );
+
+}
+
+
+function getStageWidths(
+  segment
+) {
+
+  return STAGES.map(
+    stage => {
+
+      const count =
+        segment
+          .items
+          .filter(
+            item =>
+              item.stage ===
+              stage
+          )
+          .length;
+
+      if (
+        count ===
+        0
+      ) {
+        return 160;
+      }
+
+
+      return 240 +
+        count *
+        170;
+
+    }
+  );
 
 }
 
@@ -1027,6 +1455,81 @@ function bindFlightEvents(
 
           }
         );
+
+      }
+    );
+
+}
+
+
+function bindPreSimTabs() {
+
+  document
+    .querySelectorAll(
+      ".pre-sim-tab"
+    )
+    .forEach(
+      button => {
+
+        button
+          .addEventListener(
+            "click",
+            () => {
+
+              const tab =
+                button.dataset.preSimTab;
+
+
+              document
+                .querySelectorAll(
+                  ".pre-sim-tab"
+                )
+                .forEach(
+                  item => {
+
+                    const active =
+                      item.dataset.preSimTab ===
+                      tab;
+
+                    item
+                      .classList
+                      .toggle(
+                        "active",
+                        active
+                      );
+
+                    item
+                      .setAttribute(
+                        "aria-selected",
+                        active
+                          ? "true"
+                          : "false"
+                      );
+
+                  }
+                );
+
+
+              document
+                .querySelectorAll(
+                  ".pre-sim-panel"
+                )
+                .forEach(
+                  panel => {
+
+                    panel
+                      .classList
+                      .toggle(
+                        "active",
+                        panel.dataset.preSimPanel ===
+                        tab
+                      );
+
+                  }
+                );
+
+            }
+          );
 
       }
     );
@@ -1704,6 +2207,66 @@ function showView(
 }
 
 
+function showDashboardTab(
+  tab
+) {
+
+  document
+    .querySelectorAll(
+      ".dashboard-tab"
+    )
+    .forEach(
+      button => {
+
+        const active =
+          button.dataset.dashboardTab ===
+          tab;
+
+        button
+          .classList
+          .toggle(
+            "active",
+            active
+          );
+
+        button
+          .setAttribute(
+            "aria-selected",
+            active
+              ? "true"
+              : "false"
+          );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "schedulePanel"
+    )
+    .classList
+    .toggle(
+      "active",
+      tab ===
+      "schedule"
+    );
+
+
+  document
+    .getElementById(
+      "tasksPanel"
+    )
+    .classList
+    .toggle(
+      "active",
+      tab ===
+      "tasks"
+    );
+
+}
+
+
 /* ================================================= */
 /* GLOBAL EVENTS */
 /* ================================================= */
@@ -1751,6 +2314,29 @@ document
 
 
 document
+  .querySelectorAll(
+    ".dashboard-tab"
+  )
+  .forEach(
+    button => {
+
+      button
+        .addEventListener(
+          "click",
+          () => {
+
+            showDashboardTab(
+              button.dataset.dashboardTab
+            );
+
+          }
+        );
+
+    }
+  );
+
+
+document
   .addEventListener(
     "keydown",
     event => {
@@ -1773,3 +2359,4 @@ document
 /* ================================================= */
 
 renderDashboard();
+renderTaskMatrix();

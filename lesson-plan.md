@@ -28,10 +28,10 @@ Raw lesson structure for the debrief UI. Keep simulator lesson content here and 
 
 - Aircraft state: Cold aircraft
 - Performance: Take-off performance calculation required
-- ZFW: Training value
-- ZFWCG: Training value
-- FOB: Training value
-- METAR: Instructor-selected training weather
+- ZFW: 61.8 t
+- ZFWCG: 29.4%
+- FOB: 7.2 t
+- METAR: LEBL 070520Z 09008KT 9999 FEW025 24/17 Q1016 NOSIG
 - Departure: LEBL
 - Arrival: LEPA
 
@@ -72,10 +72,10 @@ Raw lesson structure for the debrief UI. Keep simulator lesson content here and 
 
 - Aircraft state: Cold aircraft
 - Performance: Normal performance calculation
-- ZFW: Training value
-- ZFWCG: Training value
-- FOB: Training value
-- METAR: Crosswind training conditions
+- ZFW: 62.6 t
+- ZFWCG: 28.8%
+- FOB: 8.1 t
+- METAR: LEBL 080550Z 06014KT 9999 SCT030 23/16 Q1018
 - Training altitude: FL200
 
 ### Lesson Items
@@ -115,10 +115,10 @@ Raw lesson structure for the debrief UI. Keep simulator lesson content here and 
 
 - Aircraft state: Transit checks
 - Performance: Take-off data prepared for repeated departures
-- ZFW: Training value
-- ZFWCG: Training value
-- FOB: Training value
-- METAR: Windshear and circling training scenario
+- ZFW: 60.9 t
+- ZFWCG: 30.1%
+- FOB: 6.9 t
+- METAR: LEBL 090620Z 21010KT 9000 VCTS SCT020CB 25/18 Q1013
 - Initial crew: CM1
 
 ### Lesson Items
@@ -159,11 +159,12 @@ Raw lesson structure for the debrief UI. Keep simulator lesson content here and 
 
 - Aircraft state: Holding point, ready for departure
 - Performance: Take-off performance complete
-- ZFW: Training value
-- ZFWCG: Training value
-- FOB: Training value
+- ZFW: 63.4 t
+- ZFWCG: 27.9%
+- FOB: 7.6 t
 - Initial configuration: Departure configuration set
 - Training reference: V1 and EFATO
+- METAR: LEBL 100545Z 12006KT 9999 FEW018 22/15 Q1020
 
 ### Lesson Items
 
@@ -207,11 +208,12 @@ Raw lesson structure for the debrief UI. Keep simulator lesson content here and 
 
 - Aircraft state: Holding point, ready for departure
 - Performance: Single-engine profile followed by overweight landing exercise
-- ZFW: Training value
-- ZFWCG: Training value
-- FOB: Training value
+- ZFW: 64.7 t
+- ZFWCG: 29.7%
+- FOB: 8.8 t
 - Weight adjustment: Overweight landing training block
 - Navigation: ILS / NPA / PBN
+- METAR: LEPA 110615Z 04012KT 9999 SCT026 26/19 Q1017
 
 ### Lesson Items
 
@@ -251,12 +253,13 @@ Raw lesson structure for the debrief UI. Keep simulator lesson content here and 
 
 - Aircraft state: Cold aircraft
 - Performance: Normal departure data
-- ZFW: Training value
-- ZFWCG: Training value
-- FOB: Training value
+- ZFW: 61.5 t
+- ZFWCG: 31.2%
+- FOB: 7.9 t
 - Initial level: FL80
 - Decompression level: FL350
 - Approach reposition: 3500 ft
+- METAR: LEBL 120600Z 30008KT 9999 BKN032 21/14 Q1015
 
 ### Lesson Items
 
@@ -304,11 +307,12 @@ Raw lesson structure for the debrief UI. Keep simulator lesson content here and 
 
 - Aircraft state: Cold aircraft
 - Performance: Normal take-off performance
-- ZFW: Training value
-- ZFWCG: Training value
-- FOB: Training value
+- ZFW: 62.2 t
+- ZFWCG: 28.5%
+- FOB: 7.4 t
 - Initial altitude: FL80
 - Mechanical Backup: 2000 ft exercise
+- METAR: LEBL 130530Z 18011KT 9999 FEW020 24/18 Q1014
 
 ### Lesson Items
 
@@ -355,11 +359,12 @@ Raw lesson structure for the debrief UI. Keep simulator lesson content here and 
 
 - Aircraft state: Transit checks
 - Performance: Take-off performance prepared for repeated departure resets
-- ZFW: Training value
-- ZFWCG: Training value
-- FOB: Training value
+- ZFW: 60.6 t
+- ZFWCG: 30.6%
+- FOB: 8.3 t
 - Initial level: FL60
 - Smoke level: FL100
+- METAR: LEBL 140610Z 24009KT 8000 HZ SCT018 27/20 Q1012
 
 ### Lesson Items
 

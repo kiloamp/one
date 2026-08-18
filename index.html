@@ -70,142 +70,85 @@
   </div>
 
 
-  <section
-    class="ato-brief"
-    aria-labelledby="atoBriefTitle"
+  <div
+    class="dashboard-tabs"
+    role="tablist"
+    aria-label="Dashboard sections"
   >
 
-    <div class="brief-head">
+    <button
+      class="dashboard-tab active"
+      type="button"
+      data-dashboard-tab="schedule"
+      role="tab"
+      aria-selected="true"
+    >
+      Schedule
+    </button>
 
-      <div>
+    <button
+      class="dashboard-tab"
+      type="button"
+      data-dashboard-tab="tasks"
+      role="tab"
+      aria-selected="false"
+    >
+      Training Tasks
+    </button>
 
-        <div class="eyebrow">
-          ATO FSTD compliance
-        </div>
-
-        <h2 id="atoBriefTitle">
-          FCS task-to-tool evidence chain
-        </h2>
-
-      </div>
-
-      <a
-        class="source-link"
-        href="lesson-plan.md"
-      >
-        Lesson plan source
-      </a>
-
-    </div>
+  </div>
 
 
-    <div class="evidence-chain" aria-label="Evidence chain">
+  <section
+    class="dashboard-panel active"
+    id="schedulePanel"
+  >
 
-      <article>
-        <span>1</span>
-        <strong>Task / objective</strong>
-        <p>Identify the training objective and performance standard for each exercise.</p>
-      </article>
+    <div class="section-head">
 
-      <article>
-        <span>2</span>
-        <strong>Training FCS</strong>
-        <p>Define the simulator features and fidelity levels needed for that objective.</p>
-      </article>
+      <h2>
+        Conversion course
+      </h2>
 
-      <article>
-        <span>3</span>
-        <strong>Device FCS / ESL</strong>
-        <p>Compare the selected FSTD certificate, FCS or assigned FCS, and ESL.</p>
-      </article>
-
-      <article>
-        <span>4</span>
-        <strong>Credit decision</strong>
-        <p>Record suitability, limitations, mitigations, and approved training credit.</p>
-      </article>
+      <span>
+        8 FFS sessions
+      </span>
 
     </div>
 
 
-    <div class="reg-grid">
-
-      <article class="reg-card mandatory">
-        <div class="reg-type">Regulation</div>
-        <h3>Mandatory baseline</h3>
-        <p>
-          Regulation (EU) 2026/781 applies from 30 Apr 2028, with selected TRI provisions
-          applying from 30 Apr 2026. ORA.ATO.135(b)(1) requires the ATO to demonstrate
-          adequacy of FSTD specifications for the training programme using the FSTD
-          qualification certificate and ESL.
-        </p>
-      </article>
-
-      <article class="reg-card optional">
-        <div class="reg-type">AMC / GM</div>
-        <h3>Optional method, controlled evidence</h3>
-        <p>
-          EASA describes task-to-tool as optional for aeroplane and helicopter type rating
-          training. When an ATO adopts it, the evidence should show task objective, required
-          capability and fidelity, device capability, differences, mitigations, and credit.
-        </p>
-      </article>
-
-      <article class="reg-card">
-        <div class="reg-type">CS-FSTD</div>
-        <h3>Device capability language</h3>
-        <p>
-          CS-FSTD Issue 1, issued by ED Decision 2026/008/R, supplies the qualification
-          framework for FSTDs with FCS. The ATO uses the certificate and ESL as source
-          evidence; it does not re-qualify the device.
-        </p>
-      </article>
-
-      <article class="reg-card">
-        <div class="reg-type">Guidance</div>
-        <h3>Implementation programme</h3>
-        <p>
-          EASA's implementation material points to IST.0007, a familiarisation session on
-          15 Dec 2026, workshops in 2027, FAQs, and a planned implementation support manual
-          in Q1 2027.
-        </p>
-      </article>
-
-    </div>
-
-
-    <div class="change-list" aria-label="ATO change areas">
-
-      <span>Programme approval</span>
-      <span>Training Manual / OM</span>
-      <span>FSTD selection</span>
-      <span>Instructor briefing</span>
-      <span>Compliance monitoring</span>
-      <span>Management of change</span>
-
+    <div
+      class="cards"
+      id="sessionCards"
+    >
     </div>
 
   </section>
 
 
-  <div class="section-head">
-
-    <h2>
-      Conversion course
-    </h2>
-
-    <span>
-      8 FFS sessions
-    </span>
-
-  </div>
-
-
-  <div
-    class="cards"
-    id="sessionCards"
+  <section
+    class="dashboard-panel"
+    id="tasksPanel"
   >
-  </div>
+
+    <div class="section-head">
+
+      <h2>
+        Training task matrix
+      </h2>
+
+      <span id="taskCount">
+      </span>
+
+    </div>
+
+    <div
+      class="task-matrix"
+      id="taskMatrix"
+    >
+    </div>
+
+  </section>
 
 </div>
 
