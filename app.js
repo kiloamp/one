@@ -601,13 +601,11 @@ function openDeviceModal(device) {
 
 function renderTaskMatrix() {
   const tasks = getTrainingTasks();
-  document.getElementById("taskCount").textContent = `${tasks.length} FFS items`;
+  document.getElementById("taskCount").textContent = `${tasks.length} training tasks`;
   document.getElementById("taskMatrix").innerHTML = `
     <table class="task-table">
       <thead>
         <tr>
-          <th>FFS</th>
-          <th>Item</th>
           <th>Training task</th>
           <th>Sim type</th>
           <th>Required Training FCS</th>
@@ -617,8 +615,6 @@ function renderTaskMatrix() {
       <tbody>
         ${tasks.map(task => `
           <tr class="task-row" data-task-id="${task.id}">
-            <td>FFS ${task.session}</td>
-            <td>${task.item}</td>
             <td><strong>${escapeHtml(task.title)}</strong></td>
             <td>${escapeHtml(task.simType)}</td>
             <td>${escapeHtml(task.trainingFcs)}</td>
@@ -657,7 +653,7 @@ function openFcsMatrix(task) {
   }
 
   openModal(
-    `FFS ${task.session} / Item ${task.item}`,
+    "Training task",
     task.title,
     `
       <div class="matrix-summary three">
@@ -722,25 +718,7 @@ function openProgrammeModal(programme) {
     `
       <div class="programme-modal-head">
         <div><span>Device plan</span><strong>${programme.includes("MCC") ? "FNPT II MCC + FFS familiarisation" : "A320 FFS / FTD blended path"}</strong></div>
-        <div><span>Events</span><strong>${FFS.length} FFS sessions</strong></div>
-      </div>
-      <div class="cards compact-cards modal-schedule">
-        ${FFS.map(item => {
-          const state = COMPLETED_SESSIONS.has(item.number)
-            ? { className: "complete", label: "Complete" }
-            : { className: "pending", label: "Planned" };
-          return `
-            <button class="sim-card ${state.className}" type="button" data-session="${item.number}">
-              <div>
-                <div class="card-top">
-                  <div class="ffs-number">FFS ${item.number}</div>
-                  <div class="status-badge ${state.className}">${state.label}</div>
-                </div>
-                <div class="card-title">${escapeHtml(item.title)}</div>
-              </div>
-            </button>
-          `;
-        }).join("")}
+        <div><span>Build mode</span><strong>Template editing workspace</strong></div>
       </div>
       <div class="programme-details">
         <details open>
@@ -753,18 +731,34 @@ function openProgrammeModal(programme) {
         </details>
         <details>
           <summary>Session</summary>
-          ${renderSessionItems(session)}
+          ${renderProgrammeSessionTemplate(session)}
         </details>
       </div>
     `
   );
+}
 
-  document.querySelectorAll(".modal-schedule .sim-card").forEach(card => {
-    card.addEventListener("click", () => {
-      closeModal();
-      openSession(Number(card.dataset.session));
-    });
-  });
+function renderProgrammeSessionTemplate(session) {
+  return `
+    <div class="session-table-wrap compact-table-wrap">
+      <table class="session-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Lesson note</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${session.items.map(item => `
+            <tr>
+              <td><strong>${escapeHtml(item[0])}</strong></td>
+              <td>${escapeHtml(getShortLessonNote(item[0]))}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
 }
 
 function renderManufacturerWorkspace() {
