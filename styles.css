@@ -32,6 +32,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -48,6 +49,24 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
+}
+
+.icon-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 button {
@@ -121,6 +140,10 @@ button:focus-visible {
   background: var(--panel);
   font-size: 12px;
   font-weight: 720;
+}
+
+.role-chip:empty {
+  display: none;
 }
 
 .top-actions {
@@ -218,19 +241,35 @@ h1 {
   line-height: 1.6;
 }
 
-.login-dashboard {
-  max-width: 1120px;
+.login-screen {
+  min-height: calc(100vh - 68px);
+  width: min(1180px, calc(100% - 60px));
+  margin: 0 auto;
+  padding: 84px 0 90px;
+  display: grid;
+  align-content: center;
+}
+
+.login-hero {
+  margin-bottom: 30px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.login-hero h1 {
+  max-width: 760px;
+  font-size: clamp(58px, 8vw, 112px);
 }
 
 .login-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 18px;
 }
 
 .login-card {
-  min-height: 190px;
-  padding: 22px;
+  min-height: 260px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -254,9 +293,15 @@ h1 {
 
 .login-card strong {
   display: block;
-  margin: 14px 0 8px;
-  font-size: 24px;
+  margin: auto 0 0;
+  font-size: 30px;
   line-height: 1.1;
+}
+
+.login-card .icon {
+  width: 32px;
+  height: 32px;
+  color: var(--blue);
 }
 
 .portal-head {
@@ -273,6 +318,209 @@ h1 {
   color: var(--muted-light);
   font-size: 14px;
   line-height: 1.55;
+}
+
+#scheduleArea {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.section-head h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-meta {
+  display: block;
+  margin: -7px 0 13px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.add-button {
+  min-height: 34px;
+  padding: 0 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.add-button:hover {
+  background: var(--panel-hover);
+}
+
+.stakeholder-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.stakeholder-tab {
+  min-height: 50px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--muted-light);
+  font-size: 13px;
+  font-weight: 780;
+}
+
+.stakeholder-tab.active {
+  border-color: var(--border-light);
+  background: var(--panel-hover);
+  color: var(--text);
+}
+
+.stakeholder-panel {
+  display: none;
+}
+
+.stakeholder-panel.active {
+  display: block;
+}
+
+.device-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.device-card {
+  min-height: 260px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #1b1f25, #101319);
+  color: var(--text);
+  text-align: left;
+}
+
+.device-card:hover {
+  border-color: var(--blue);
+}
+
+.device-type {
+  width: max-content;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 820;
+}
+
+.device-icon {
+  width: 42px;
+  height: 42px;
+  margin: 34px 0 20px;
+  color: var(--green);
+}
+
+.device-card strong,
+.programme-card strong {
+  display: block;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.device-card span,
+.programme-card span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted-light);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.device-card small {
+  display: block;
+  margin-top: auto;
+  padding-top: 20px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.programme-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.programme-card {
+  min-height: 124px;
+  padding: 15px;
+  display: grid;
+  align-content: space-between;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--text);
+  text-align: left;
+}
+
+.programme-card:hover {
+  background: var(--panel-hover);
+  border-color: var(--border-light);
+}
+
+.programme-card .icon {
+  color: var(--blue);
+}
+
+.programme-preview {
+  margin-top: 22px;
+}
+
+.programme-preview-head {
+  margin-bottom: 13px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel-soft);
+}
+
+.programme-preview-head span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 780;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.programme-preview-head strong {
+  color: var(--text);
+}
+
+.compact-cards {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.compact-cards .sim-card {
+  min-height: 170px;
 }
 
 .dashboard-tabs {
@@ -724,6 +972,10 @@ h1 {
   overflow: auto;
   border: 1px solid var(--border);
   border-radius: 8px;
+}
+
+.drawer .info-grid {
+  grid-template-columns: 1fr;
 }
 
 .session-title {
@@ -1443,7 +1695,10 @@ h1 {
   .cards,
   .login-grid,
   .info-grid,
-  .debrief-grid {
+  .debrief-grid,
+  .device-grid,
+  .programme-grid,
+  .compact-cards {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -1485,8 +1740,25 @@ h1 {
   .login-grid,
   .info-grid,
   .debrief-grid,
-  .matrix-summary {
+  .matrix-summary,
+  .device-grid,
+  .programme-grid,
+  .compact-cards,
+  .stakeholder-tabs {
     grid-template-columns: 1fr;
+  }
+
+  .login-screen {
+    width: min(100% - 34px, 1180px);
+    padding: 52px 0 70px;
+  }
+
+  .login-card {
+    min-height: 190px;
+  }
+
+  .login-hero h1 {
+    font-size: clamp(44px, 14vw, 74px);
   }
 
   .portal-head {

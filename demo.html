@@ -14,6 +14,45 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <svg class="icon-sprite" aria-hidden="true">
+      <symbol id="icon-user" viewBox="0 0 24 24">
+        <path d="M20 21a8 8 0 0 0-16 0"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </symbol>
+      <symbol id="icon-briefcase" viewBox="0 0 24 24">
+        <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+        <rect x="2" y="6" width="20" height="14" rx="2"></rect>
+      </symbol>
+      <symbol id="icon-graduation" viewBox="0 0 24 24">
+        <path d="M22 10 12 5 2 10l10 5 10-5Z"></path>
+        <path d="M6 12v5c3 2 9 2 12 0v-5"></path>
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M5 12h14"></path>
+        <path d="M12 5v14"></path>
+      </symbol>
+      <symbol id="icon-plane" viewBox="0 0 24 24">
+        <path d="M17.8 19.2 16 11l3.5-3.5c1.1-1.1 1.4-2.7.7-3.4s-2.3-.4-3.4.7L13 8.3 4.8 6.5 3.5 7.8l6.7 3.3-3.5 3.5-2.3-.4-1 1 3.3 2 2 3.3 1-1-.4-2.3 3.5-3.5 3.3 6.7 1.7-1.2Z"></path>
+      </symbol>
+      <symbol id="icon-monitor" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="12" rx="2"></rect>
+        <path d="M8 20h8"></path>
+        <path d="M12 16v4"></path>
+      </symbol>
+      <symbol id="icon-list" viewBox="0 0 24 24">
+        <path d="M8 6h13"></path>
+        <path d="M8 12h13"></path>
+        <path d="M8 18h13"></path>
+        <path d="M3 6h.01"></path>
+        <path d="M3 12h.01"></path>
+        <path d="M3 18h.01"></path>
+      </symbol>
+      <symbol id="icon-clipboard" viewBox="0 0 24 24">
+        <rect x="8" y="2" width="8" height="4" rx="1"></rect>
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+      </symbol>
+    </svg>
+
     <header class="topbar">
       <button class="brand brand-button" id="brand" type="button">SimPortal</button>
       <div class="top-actions">
@@ -23,33 +62,29 @@
 
     <main>
       <section id="loginView" class="view active">
-        <div class="dashboard login-dashboard">
-          <div class="hero">
-            <div class="eyebrow">A320 Type Rating</div>
-            <h1>Simulator training portal</h1>
-            <p>
-              Choose a role to preview the static ATO workflow for schedule review,
-              task suitability, session content and debrief records.
-            </p>
+        <div class="login-screen">
+          <div class="login-hero">
+            <div class="eyebrow">SimPortal</div>
+            <h1>Log in as...</h1>
           </div>
 
           <div class="login-grid">
             <button class="login-card" type="button" data-role="stakeholder">
+              <svg class="icon"><use href="#icon-briefcase"></use></svg>
               <span>Log in as</span>
               <strong>ATO Stakeholder</strong>
-              <small>Training tasks and FCS suitability matrix</small>
             </button>
 
             <button class="login-card" type="button" data-role="tri">
+              <svg class="icon"><use href="#icon-user"></use></svg>
               <span>Log in as</span>
               <strong>ATO TRI</strong>
-              <small>Instructor view of FFS sessions and debriefs</small>
             </button>
 
             <button class="login-card" type="button" data-role="student">
+              <svg class="icon"><use href="#icon-graduation"></use></svg>
               <span>Log in as</span>
               <strong>Student</strong>
-              <small>FFS schedule, lesson plan and completed records</small>
             </button>
           </div>
         </div>
@@ -68,18 +103,62 @@
 
           <section id="scheduleArea">
             <div class="section-head">
-              <h2>FFS Schedule</h2>
+              <h2><svg class="icon"><use href="#icon-plane"></use></svg> FFS Schedule</h2>
               <span>FFS 1-5 complete</span>
             </div>
             <div class="cards" id="sessionCards"></div>
           </section>
 
           <section id="stakeholderArea">
-            <div class="section-head">
-              <h2>Training Tasks</h2>
-              <span id="taskCount"></span>
+            <div class="stakeholder-tabs" role="tablist" aria-label="ATO Stakeholder sections">
+              <button class="stakeholder-tab active" type="button" data-stakeholder-tab="inventory">
+                <svg class="icon"><use href="#icon-monitor"></use></svg>
+                Device Inventory
+              </button>
+              <button class="stakeholder-tab" type="button" data-stakeholder-tab="tasks">
+                <svg class="icon"><use href="#icon-list"></use></svg>
+                Task Matrix
+              </button>
+              <button class="stakeholder-tab" type="button" data-stakeholder-tab="programmes">
+                <svg class="icon"><use href="#icon-clipboard"></use></svg>
+                Programs
+              </button>
             </div>
-            <div class="task-matrix" id="taskMatrix"></div>
+
+            <section class="stakeholder-panel active" id="inventoryPanel">
+              <div class="section-head">
+                <h2>Device Inventory</h2>
+                <button class="add-button" type="button" data-create="device">
+                  <svg class="icon"><use href="#icon-plus"></use></svg>
+                  Device
+                </button>
+              </div>
+              <div class="device-grid" id="deviceInventory"></div>
+            </section>
+
+            <section class="stakeholder-panel" id="tasksPanel">
+              <div class="section-head">
+                <h2>Task Matrix</h2>
+                <button class="add-button" type="button" data-create="task">
+                  <svg class="icon"><use href="#icon-plus"></use></svg>
+                  Task
+                </button>
+              </div>
+              <span class="section-meta" id="taskCount"></span>
+              <div class="task-matrix" id="taskMatrix"></div>
+            </section>
+
+            <section class="stakeholder-panel" id="programmesPanel">
+              <div class="section-head">
+                <h2>Programs</h2>
+                <button class="add-button" type="button" data-create="programme">
+                  <svg class="icon"><use href="#icon-plus"></use></svg>
+                  Program
+                </button>
+              </div>
+              <div class="programme-grid" id="programmeList"></div>
+              <div class="programme-preview" id="programmePreview"></div>
+            </section>
           </section>
         </div>
       </section>

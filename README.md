@@ -18,4 +18,4 @@ framework. The final slide links into the interactive demo.
 ## Demo Roles
 
 - Student and ATO TRI show the FFS schedule and session detail tabs.
-- ATO Stakeholder shows the Training Tasks table and sample EASA FCS matrix.
+- ATO Stakeholder shows Device Inventory, Task Matrix, Programs, and sample EASA FCS matrices.

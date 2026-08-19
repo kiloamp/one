@@ -12,9 +12,100 @@ const ROLE_LABELS = {
   student: "Student"
 };
 
+const DEVICE_INVENTORY = [
+  {
+    type: "FFS",
+    name: "A320 Full Flight Simulator",
+    level: "Legacy FFS Level D / assigned FCS",
+    motion: "Full motion, collimated visual",
+    bestFor: "V1 cuts, landing, EFATO, smoke, abnormal ECAM",
+    qualification: [
+      ["Certificate", "EASA FSTD qualification certificate"],
+      ["ESL", "A320 CEO, CFM56, LEBL/LEPA/EGLL visual scenes"],
+      ["FCS evidence", "Assigned FCS: flight dynamics, controls, visual, motion, systems"],
+      ["Limitations", "Legacy certificate to be mapped before 30 Apr 2029 where required"]
+    ]
+  },
+  {
+    type: "FTD",
+    name: "A320 Fixed Training Device",
+    level: "FTD Level 2 / capability-based candidate",
+    motion: "Fixed-base, replicated cockpit",
+    bestFor: "Normal procedures, FMS setup, ECAM flows",
+    qualification: [
+      ["Certificate", "FSTD qualification certificate"],
+      ["ESL", "Flight deck, FMGS, ECAM and instructor station"],
+      ["FCS evidence", "Systems, navigation, cockpit interface and IOS features"],
+      ["Limitations", "No full motion cueing for high-fidelity landing credit"]
+    ]
+  },
+  {
+    type: "FNPT",
+    name: "FNPT II MCC Trainer",
+    level: "FNPT II MCC",
+    motion: "Fixed-base generic multi-crew trainer",
+    bestFor: "MCC, CRM, IFR procedures, task sharing",
+    qualification: [
+      ["Certificate", "FNPT II MCC qualification certificate"],
+      ["ESL", "Generic jet configuration and MCC instructor tools"],
+      ["FCS evidence", "Navigation, crew coordination, procedure training"],
+      ["Limitations", "Not type-specific for A320 type-rating handling tasks"]
+    ]
+  },
+  {
+    type: "BITD",
+    name: "Basic Instrument Trainer",
+    level: "BITD legacy training device",
+    motion: "Desktop instrument environment",
+    bestFor: "Basic IFR scan and procedure rehearsal",
+    qualification: [
+      ["Certificate", "BITD qualification evidence where applicable"],
+      ["ESL", "Instrument panel and navigation training setup"],
+      ["FCS evidence", "Limited or legacy capability evidence"],
+      ["Limitations", "Not suitable for type-rating credit without approved scope"]
+    ]
+  },
+  {
+    type: "CB-FSTD",
+    name: "XR Procedure Trainer",
+    level: "Capability-based FSTD concept",
+    motion: "XR headset, hand controls, no platform motion",
+    bestFor: "Flight deck familiarisation, flows, system recognition",
+    qualification: [
+      ["Certificate", "Future qualification under CS-FSTD Issue 1 if approved"],
+      ["ESL", "XR interface, controls, aircraft systems scope"],
+      ["FCS evidence", "Flight-deck interface technology and procedural fidelity"],
+      ["Limitations", "Training credit depends on certificate, ESL and approved programme"]
+    ]
+  }
+];
+
+const AIRCRAFT_TYPES = [
+  "A320",
+  "A330",
+  "A340",
+  "B737",
+  "B757",
+  "B767",
+  "B777"
+];
+
+const PROGRAMMES = [
+  ...AIRCRAFT_TYPES.flatMap(
+    type => [
+      `${type} Type Rating`,
+      `${type} Revalidation`,
+      `${type} Renovation`
+    ]
+  ),
+  "A330 CCQ",
+  "MCC"
+];
+
 let currentRole = null;
 let currentSession = null;
 let currentSessionTab = "briefing";
+let currentStakeholderTab = "inventory";
 
 function init() {
   bindGlobalEvents();
@@ -85,6 +176,28 @@ function bindGlobalEvents() {
     );
 
   document
+    .querySelectorAll(".stakeholder-tab")
+    .forEach(
+      button => {
+        button.addEventListener(
+          "click",
+          () => showStakeholderTab(button.dataset.stakeholderTab)
+        );
+      }
+    );
+
+  document
+    .querySelectorAll(".add-button")
+    .forEach(
+      button => {
+        button.addEventListener(
+          "click",
+          () => openCreateDrawer(button.dataset.create)
+        );
+      }
+    );
+
+  document
     .getElementById("drawerClose")
     .addEventListener(
       "click",
@@ -136,11 +249,62 @@ function renderPortal() {
       : "none";
 
   if (stakeholder) {
+    renderDeviceInventory();
     renderTaskMatrix();
+    renderProgrammes();
+    showStakeholderTab(currentStakeholderTab);
     return;
   }
 
   renderSchedule();
+}
+
+function showStakeholderTab(tab) {
+  currentStakeholderTab = tab;
+
+  document
+    .querySelectorAll(".stakeholder-tab")
+    .forEach(
+      button => {
+        button.classList.toggle(
+          "active",
+          button.dataset.stakeholderTab === tab
+        );
+      }
+    );
+
+  document.getElementById("inventoryPanel").classList.toggle(
+    "active",
+    tab === "inventory"
+  );
+  document.getElementById("tasksPanel").classList.toggle(
+    "active",
+    tab === "tasks"
+  );
+  document.getElementById("programmesPanel").classList.toggle(
+    "active",
+    tab === "programmes"
+  );
+}
+
+function openCreateDrawer(type) {
+  const labels = {
+    device: "Device",
+    task: "Training Task",
+    programme: "Programme"
+  };
+
+  document.getElementById("drawerEyebrow").textContent =
+    "Create new";
+  document.getElementById("drawerTitle").textContent =
+    labels[type] || "Record";
+  document.getElementById("drawerBody").innerHTML = `
+    <div class="readonly-comments">
+      This demo button marks where an ATO user would create a new ${escapeHtml(labels[type] || "record")}.
+    </div>
+  `;
+
+  openDrawer();
 }
 
 function renderSchedule() {
@@ -364,6 +528,184 @@ function renderDebrief(session) {
   `;
 }
 
+function renderDeviceInventory() {
+  const holder =
+    document.getElementById("deviceInventory");
+
+  holder.innerHTML =
+    DEVICE_INVENTORY.map(
+      device => `
+        <button class="device-card" type="button" data-device="${escapeHtml(device.name)}">
+          <div class="device-type">${escapeHtml(device.type)}</div>
+          <svg class="icon device-icon"><use href="#icon-monitor"></use></svg>
+          <strong>${escapeHtml(device.name)}</strong>
+          <span>${escapeHtml(device.level)}</span>
+          <small>${escapeHtml(device.bestFor)}</small>
+        </button>
+      `
+    )
+    .join("");
+
+  holder
+    .querySelectorAll(".device-card")
+    .forEach(
+      card => {
+        card.addEventListener(
+          "click",
+          () => openDeviceQualification(
+            DEVICE_INVENTORY.find(device => device.name === card.dataset.device)
+          )
+        );
+      }
+    );
+}
+
+function openDeviceQualification(device) {
+  if (!device) {
+    return;
+  }
+
+  document.getElementById("drawerEyebrow").textContent =
+    `${device.type} qualification`;
+  document.getElementById("drawerTitle").textContent =
+    device.name;
+  document.getElementById("drawerBody").innerHTML = `
+    <div class="matrix-summary">
+      <div>
+        <span>Level</span>
+        <strong>${escapeHtml(device.level)}</strong>
+      </div>
+      <div>
+        <span>Device feel</span>
+        <strong>${escapeHtml(device.motion)}</strong>
+      </div>
+    </div>
+    ${renderInfoGrid(Object.fromEntries(device.qualification))}
+  `;
+
+  openDrawer();
+}
+
+function renderProgrammes() {
+  const holder =
+    document.getElementById("programmeList");
+
+  holder.innerHTML =
+    PROGRAMMES.map(
+      programme => `
+        <button class="programme-card" type="button" data-programme="${escapeHtml(programme)}">
+          <svg class="icon"><use href="#icon-clipboard"></use></svg>
+          <strong>${escapeHtml(programme)}</strong>
+          <span>${getProgrammeMeta(programme)}</span>
+        </button>
+      `
+    )
+    .join("");
+
+  holder
+    .querySelectorAll(".programme-card")
+    .forEach(
+      card => {
+        card.addEventListener(
+          "click",
+          () => renderProgrammePreview(card.dataset.programme)
+        );
+      }
+    );
+
+  renderProgrammePreview("A320 Type Rating");
+}
+
+function renderProgrammePreview(programme) {
+  const holder =
+    document.getElementById("programmePreview");
+
+  holder.innerHTML = `
+    <div class="programme-preview-head">
+      <div>
+        <span>Selected programme</span>
+        <strong>${escapeHtml(programme)}</strong>
+      </div>
+      <button class="add-button" type="button" data-create="programme">
+        ${icon("plus")}
+        Session
+      </button>
+    </div>
+    <div class="cards compact-cards">
+      ${
+        FFS.map(
+          session => {
+            const completed =
+              programme === "A320 Type Rating" &&
+              COMPLETED_SESSIONS.has(session.number);
+
+            return `
+              <button
+                class="sim-card ${completed ? "complete" : "pending"}"
+                type="button"
+                data-session="${session.number}"
+              >
+                <div>
+                  <div class="card-top">
+                    <div class="ffs-number">FFS ${session.number}</div>
+                    <div class="status-badge ${completed ? "complete" : "pending"}">
+                      ${completed ? "Complete" : "Planned"}
+                    </div>
+                  </div>
+                  <div class="card-title">${escapeHtml(session.title)}</div>
+                </div>
+                <div class="card-bottom">
+                  <span>${escapeHtml(session.detail)}</span>
+                  <span>${session.items.length} items</span>
+                </div>
+              </button>
+            `;
+          }
+        )
+        .join("")
+      }
+    </div>
+  `;
+
+  holder
+    .querySelectorAll(".sim-card")
+    .forEach(
+      card => {
+        card.addEventListener(
+          "click",
+          () => openSession(Number(card.dataset.session))
+        );
+      }
+    );
+
+  holder
+    .querySelector(".add-button")
+    .addEventListener(
+      "click",
+      () => openCreateDrawer("programme")
+    );
+}
+
+function getProgrammeMeta(programme) {
+  if (programme === "MCC") {
+    return "Multi-crew cooperation";
+  }
+
+  if (programme.includes("CCQ")) {
+    return "Cross-crew qualification";
+  }
+
+  if (programme.includes("Revalidation")) {
+    return "Proficiency check programme";
+  }
+
+  if (programme.includes("Renovation")) {
+    return "Lapsed rating recovery";
+  }
+
+  return "Type rating programme";
+}
+
 function renderTaskMatrix() {
   const tasks =
     getTrainingTasks();
@@ -380,7 +722,7 @@ function renderTaskMatrix() {
           <th>Phase</th>
           <th>Training task</th>
           <th>Sim type</th>
-          <th>FCS family</th>
+          <th>Required Training FCS</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -395,7 +737,7 @@ function renderTaskMatrix() {
                   <td><span class="phase-pill">${escapeHtml(task.phase)}</span></td>
                   <td><strong>${escapeHtml(task.title)}</strong></td>
                   <td>${escapeHtml(task.simType)}</td>
-                  <td>${escapeHtml(task.fcsFamily)}</td>
+                  <td>${escapeHtml(task.trainingFcs)}</td>
                   <td>
                     <span class="status-badge ${task.complete ? "complete" : "pending"}">
                       ${task.complete ? "Mapped" : "Draft"}
@@ -471,6 +813,10 @@ function openFcsMatrix(task) {
       <div>
         <span>Sim type</span>
         <strong>${escapeHtml(task.simType)}</strong>
+      </div>
+      <div>
+        <span>Required Training FCS</span>
+        <strong>${escapeHtml(task.trainingFcs)}</strong>
       </div>
       <div>
         <span>Regulatory source</span>
@@ -593,6 +939,8 @@ function createFcsProfile(simType, fcsFamily, regulatorySource, matrix) {
   return {
     simType,
     fcsFamily,
+    trainingFcs:
+      fcsFamily,
     regulatorySource,
     matrix:
       matrix.map(
@@ -692,6 +1040,10 @@ function closeDrawer() {
     .getElementById("drawer")
     .classList
     .remove("open");
+}
+
+function icon(name) {
+  return `<svg class="icon"><use href="#icon-${escapeHtml(name)}"></use></svg>`;
 }
 
 function escapeHtml(value) {
