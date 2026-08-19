@@ -51,13 +51,18 @@
         <rect x="8" y="2" width="8" height="4" rx="1"></rect>
         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
       </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="m20 6-11 11-5-5"></path>
+      </symbol>
+      <symbol id="icon-alert" viewBox="0 0 24 24">
+        <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path>
+        <path d="M12 9v4"></path>
+        <path d="M12 17h.01"></path>
+      </symbol>
     </svg>
 
     <header class="topbar">
       <button class="brand brand-button" id="brand" type="button">SimPortal</button>
-      <div class="top-actions">
-        <span class="role-chip" id="roleChip"></span>
-      </div>
     </header>
 
     <main>
@@ -71,20 +76,26 @@
           <div class="login-grid">
             <button class="login-card" type="button" data-role="stakeholder">
               <svg class="icon"><use href="#icon-briefcase"></use></svg>
-              <span>Log in as</span>
-              <strong>ATO Stakeholder</strong>
+              <strong>ATO Shareholders</strong>
+              <span>Full oversight of training, compliance and simulator utilisation.</span>
             </button>
 
             <button class="login-card" type="button" data-role="tri">
               <svg class="icon"><use href="#icon-user"></use></svg>
-              <span>Log in as</span>
-              <strong>ATO TRI</strong>
+              <strong>TRI / TRE</strong>
+              <span>Digital workspace for instruction, assessment and evidence</span>
             </button>
 
             <button class="login-card" type="button" data-role="student">
               <svg class="icon"><use href="#icon-graduation"></use></svg>
-              <span>Log in as</span>
-              <strong>Student</strong>
+              <strong>Students</strong>
+              <span>One place to track training journey</span>
+            </button>
+
+            <button class="login-card" type="button" data-role="manufacturer">
+              <span class="emoji-icon" aria-hidden="true">🔧</span>
+              <strong>Simulator Manufacturers</strong>
+              <span>Qualification workspace for simulator manufacturers</span>
             </button>
           </div>
         </div>
@@ -110,7 +121,7 @@
           </section>
 
           <section id="stakeholderArea">
-            <div class="stakeholder-tabs" role="tablist" aria-label="ATO Stakeholder sections">
+            <div class="stakeholder-tabs" role="tablist" aria-label="ATO Shareholder sections">
               <button class="stakeholder-tab active" type="button" data-stakeholder-tab="inventory">
                 <svg class="icon"><use href="#icon-monitor"></use></svg>
                 Device Inventory
@@ -160,6 +171,23 @@
               <div class="programme-preview" id="programmePreview"></div>
             </section>
           </section>
+
+          <section id="manufacturerArea">
+            <div class="manufacturer-hero">
+              <div>
+                <div class="eyebrow">Qualification package</div>
+                <h2>Device → Claimed FCS → Evidence → Tests → Qualification status</h2>
+                <p>SimPortal gives simulator manufacturers one workspace to build, maintain and defend their qualification package.</p>
+              </div>
+              <div class="readiness-card">
+                <span>Qualification readiness</span>
+                <strong>82%</strong>
+                <small>18 open evidence gaps</small>
+              </div>
+            </div>
+
+            <div class="manufacturer-grid" id="manufacturerGrid"></div>
+          </section>
         </div>
       </section>
 
@@ -186,16 +214,23 @@
       </section>
     </main>
 
-    <aside class="drawer" id="drawer">
-      <div class="drawer-top">
-        <div>
-          <div class="eyebrow" id="drawerEyebrow"></div>
-          <h3 id="drawerTitle"></h3>
+    <div class="modal-backdrop" id="modalBackdrop">
+      <section
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
+        <div class="modal-top">
+          <div>
+            <div class="eyebrow" id="modalEyebrow"></div>
+            <h3 id="modalTitle"></h3>
+          </div>
+          <button class="btn icon" id="modalClose" type="button" aria-label="Close">x</button>
         </div>
-        <button class="btn icon" id="drawerClose" type="button" aria-label="Close">x</button>
-      </div>
-      <div class="drawer-body" id="drawerBody"></div>
-    </aside>
+        <div class="modal-body" id="modalBody"></div>
+      </section>
+    </div>
 
     <script src="lesson-data.js"></script>
     <script src="app.js"></script>
