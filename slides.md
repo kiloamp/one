@@ -125,6 +125,7 @@ Using one platform to unify:
 
 #### CS-FSTD Issue 1 introduces the capability-based qualification framework.
 <br>
+
 * New FSTDs can be qualified using an FCS describing their capabilities and fidelity.
 * Existing FFS, FTD and FNPT qualifications can continue to be used.
 * Task-to-tool is an optional methodology.
