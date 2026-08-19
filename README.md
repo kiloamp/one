@@ -9,7 +9,6 @@ framework. The final slide links into the interactive demo.
 
 - `index.html` contains the Reveal.js presentation shell.
 - `slides.md` contains the editable presentation content.
-- `presentation.css` contains presentation-specific styling.
 - `demo.html` contains the role-based interactive debrief demo.
 - `styles.css` contains the demo visual system and responsive layout.
 - `lesson-data.js` contains the structured FFS lesson data used by the UI.

@@ -1,8 +1,8 @@
 <!-- .slide: id="intro" -->
 
-# EASA Capability-Based FSTDs
+# SimPortal 
 
-## What changes for us as an ATO?
+## Centralized compliance & tracking platform for ATOs
 
 **Main question:**  
 Can we use different simulators for different type-rating tasks based on the fidelity actually required?
@@ -11,7 +11,7 @@ Can we use different simulators for different type-rating tasks based on the fid
 
 Applicable from **30 April 2028**.
 
-[Open the demo](demo.html)
+<a class="cta" href="demo.html">Open Demo</a>
 
 ---
 
