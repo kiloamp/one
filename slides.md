@@ -16,7 +16,7 @@ This creates a new operational opportunity for ATOs to modernize how training is
 
 <!-- .slide: id="change" -->
 
-# What is changing?
+### What is changing?
 
 #### Traditional approach
 
@@ -35,31 +35,27 @@ Source:
 
 <!-- .slide: id="fcs" -->
 
-# How?
+### How?
 
-## FSTD Capability Signature (FCS)
+#### FSTD Capability Signature (FCS)
 
 The FCS is the certified capability profile of a simulation device. It describes what the device can reproduce and at what fidelity.
 
-For example, imagine a simulator having the following categories:
+For example, a simulator can have the following categories:
 
-* flight deck controls & displays
 * flight dynamics
 * FMS interface capability
 * audiovisual & motion
-* instructor functions
+* instructor station
 * ...
 
 > The ATO can link a task to an FCS via "Task-to-Tool".
-
-Source:
-[CS-FSTD Issue 1](https://www.easa.europa.eu/en/document-library/certification-specifications/cs-fstd-issue-1)
 
 ---
 
 <!-- .slide: id="why" -->
 
-# What is Task-to-Tool?
+### What is Task-to-Tool?
 
 It's the method of matching each task to a simulator whose certified capabilities are sufficient for that task.
 
@@ -77,22 +73,18 @@ Illustrative example:
 
 <!-- .slide: id="benefit" -->
 
-# What's the benefit for an ATO?
+### What's the benefit for an ATO?
 
-### Opportunity
+#### Opportunity
 
-Training is often spread across paper-based processes, separate systems and disconnected records.
+Training is spread across paper-based processes, separate systems and disconnected records.
 
-The new framework creates an opportunity to modernize the whole chain.
-
-### Method
+#### Method
 
 Using one platform to unify:
 
 * Traceability of training tasks across type ratings, revals, CCQs, ...
 * Student training progress
-* Simulator allocation based on task requirements and FCS
-* Inventory of ATO devices: FFS, FNPTs, FTDs, BITDs
 * Management of new training devices: VR, touch-screen, ...
 * EASA inspection-ready documentation and traceability
 
@@ -100,7 +92,7 @@ Using one platform to unify:
 
 <!-- .slide: id="optional" -->
 
-# Changes starting April 2028
+### Changes starting April 2028
 
 #### CS-FSTD Issue 1 introduces the capability-based qualification framework.
 
@@ -111,14 +103,12 @@ Using one platform to unify:
 
 > EASA enables a new path. Adoption is optional, but the opportunity for more flexible and efficient training is significant.
 
-Source:
-[EASA FSTD implementation](https://www.easa.europa.eu/en/domains/aircrew-and-medical/flight-simulation-training-devices-fstd)
 
 ---
 
 <!-- .slide: id="regulation" -->
 
-# Key Regulatory Material
+### Key Regulatory Material
 
 Regulatory Framework
 [Regulation 2026/781](https://www.easa.europa.eu/en/document-library/regulations/commission-implementing-regulation-eu-2026781)
@@ -136,7 +126,7 @@ Capability / fidelity qualification framework
 
 <!-- .slide: id="takeaway" -->
 
-# Takeaway
+### Takeaway
 
 1. Know what each simulator is certified to do.
 
