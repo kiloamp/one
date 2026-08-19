@@ -17,8 +17,20 @@
     >
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/dracula.css"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css"
     >
+    <style>
+      .reveal .slides {
+        margin-left: 0;   /* Centers the paragraph horizontally */
+        margin-right: 0;  /* Centers the paragraph horizontally */
+      } 
+      .reveal .slides h1, 
+      .reveal .slides h2,
+      .reveal .slides h4, 
+      .reveal .slides h3 { 
+        text-transform: none; 
+      }
+    </style>
   </head>
   <body>
     <div class="reveal">
@@ -41,8 +53,10 @@
         hash: true,
         controls: true,
         progress: true,
-        center: false,
+        width: "110%",
+        height: "110%",
         transition: "slide",
+        margin: 0.1,
         plugins: [
           RevealMarkdown,
           RevealNotes,
