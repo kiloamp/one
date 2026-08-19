@@ -1803,7 +1803,7 @@ h1 {
   min-height: 275px;
   padding: 30px;
   display: grid;
-  grid-template-rows: 58px 98px minmax(42px, auto);
+  grid-template-rows: 58px 32px 82px minmax(42px, auto);
   align-items: start;
   justify-content: stretch;
   border-radius: 12px;
@@ -1812,12 +1812,20 @@ h1 {
 }
 
 .login-card .icon {
+  grid-row: 1;
   width: 48px;
   height: 48px;
   color: var(--blue);
 }
 
+.login-card .role-status {
+  grid-row: 2;
+  width: max-content;
+  align-self: start;
+}
+
 .login-card strong {
+  grid-row: 3;
   min-height: 58px;
   margin: 0 0 9px;
   display: flex;
@@ -1829,6 +1837,7 @@ h1 {
 
 .login-card span,
 .login-card small {
+  grid-row: 4;
   min-height: 42px;
   color: var(--muted-light);
   font-size: 13px;
