@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+<title>Debrief</title>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div
+    class="brand"
+    id="brand"
+  >
+    Debrief
+  </div>
+
+  <div class="top-actions">
+
+    <button
+      class="btn ghost"
+      id="dashboardButton"
+      style="display:none"
+    >
+      Dashboard
+    </button>
+
+  </div>
+
+</header>
+
+
+<main>
+
+
+<!-- ================================================= -->
+<!-- DASHBOARD -->
+<!-- ================================================= -->
+
+<section
+  id="dashboardView"
+  class="view active"
+>
+
+<div class="dashboard">
+
+  <div class="hero">
+
+    <div class="eyebrow">
+      A320 Type Rating
+    </div>
+
+    <h1>
+      FFS Sessions
+    </h1>
+
+    <p>
+      Type Rating simulator sequence from SOP introduction
+      through abnormal systems, UPRT, EFATO,
+      emergency electrical configuration and smoke.
+    </p>
+
+  </div>
+
+
+  <div
+    class="dashboard-tabs"
+    role="tablist"
+    aria-label="Dashboard sections"
+  >
+
+    <button
+      class="dashboard-tab active"
+      type="button"
+      data-dashboard-tab="schedule"
+      role="tab"
+      aria-selected="true"
+    >
+      Schedule
+    </button>
+
+    <button
+      class="dashboard-tab"
+      type="button"
+      data-dashboard-tab="tasks"
+      role="tab"
+      aria-selected="false"
+    >
+      Training Tasks
+    </button>
+
+  </div>
+
+
+  <section
+    class="dashboard-panel active"
+    id="schedulePanel"
+  >
+
+    <div class="section-head">
+
+      <h2>
+        Conversion course
+      </h2>
+
+      <span>
+        8 FFS sessions
+      </span>
+
+    </div>
+
+
+    <div
+      class="cards"
+      id="sessionCards"
+    >
+    </div>
+
+  </section>
+
+
+  <section
+    class="dashboard-panel"
+    id="tasksPanel"
+  >
+
+    <div class="section-head">
+
+      <h2>
+        Training task matrix
+      </h2>
+
+      <span id="taskCount">
+      </span>
+
+    </div>
+
+    <div
+      class="task-matrix"
+      id="taskMatrix"
+    >
+    </div>
+
+  </section>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- SESSION -->
+<!-- ================================================= -->
+
+<section
+  id="sessionView"
+  class="view"
+>
+
+<div class="session-shell">
+
+
+  <div class="session-head">
+
+    <div>
+
+      <div
+        class="eyebrow"
+        id="sessionEyebrow"
+      >
+      </div>
+
+      <div
+        class="session-title"
+        id="sessionTitle"
+      >
+      </div>
+
+      <div
+        class="session-route"
+        id="sessionRoute"
+      >
+      </div>
+
+    </div>
+
+
+    <div class="legend">
+
+      <span>
+        <i class="legend-dot blue"></i>
+        Briefing / setup
+      </span>
+
+      <span>
+        <i class="legend-dot green"></i>
+        Passed
+      </span>
+
+      <span>
+        <i class="legend-dot red"></i>
+        Not passed
+      </span>
+
+      <span>
+        <i class="legend-bar"></i>
+        Reposition
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="mobile-scroll-hint">
+    Swipe horizontally to follow the session →
+  </div>
+
+
+  <div
+    class="timeline-scroll"
+    id="timelineScroll"
+  >
+
+    <div
+      class="timeline"
+      id="timeline"
+    >
+
+      <div
+        class="flight-area"
+        id="flightArea"
+      >
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- ================================================= -->
+<!-- READ ONLY SIDE PANEL -->
+<!-- ================================================= -->
+
+<aside
+  class="drawer"
+  id="drawer"
+>
+
+  <div class="drawer-top">
+
+    <div>
+
+      <div
+        class="eyebrow"
+        id="drawerEyebrow"
+      >
+      </div>
+
+      <h3
+        id="drawerTitle"
+      >
+      </h3>
+
+    </div>
+
+
+    <button
+      class="btn icon"
+      id="drawerClose"
+      aria-label="Close"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <div
+    class="drawer-body"
+    id="drawerBody"
+  >
+  </div>
+
+</aside>
+
+
+
+<script src="lesson-data.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
