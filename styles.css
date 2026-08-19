@@ -169,6 +169,10 @@ button:focus-visible {
   font-weight: 650;
 }
 
+a.btn {
+  text-decoration: none;
+}
+
 .btn:hover {
   background: var(--panel-hover);
 }
@@ -755,6 +759,11 @@ h1 {
 .status-badge.pending {
   color: var(--muted-light);
   background: rgba(173, 179, 188, .11);
+}
+
+.status-badge.warning {
+  color: var(--amber);
+  background: var(--amber-soft);
 }
 
 
@@ -1787,6 +1796,13 @@ h1 {
 
 .login-hero {
   max-width: 780px;
+}
+
+.login-back {
+  width: max-content;
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .login-hero h1 {
