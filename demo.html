@@ -1,309 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
-<title>Debrief</title>
-
-<link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-
-<header class="topbar">
-
-  <div
-    class="brand"
-    id="brand"
-  >
-    Debrief
-  </div>
-
-  <div class="top-actions">
-
-    <button
-      class="btn ghost"
-      id="dashboardButton"
-      style="display:none"
+  <head>
+    <meta charset="utf-8">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
-      Dashboard
-    </button>
-
-  </div>
-
-</header>
-
-
-<main>
-
-
-<!-- ================================================= -->
-<!-- DASHBOARD -->
-<!-- ================================================= -->
-
-<section
-  id="dashboardView"
-  class="view active"
->
-
-<div class="dashboard">
-
-  <div class="hero">
-
-    <div class="eyebrow">
-      A320 Type Rating
-    </div>
-
-    <h1>
-      FFS Sessions
-    </h1>
-
-    <p>
-      Type Rating simulator sequence from SOP introduction
-      through abnormal systems, UPRT, EFATO,
-      emergency electrical configuration and smoke.
-    </p>
-
-  </div>
-
-
-  <div
-    class="dashboard-tabs"
-    role="tablist"
-    aria-label="Dashboard sections"
-  >
-
-    <button
-      class="dashboard-tab active"
-      type="button"
-      data-dashboard-tab="schedule"
-      role="tab"
-      aria-selected="true"
+    <title>SimPortal Demo</title>
+    <meta
+      name="description"
+      content="Static role-based ATO simulator training portal demo."
     >
-      Schedule
-    </button>
-
-    <button
-      class="dashboard-tab"
-      type="button"
-      data-dashboard-tab="tasks"
-      role="tab"
-      aria-selected="false"
-    >
-      Training Tasks
-    </button>
-
-  </div>
-
-
-  <section
-    class="dashboard-panel active"
-    id="schedulePanel"
-  >
-
-    <div class="section-head">
-
-      <h2>
-        Conversion course
-      </h2>
-
-      <span>
-        8 FFS sessions
-      </span>
-
-    </div>
-
-
-    <div
-      class="cards"
-      id="sessionCards"
-    >
-    </div>
-
-  </section>
-
-
-  <section
-    class="dashboard-panel"
-    id="tasksPanel"
-  >
-
-    <div class="section-head">
-
-      <h2>
-        Training task matrix
-      </h2>
-
-      <span id="taskCount">
-      </span>
-
-    </div>
-
-    <div
-      class="task-matrix"
-      id="taskMatrix"
-    >
-    </div>
-
-  </section>
-
-</div>
-
-</section>
-
-
-
-<!-- ================================================= -->
-<!-- SESSION -->
-<!-- ================================================= -->
-
-<section
-  id="sessionView"
-  class="view"
->
-
-<div class="session-shell">
-
-
-  <div class="session-head">
-
-    <div>
-
-      <div
-        class="eyebrow"
-        id="sessionEyebrow"
-      >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="brand brand-button" id="brand" type="button">SimPortal</button>
+      <div class="top-actions">
+        <span class="role-chip" id="roleChip"></span>
       </div>
+    </header>
 
-      <div
-        class="session-title"
-        id="sessionTitle"
-      >
+    <main>
+      <section id="loginView" class="view active">
+        <div class="dashboard login-dashboard">
+          <div class="hero">
+            <div class="eyebrow">A320 Type Rating</div>
+            <h1>Simulator training portal</h1>
+            <p>
+              Choose a role to preview the static ATO workflow for schedule review,
+              task suitability, session content and debrief records.
+            </p>
+          </div>
+
+          <div class="login-grid">
+            <button class="login-card" type="button" data-role="stakeholder">
+              <span>Log in as</span>
+              <strong>ATO Stakeholder</strong>
+              <small>Training tasks and FCS suitability matrix</small>
+            </button>
+
+            <button class="login-card" type="button" data-role="tri">
+              <span>Log in as</span>
+              <strong>ATO TRI</strong>
+              <small>Instructor view of FFS sessions and debriefs</small>
+            </button>
+
+            <button class="login-card" type="button" data-role="student">
+              <span>Log in as</span>
+              <strong>Student</strong>
+              <small>FFS schedule, lesson plan and completed records</small>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="portalView" class="view">
+        <div class="dashboard">
+          <div class="portal-head">
+            <div>
+              <div class="eyebrow" id="portalEyebrow"></div>
+              <h1 id="portalTitle"></h1>
+              <p id="portalSummary"></p>
+            </div>
+            <button class="btn ghost" type="button" id="switchRoleButton">Switch role</button>
+          </div>
+
+          <section id="scheduleArea">
+            <div class="section-head">
+              <h2>FFS Schedule</h2>
+              <span>FFS 1-5 complete</span>
+            </div>
+            <div class="cards" id="sessionCards"></div>
+          </section>
+
+          <section id="stakeholderArea">
+            <div class="section-head">
+              <h2>Training Tasks</h2>
+              <span id="taskCount"></span>
+            </div>
+            <div class="task-matrix" id="taskMatrix"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="sessionView" class="view">
+        <div class="session-page">
+          <div class="session-head operational-head">
+            <div>
+              <div class="eyebrow" id="sessionEyebrow"></div>
+              <div class="session-title" id="sessionTitle"></div>
+              <div class="session-route" id="sessionRoute"></div>
+            </div>
+            <button class="btn ghost" type="button" id="backToPortalButton">Back</button>
+          </div>
+
+          <div class="session-tabs" role="tablist" aria-label="Session sections">
+            <button class="session-tab active" type="button" data-session-tab="briefing">Briefing</button>
+            <button class="session-tab" type="button" data-session-tab="setup">Setup</button>
+            <button class="session-tab" type="button" data-session-tab="items">Session</button>
+            <button class="session-tab" type="button" data-session-tab="debrief">Debrief</button>
+          </div>
+
+          <div class="session-content" id="sessionContent"></div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="drawer" id="drawer">
+      <div class="drawer-top">
+        <div>
+          <div class="eyebrow" id="drawerEyebrow"></div>
+          <h3 id="drawerTitle"></h3>
+        </div>
+        <button class="btn icon" id="drawerClose" type="button" aria-label="Close">x</button>
       </div>
+      <div class="drawer-body" id="drawerBody"></div>
+    </aside>
 
-      <div
-        class="session-route"
-        id="sessionRoute"
-      >
-      </div>
-
-    </div>
-
-
-    <div class="legend">
-
-      <span>
-        <i class="legend-dot blue"></i>
-        Briefing / setup
-      </span>
-
-      <span>
-        <i class="legend-dot green"></i>
-        Passed
-      </span>
-
-      <span>
-        <i class="legend-dot red"></i>
-        Not passed
-      </span>
-
-      <span>
-        <i class="legend-bar"></i>
-        Reposition
-      </span>
-
-    </div>
-
-  </div>
-
-
-  <div class="mobile-scroll-hint">
-    Swipe horizontally to follow the session →
-  </div>
-
-
-  <div
-    class="timeline-scroll"
-    id="timelineScroll"
-  >
-
-    <div
-      class="timeline"
-      id="timeline"
-    >
-
-      <div
-        class="flight-area"
-        id="flightArea"
-      >
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-</section>
-
-
-</main>
-
-
-
-<!-- ================================================= -->
-<!-- READ ONLY SIDE PANEL -->
-<!-- ================================================= -->
-
-<aside
-  class="drawer"
-  id="drawer"
->
-
-  <div class="drawer-top">
-
-    <div>
-
-      <div
-        class="eyebrow"
-        id="drawerEyebrow"
-      >
-      </div>
-
-      <h3
-        id="drawerTitle"
-      >
-      </h3>
-
-    </div>
-
-
-    <button
-      class="btn icon"
-      id="drawerClose"
-      aria-label="Close"
-    >
-      ×
-    </button>
-
-  </div>
-
-
-  <div
-    class="drawer-body"
-    id="drawerBody"
-  >
-  </div>
-
-</aside>
-
-
-
-<script src="lesson-data.js"></script>
-<script src="app.js"></script>
-
-</body>
+    <script src="lesson-data.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>

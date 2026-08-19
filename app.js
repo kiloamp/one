@@ -1,177 +1,428 @@
-/* ================================================= */
-/* STATE */
-/* ================================================= */
+const COMPLETED_SESSIONS = new Set([
+  1,
+  2,
+  3,
+  4,
+  5
+]);
 
+const ROLE_LABELS = {
+  stakeholder: "ATO Stakeholder",
+  tri: "ATO TRI",
+  student: "Student"
+};
+
+let currentRole = null;
 let currentSession = null;
+let currentSessionTab = "briefing";
 
+function init() {
+  bindGlobalEvents();
+  showView("loginView");
+}
 
-/* ================================================= */
-/* DASHBOARD */
-/* ================================================= */
-
-function renderDashboard() {
-
-  const holder =
-    document.getElementById(
-      "sessionCards"
-    );
-
-
-  holder.innerHTML =
-    FFS.map(
-      session => `
-
-        <button
-          class="sim-card"
-          data-session="${session.number}"
-        >
-
-          <div>
-
-            <div class="card-top">
-
-              <div class="ffs-number">
-                FFS ${session.number}
-              </div>
-
-              <div class="arrow">
-                ↗
-              </div>
-
-            </div>
-
-
-            <div class="card-title">
-              ${escapeHtml(session.title)}
-            </div>
-
-          </div>
-
-
-          <div class="card-bottom">
-
-            <span>
-              ${escapeHtml(session.detail)}
-            </span>
-
-            <span>
-              ${session.items.length} items
-            </span>
-
-          </div>
-
-        </button>
-
-      `
-    )
-    .join("");
-
-
-  holder
-    .querySelectorAll(
-      ".sim-card"
-    )
+function bindGlobalEvents() {
+  document
+    .querySelectorAll(".login-card")
     .forEach(
-      card => {
-
-        card.addEventListener(
+      button => {
+        button.addEventListener(
           "click",
-          () => {
-
-            openSession(
-              Number(
-                card.dataset.session
-              )
-            );
-
-          }
+          () => loginAs(button.dataset.role)
         );
-
       }
     );
 
+  document
+    .getElementById("switchRoleButton")
+    .addEventListener(
+      "click",
+      () => {
+        currentRole = null;
+        currentSession = null;
+        document.getElementById("roleChip").textContent = "";
+        closeDrawer();
+        showView("loginView");
+      }
+    );
+
+  document
+    .getElementById("backToPortalButton")
+    .addEventListener(
+      "click",
+      () => {
+        closeDrawer();
+        showView("portalView");
+      }
+    );
+
+  document
+    .getElementById("brand")
+    .addEventListener(
+      "click",
+      () => {
+        if (currentRole) {
+          showView("portalView");
+          return;
+        }
+
+        showView("loginView");
+      }
+    );
+
+  document
+    .querySelectorAll(".session-tab")
+    .forEach(
+      button => {
+        button.addEventListener(
+          "click",
+          () => {
+            currentSessionTab = button.dataset.sessionTab;
+            renderSessionTab();
+          }
+        );
+      }
+    );
+
+  document
+    .getElementById("drawerClose")
+    .addEventListener(
+      "click",
+      closeDrawer
+    );
+
+  document.addEventListener(
+    "keydown",
+    event => {
+      if (event.key === "Escape") {
+        closeDrawer();
+      }
+    }
+  );
 }
 
+function loginAs(role) {
+  currentRole = role;
+  document.getElementById("roleChip").textContent = ROLE_LABELS[role];
+  renderPortal();
+  showView("portalView");
+}
 
-function renderTaskMatrix() {
+function renderPortal() {
+  const stakeholder =
+    currentRole === "stakeholder";
+
+  document.getElementById("portalEyebrow").textContent =
+    ROLE_LABELS[currentRole];
+
+  document.getElementById("portalTitle").textContent =
+    stakeholder
+      ? "Training task oversight"
+      : "A320 FFS schedule";
+
+  document.getElementById("portalSummary").textContent =
+    stakeholder
+      ? "Review all individual FFS items and open the sample EASA FCS suitability matrix for each task."
+      : "Review completed simulator sessions and explore upcoming lessons before they are marked as passed.";
+
+  document.getElementById("scheduleArea").style.display =
+    stakeholder
+      ? "none"
+      : "block";
+
+  document.getElementById("stakeholderArea").style.display =
+    stakeholder
+      ? "block"
+      : "none";
+
+  if (stakeholder) {
+    renderTaskMatrix();
+    return;
+  }
+
+  renderSchedule();
+}
+
+function renderSchedule() {
+  const holder =
+    document.getElementById("sessionCards");
+
+  holder.innerHTML =
+    FFS.map(
+      session => {
+        const completed =
+          COMPLETED_SESSIONS.has(session.number);
+
+        return `
+          <button
+            class="sim-card ${completed ? "complete" : "pending"}"
+            type="button"
+            data-session="${session.number}"
+          >
+            <div>
+              <div class="card-top">
+                <div class="ffs-number">FFS ${session.number}</div>
+                <div class="status-badge ${completed ? "complete" : "pending"}">
+                  ${completed ? "Complete" : "Not done"}
+                </div>
+              </div>
+              <div class="card-title">${escapeHtml(session.title)}</div>
+            </div>
+            <div class="card-bottom">
+              <span>${escapeHtml(session.detail)}</span>
+              <span>${session.items.length} items</span>
+            </div>
+          </button>
+        `;
+      }
+    )
+    .join("");
+
+  holder
+    .querySelectorAll(".sim-card")
+    .forEach(
+      card => {
+        card.addEventListener(
+          "click",
+          () => openSession(Number(card.dataset.session))
+        );
+      }
+    );
+}
+
+function openSession(number) {
+  currentSession =
+    FFS.find(
+      session =>
+        session.number === number
+    );
+
+  if (!currentSession) {
+    return;
+  }
+
+  currentSessionTab = "briefing";
+
+  document.getElementById("sessionEyebrow").textContent =
+    `FFS ${currentSession.number} · ${currentSession.detail}`;
+
+  document.getElementById("sessionTitle").textContent =
+    currentSession.title;
+
+  document.getElementById("sessionRoute").textContent =
+    currentSession.route;
+
+  renderSessionTab();
+  showView("sessionView");
+}
+
+function renderSessionTab() {
+  document
+    .querySelectorAll(".session-tab")
+    .forEach(
+      button => {
+        button.classList.toggle(
+          "active",
+          button.dataset.sessionTab === currentSessionTab
+        );
+      }
+    );
 
   const holder =
-    document.getElementById(
-      "taskMatrix"
-    );
+    document.getElementById("sessionContent");
 
+  if (currentSessionTab === "briefing") {
+    holder.innerHTML = renderInfoGrid(currentSession.briefing);
+    return;
+  }
 
-  const count =
-    document.getElementById(
-      "taskCount"
-    );
+  if (currentSessionTab === "setup") {
+    holder.innerHTML = renderInfoGrid(getSetupRows(currentSession));
+    return;
+  }
 
+  if (currentSessionTab === "items") {
+    holder.innerHTML = renderSessionItems(currentSession);
+    return;
+  }
 
+  holder.innerHTML = renderDebrief(currentSession);
+}
+
+function renderInfoGrid(object) {
+  return `
+    <div class="info-grid">
+      ${
+        Object.entries(object)
+          .map(
+            ([key, value]) => `
+              <article class="info-block">
+                <span>${escapeHtml(key)}</span>
+                <strong>${escapeHtml(value)}</strong>
+              </article>
+            `
+          )
+          .join("")
+      }
+    </div>
+  `;
+}
+
+function renderSessionItems(session) {
+  const completed =
+    COMPLETED_SESSIONS.has(session.number);
+
+  return `
+    <div class="session-table-wrap">
+      <table class="session-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Phase</th>
+            <th>Task</th>
+            <th>Status</th>
+            <th>Lesson note</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${
+            session.items
+              .map(
+                (
+                  item,
+                  index
+                ) => {
+                  const title =
+                    item[0];
+                  const phase =
+                    normalizeStage(item[1]);
+                  const reposition =
+                    item[2] === "reposition";
+
+                  return `
+                    <tr class="${completed ? "row-complete" : "row-pending"}">
+                      <td>${index + 1}</td>
+                      <td><span class="phase-pill">${escapeHtml(phase)}</span></td>
+                      <td>
+                        <strong>${escapeHtml(title)}</strong>
+                        ${reposition ? "<small>Reposition / reset item</small>" : ""}
+                      </td>
+                      <td>
+                        <span class="status-badge ${completed ? "complete" : "pending"}">
+                          ${completed ? "Passed" : "Planned"}
+                        </span>
+                      </td>
+                      <td>${escapeHtml(getShortLessonNote(title))}</td>
+                    </tr>
+                  `;
+                }
+              )
+              .join("")
+          }
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderDebrief(session) {
+  const completed =
+    COMPLETED_SESSIONS.has(session.number);
+
+  return `
+    <div class="debrief-grid">
+      <article class="debrief-card">
+        <span>Overall result</span>
+        <strong class="${completed ? "result-pass" : "result-pending"}">
+          ${completed ? "Pass" : "Pending"}
+        </strong>
+        <p>
+          ${
+            completed
+              ? "Session objectives met. Crew sequencing, SOP discipline and instructor intervention level were acceptable for this stage of training."
+              : "Session available for preview. No pass/fail record is assigned until the simulator detail is flown and instructor grading is complete."
+          }
+        </p>
+      </article>
+      <article class="debrief-card">
+        <span>Instructor comments</span>
+        <strong>${completed ? "Recorded" : "Draft"}</strong>
+        <p>${escapeHtml(getOverallComment(session))}</p>
+      </article>
+      <article class="debrief-card">
+        <span>Credit status</span>
+        <strong>${completed ? "Logged" : "Not logged"}</strong>
+        <p>
+          ${
+            completed
+              ? "Synthetic training credit recorded against the approved A320 type-rating programme."
+              : "Training credit remains unavailable until the event is completed and reviewed."
+          }
+        </p>
+      </article>
+    </div>
+  `;
+}
+
+function renderTaskMatrix() {
   const tasks =
     getTrainingTasks();
 
+  document.getElementById("taskCount").textContent =
+    `${tasks.length} FFS items`;
 
-  count.textContent =
-    `${tasks.length} individual tasks`;
-
-
-  holder.innerHTML = `
-
+  document.getElementById("taskMatrix").innerHTML = `
     <table class="task-table">
-
       <thead>
-
         <tr>
-          <th>EASA basis</th>
+          <th>FFS</th>
+          <th>Item</th>
+          <th>Phase</th>
           <th>Training task</th>
-          <th>FSTD / tool</th>
-          <th>FCS capability area</th>
-          <th>Evidence to retain</th>
-          <th>Training credit</th>
+          <th>Sim type</th>
+          <th>FCS family</th>
+          <th>Status</th>
         </tr>
-
       </thead>
-
       <tbody>
-
         ${
           tasks
             .map(
               task => `
-
-                <tr>
+                <tr class="task-row" data-task-id="${task.id}">
+                  <td>FFS ${task.session}</td>
+                  <td>${task.item}</td>
+                  <td><span class="phase-pill">${escapeHtml(task.phase)}</span></td>
+                  <td><strong>${escapeHtml(task.title)}</strong></td>
+                  <td>${escapeHtml(task.simType)}</td>
+                  <td>${escapeHtml(task.fcsFamily)}</td>
                   <td>
-                    <strong>${escapeHtml(task.basis)}</strong>
-                    ${escapeHtml(task.source)}
+                    <span class="status-badge ${task.complete ? "complete" : "pending"}">
+                      ${task.complete ? "Mapped" : "Draft"}
+                    </span>
                   </td>
-                  <td>
-                    <strong>FFS ${task.session} · Item ${task.item}</strong>
-                    ${escapeHtml(task.title)}
-                  </td>
-                  <td>
-                    <span class="task-pill">${escapeHtml(task.tool)}</span>
-                  </td>
-                  <td>${escapeHtml(task.capability)}</td>
-                  <td>${escapeHtml(task.evidence)}</td>
-                  <td>${escapeHtml(task.credit)}</td>
                 </tr>
-
               `
             )
             .join("")
         }
-
       </tbody>
-
     </table>
-
   `;
 
+  document
+    .querySelectorAll(".task-row")
+    .forEach(
+      row => {
+        row.addEventListener(
+          "click",
+          () => openFcsMatrix(tasks.find(task => task.id === row.dataset.taskId))
+        );
+      }
+    );
 }
 
-
 function getTrainingTasks() {
-
   return FFS.flatMap(
     session =>
       session.items.map(
@@ -179,2184 +430,282 @@ function getTrainingTasks() {
           item,
           index
         ) => {
-
-          const [
-            title,
-            stage,
-            marker
-          ] =
-            item;
-
-          const category =
-            classifyTask(
-              title,
-              normalizeStage(
-                stage
-              )
-            );
+          const title =
+            item[0];
+          const phase =
+            normalizeStage(item[1]);
+          const profile =
+            classifyTask(title, phase);
 
           return {
+            id:
+              `${session.number}-${index + 1}`,
             session:
               session.number,
-
             item:
               index + 1,
-
             title,
-
-            basis:
-              category.basis,
-
-            source:
-              category.source,
-
-            tool:
-              marker ===
-              "reposition"
-                ? `${category.tool} + reposition`
-                : category.tool,
-
-            capability:
-              category.capability,
-
-            evidence:
-              category.evidence,
-
-            credit:
-              category.credit
+            phase,
+            complete:
+              COMPLETED_SESSIONS.has(session.number),
+            ...profile
           };
-
         }
       )
   );
-
 }
 
-
-function classifyTask(
-  title,
-  stage
-) {
-
-  if (
-    /ECAM|Fault|Failure|FIRE|Smoke|HYD|ADR|IR|Generator|Pump|decompression|unreliable/i.test(
-      title
-    )
-  ) {
-
-    return {
-      basis:
-        "Part-FCL training programme",
-      source:
-        "ORA.ATO.135 suitability check; CS-FSTD capability evidence",
-      tool:
-        "FFS qualified for A320 abnormal/system simulation",
-      capability:
-        "Aircraft systems, failures, alerts, procedures, instructor station",
-      evidence:
-        "Approved syllabus item, FSTD certificate/ESL, defect status, instructor scenario notes",
-      credit:
-        "Type-rating synthetic training credit when programme approval and FSTD suitability align"
-    };
-
-  }
-
-
-  if (
-    /UPRT|stall|protections|Alternate Law|Mechanical Backup|Alpha Lock/i.test(
-      title
-    )
-  ) {
-
-    return {
-      basis:
-        "Part-FCL UPRT/type-rating task",
-      source:
-        "Reg. (EU) 2026/781 and CS-FSTD Issue 1 capability framework",
-      tool:
-        "FFS with flight model and control-law fidelity",
-      capability:
-        "Flight envelope, flight controls, cueing, aerodynamic model",
-      evidence:
-        "Task objective, fidelity need, FSTD qualification limits, instructor grading record",
-      credit:
-        "Credit limited to approved manoeuvres and simulator qualification envelope"
-    };
-
-  }
-
-
-  if (
-    /ILS|VOR|NPA|PBN|approach|circle|landing|go-around|sidestep/i.test(
-      title
-    )
-  ) {
-
-    return {
-      basis:
-        "Part-FCL type-rating manoeuvre",
-      source:
-        "ATO approved training programme; FSTD certificate and ESL",
-      tool:
-        "FFS or suitable FSTD with navigation/visual capability",
-      capability:
-        "Navigation, visual scene, flight guidance, weather, landing cues",
-      evidence:
-        "Approach type, required visual/weather setup, FSTD capability match, assessment result",
-      credit:
-        "Synthetic training credit per approved programme and device suitability"
-    };
-
-  }
-
-
-  if (
-    /take-off|takeoff|V1|EFATO|windshear|RTO|Reject/i.test(
-      title
-    )
-  ) {
-
-    return {
-      basis:
-        "Part-FCL take-off/abnormal task",
-      source:
-        "ATO syllabus, ORA.ATO.135, CS-FSTD qualification evidence",
-      tool:
-        "FFS with runway, motion/visual and failure insertion",
-      capability:
-        "Ground roll, engine failure, windshear cues, visual/motion, performance",
-      evidence:
-        "Performance data, event trigger, FSTD setup, crew role, pass/fail record",
-      credit:
-        "Creditable when the selected FSTD covers the required task effects"
-    };
-
-  }
-
-
-  if (
-    stage ===
-    "Ground" ||
-    stage ===
-    "Taxi"
-  ) {
-
-    return {
-      basis:
-        "Part-ORA ATO procedure",
-      source:
-        "Training Manual/OM and approved simulator session plan",
-      tool:
-        "FFS cockpit procedures or classroom briefing as approved",
-      capability:
-        "Cockpit layout, controls, displays, ground/taxi environment, instructor control",
-      evidence:
-        "Lesson plan, setup data, instructor briefing, student completion record",
-      credit:
-        "Credit follows approved programme allocation"
-    };
-
-  }
-
-
-  return {
-    basis:
-      "ATO approved syllabus",
-    source:
-      "Part-FCL/Part-ORA programme approval and FSTD suitability",
-    tool:
-      "Selected FSTD per certificate and ESL",
-    capability:
-      "Scenario, aircraft response, environment, instructor control",
-    evidence:
-      "Task objective, selected device, limitations, mitigations, assessment",
-    credit:
-      "Credit recorded against the approved training programme"
-  };
-
-}
-
-
-/* ================================================= */
-/* SESSION OPEN */
-/* ================================================= */
-
-function openSession(
-  number
-) {
-
-  currentSession =
-    FFS.find(
-      item =>
-        item.number ===
-        number
-    );
-
-
-  if (!currentSession) {
+function openFcsMatrix(task) {
+  if (!task) {
     return;
   }
 
+  document.getElementById("drawerEyebrow").textContent =
+    `FFS ${task.session} · Item ${task.item}`;
 
-  document
-    .getElementById(
-      "sessionEyebrow"
-    )
-    .textContent =
-      `FFS ${currentSession.number} · ${currentSession.detail}`;
+  document.getElementById("drawerTitle").textContent =
+    task.title;
 
+  document.getElementById("drawerBody").innerHTML = `
+    <div class="matrix-summary">
+      <div>
+        <span>Sim type</span>
+        <strong>${escapeHtml(task.simType)}</strong>
+      </div>
+      <div>
+        <span>Regulatory source</span>
+        <strong>${escapeHtml(task.regulatorySource)}</strong>
+      </div>
+    </div>
 
-  document
-    .getElementById(
-      "sessionTitle"
-    )
-    .textContent =
-      currentSession.title;
+    <div class="fcs-table-wrap">
+      <table class="fcs-table">
+        <thead>
+          <tr>
+            <th>FCS capability</th>
+            <th>Training need</th>
+            <th>Device evidence</th>
+            <th>Suitability</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${
+            task.matrix
+              .map(
+                row => `
+                  <tr>
+                    <td>${escapeHtml(row.capability)}</td>
+                    <td>${escapeHtml(row.need)}</td>
+                    <td>${escapeHtml(row.evidence)}</td>
+                    <td><span class="status-badge complete">${escapeHtml(row.status)}</span></td>
+                  </tr>
+                `
+              )
+              .join("")
+          }
+        </tbody>
+      </table>
+    </div>
+  `;
 
-
-  document
-    .getElementById(
-      "sessionRoute"
-    )
-    .textContent =
-      currentSession.route;
-
-
-  renderFlight(
-    currentSession
-  );
-
-
-  showView(
-    "sessionView"
-  );
-
-
-  setTimeout(
-    () => {
-
-      document
-        .getElementById(
-          "timelineScroll"
-        )
-        .scrollLeft =
-          0;
-
-    },
-    20
-  );
-
+  openDrawer();
 }
 
-
-/* ================================================= */
-/* BUILD SEGMENTS */
-/* ================================================= */
-
-function buildSegments(
-  session
-) {
-
-  const segments = [];
-
-  let current = [];
-
-
-  session.items.forEach(
-    (
-      item,
-      index
-    ) => {
-
-      const [
-        title,
-        stage,
-        marker
-      ] =
-        item;
-
-
-      const reposition =
-        marker ===
-        "reposition" ||
-        /^reposition/i.test(
-          title
-        ) ||
-        /^repeat items/i.test(
-          title
-        ) ||
-        /^repeat applicable/i.test(
-          title
-        ) ||
-        /repair aircraft/i.test(
-          title
-        );
-
-
-      if (
-        reposition &&
-        current.length
-      ) {
-
-        segments.push({
-          items:
-            current,
-
-          reposition:
-            {
-              title,
-              index
-            }
-        });
-
-
-        current = [];
-
-        return;
-
-      }
-
-
-      current.push({
-        title,
-        stage:
-          normalizeStage(
-            stage
-          ),
-        index
-      });
-
-    }
-  );
-
-
-  if (
-    current.length
-  ) {
-
-    segments.push({
-      items:
-        current,
-
-      reposition:
-        null
-    });
-
+function classifyTask(title, phase) {
+  if (/ECAM|Fault|Failure|FIRE|Smoke|HYD|ADR|IR|Generator|Pump|decompression|unreliable/i.test(title)) {
+    return createFcsProfile(
+      "FFS Level D",
+      "Systems / malfunctions",
+      "Reg. (EU) 2026/781, ORA.ATO.135, CS-FSTD Issue 1",
+      [
+        ["Aircraft systems", "Failure logic and cockpit effects", "FCS SYS-3, ESL item 2.4", "Suitable"],
+        ["Instructor controls", "Trigger, freeze, reposition and reset", "IOS feature declaration", "Suitable"],
+        ["Flight deck fidelity", "ECAM, controls and displays", "Qualification certificate", "Suitable"]
+      ]
+    );
   }
 
-
-  return segments;
-
-}
-
-
-/* ================================================= */
-/* RENDER FLIGHT */
-/* ================================================= */
-
-function renderFlight(
-  session
-) {
-
-  const flightArea =
-    document.getElementById(
-      "flightArea"
+  if (/UPRT|stall|protections|Alternate Law|Mechanical Backup|Alpha Lock/i.test(title)) {
+    return createFcsProfile(
+      "FFS Level D",
+      "Flight model / control laws",
+      "Part-FCL UPRT/type-rating task, CS-FSTD Issue 1",
+      [
+        ["Flight controls", "Normal/alternate law response", "FCS FCM-3", "Suitable"],
+        ["Flight envelope", "High/low speed and upset cues", "FCS AERO-3", "Suitable"],
+        ["Motion and visual cues", "Recognition and recovery support", "ESL cueing entry", "Suitable"]
+      ]
     );
+  }
 
-
-  const timeline =
-    document.getElementById(
-      "timeline"
+  if (/ILS|VOR|NPA|PBN|approach|circle|landing|go-around|sidestep/i.test(title)) {
+    return createFcsProfile(
+      "FFS Level D",
+      "Navigation / visual operations",
+      "ATO approved programme, FSTD certificate and ESL",
+      [
+        ["Navigation", "ILS, VOR, NPA or PBN source", "FCS NAV-3", "Suitable"],
+        ["Visual system", "Runway, terrain and approach cues", "FCS VIS-3", "Suitable"],
+        ["Weather model", "Cloud, wind and visibility setup", "IOS weather capability", "Suitable"]
+      ]
     );
+  }
 
-
-  const segments =
-    buildSegments(
-      session
+  if (/take-off|takeoff|V1|EFATO|windshear|RTO|Reject/i.test(title)) {
+    return createFcsProfile(
+      "FFS Level D",
+      "Take-off / runway event",
+      "Part-FCL type-rating item, ORA.ATO.135 suitability",
+      [
+        ["Ground handling", "Acceleration, reject and runway response", "FCS GND-3", "Suitable"],
+        ["Engine model", "V1 failure and asymmetric thrust", "FCS ENG-3", "Suitable"],
+        ["Environmental cues", "Windshear and visibility effects", "FCS ENV-2", "Suitable"]
+      ]
     );
+  }
 
-
-  const preflightWidth =
-    360;
-
-
-  const repositionGap =
-    105;
-
-
-  const segmentWidths =
-    segments.map(
-      getSegmentWidth
+  if (phase === "Ground" || phase === "Taxi") {
+    return createFcsProfile(
+      "FFS / FTD as approved",
+      "Ground operations",
+      "Training Manual/OM, ORA.ATO.135",
+      [
+        ["Flight deck layout", "Switches, displays and flows", "Device configuration statement", "Suitable"],
+        ["Ground environment", "Taxi and stand procedures", "ESL airport/scene entry", "Suitable"],
+        ["Instructor monitoring", "Pause and assessment record", "IOS observation tools", "Suitable"]
+      ]
     );
+  }
 
-
-  const totalWidth =
-    preflightWidth +
-    segmentWidths.reduce(
-      (
-        total,
-        width
-      ) =>
-        total +
-        width,
-      0
-    ) +
-    (
-      Math.max(
-        0,
-        segments.length - 1
-      ) *
-      repositionGap
-    ) +
-    150;
-
-
-  timeline.style.width =
-    `${totalWidth + 140}px`;
-
-
-  flightArea.style.width =
-    `${totalWidth}px`;
-
-
-  let html = `
-
-    <div class="preflight-zone">
-
-      <div class="preflight-label">
-        Pre-sim
-      </div>
-
-    </div>
-
-
-    ${renderPreSimBlock(session)}
-
-
-    <div
-      class="origin-label"
-    >
-
-      <div class="airport-code">
-        LEBL
-      </div>
-
-      <div class="airport-city">
-        Barcelona
-      </div>
-
-    </div>
-
-  `;
-
-
-  let segmentLeft =
-    preflightWidth;
-
-
-  segments.forEach(
-    (
-      segment,
-      segmentIndex
-    ) => {
-
-      html +=
-        renderSegment(
-          session,
-          segment,
-          segmentLeft,
-          segmentWidths[
-            segmentIndex
-          ],
-          segmentIndex
-        );
-
-
-      segmentLeft +=
-        segmentWidths[
-          segmentIndex
-        ];
-
-
-      if (
-        segment.reposition &&
-        segmentIndex <
-        segments.length - 1
-      ) {
-
-        const dividerX =
-          segmentLeft +
-          repositionGap / 2;
-
-
-        html += `
-
-          <div
-            class="reposition-divider"
-            style="
-              left:${dividerX}px
-            "
-          >
-
-            <div class="reposition-pill">
-              Reposition
-            </div>
-
-          </div>
-
-        `;
-
-
-        segmentLeft +=
-          repositionGap;
-
-      }
-
-    }
+  return createFcsProfile(
+    "Qualified FSTD",
+    "General type-rating task",
+    "Part-FCL/Part-ORA programme approval",
+    [
+      ["Aircraft response", "Representative task effects", "FSTD certificate", "Suitable"],
+      ["Scenario control", "Instructor setup and monitoring", "IOS declaration", "Suitable"],
+      ["Records", "Assessment and credit traceability", "ATO training record", "Suitable"]
+    ]
   );
-
-
-  html += `
-
-    <div
-      class="destination-label"
-    >
-
-      <div class="airport-code">
-        LEPA
-      </div>
-
-      <div class="airport-city">
-        Palma
-      </div>
-
-    </div>
-
-  `;
-
-
-  flightArea.innerHTML =
-    html;
-
-
-  bindFlightEvents(
-    session
-  );
-
-
-  bindPreSimTabs();
-
 }
 
-
-/* ================================================= */
-/* PRE-SIM BLOCK */
-/* ================================================= */
-
-function renderPreSimBlock(
-  session
-) {
-
-  return `
-
-    <section
-      class="setup-block"
-      aria-label="Pre-sim briefing and aircraft setup"
-    >
-
-      <div
-        class="pre-sim-tabs"
-        role="tablist"
-        aria-label="Pre-sim data"
-      >
-
-        <button
-          class="pre-sim-tab active"
-          type="button"
-          data-pre-sim-tab="briefing"
-          aria-selected="true"
-        >
-          Briefing
-        </button>
-
-        <button
-          class="pre-sim-tab"
-          type="button"
-          data-pre-sim-tab="setup"
-          aria-selected="false"
-        >
-          Setup
-        </button>
-
-      </div>
-
-
-      <div
-        class="pre-sim-panel active"
-        data-pre-sim-panel="briefing"
-      >
-
-        ${renderMiniRows(session.briefing)}
-
-      </div>
-
-
-      <div
-        class="pre-sim-panel"
-        data-pre-sim-panel="setup"
-      >
-
-        ${renderMiniRows(getSetupRows(session))}
-
-      </div>
-
-    </section>
-
-  `;
-
+function createFcsProfile(simType, fcsFamily, regulatorySource, matrix) {
+  return {
+    simType,
+    fcsFamily,
+    regulatorySource,
+    matrix:
+      matrix.map(
+        row => ({
+          capability: row[0],
+          need: row[1],
+          evidence: row[2],
+          status: row[3]
+        })
+      )
+  };
 }
 
-
-function renderMiniRows(
-  object
-) {
-
-  return `
-
-    <div class="setup-mini-list">
-
-      ${
-        Object.entries(
-          object
-        )
-          .map(
-            ([key, value]) => `
-
-              <div class="setup-mini-row">
-
-                <div class="setup-mini-key">
-                  ${escapeHtml(key)}
-                </div>
-
-                <div class="setup-mini-value">
-                  ${escapeHtml(value)}
-                </div>
-
-              </div>
-
-            `
-          )
-          .join("")
-      }
-
-    </div>
-
-  `;
-
-}
-
-
-function getSetupRows(
-  session
-) {
-
+function getSetupRows(session) {
   return {
     "Aircraft":
       "A320-214",
-
     "State":
-      session.setup[
-        "Aircraft state"
-      ] ||
-      "Training setup",
-
+      session.setup["Aircraft state"] || "Training setup",
+    "Performance":
+      session.setup.Performance || "Instructor selected",
     "ZFW":
-      session.setup.ZFW ||
-      "Training value",
-
+      session.setup.ZFW,
     "ZFWCG":
-      session.setup.ZFWCG ||
-      "Training value",
-
+      session.setup.ZFWCG,
     "FOB":
-      session.setup.FOB ||
-      "Training value",
-
+      session.setup.FOB,
     "METAR":
-      session.setup.METAR ||
-      "Instructor selected",
-
+      session.setup.METAR,
     "Departure":
-      session.setup.Departure ||
-      "LEBL",
-
+      session.setup.Departure || "LEBL",
     "Arrival":
-      session.setup.Arrival ||
-      "LEPA"
+      session.setup.Arrival || "LEPA"
   };
-
 }
 
-
-/* ================================================= */
-/* RENDER ONE FLIGHT SEGMENT */
-/* ================================================= */
-
-function renderSegment(
-  session,
-  segment,
-  left,
-  width,
-  segmentIndex
-) {
-
-  const stageWidths =
-    getStageWidths(
-      segment
-    );
-
-
-  const stageStarts = {};
-
-  let currentStageLeft =
-    0;
-
-
-  STAGES.forEach(
-    (
-      stage,
-      index
-    ) => {
-
-      stageStarts[stage] =
-        currentStageLeft;
-
-      currentStageLeft +=
-        stageWidths[index];
-
-    }
-  );
-
-
-  const stageCounts = {};
-  const stageTotals = {};
-
-
-  STAGES.forEach(
-    stage => {
-
-      stageCounts[stage] =
-        0;
-
-      stageTotals[stage] =
-        segment
-          .items
-          .filter(
-            item =>
-              item.stage ===
-              stage
-          )
-          .length;
-
-    }
-  );
-
-
-  const points =
-    segment.items.map(
-      item => {
-
-        const occurrence =
-          stageCounts[
-            item.stage
-          ]++;
-
-
-        const totalInStage =
-          stageTotals[
-            item.stage
-          ];
-
-
-        const stagePadding =
-          Math.min(
-            54,
-            stageWidths[
-              STAGES.indexOf(
-                item.stage
-              )
-            ] * .16
-          );
-
-
-        const usableStageWidth =
-          stageWidths[
-            STAGES.indexOf(
-              item.stage
-            )
-          ] -
-          stagePadding * 2;
-
-
-        const x =
-          left +
-          stageStarts[
-            item.stage
-          ] +
-          stagePadding +
-          (
-            usableStageWidth *
-            (
-              occurrence + 1
-            )
-          ) /
-          (
-            totalInStage + 1
-          );
-
-
-        const laneOffsets =
-          getStageLaneOffsets(
-            item.stage
-          );
-
-
-        const y =
-          STAGE_Y[
-            item.stage
-          ] +
-          laneOffsets[
-            occurrence %
-            laneOffsets.length
-          ];
-
-
-        return {
-          ...item,
-          x,
-          y
-        };
-
-      }
-    );
-
-
-  let html = `
-
-    <div
-      class="segment"
-      style="
-        left:${left}px;
-        width:${width}px
-      "
-    >
-
-      <div
-        class="segment-stage-row"
-        style="
-          grid-template-columns:${stageWidths.map(width => `${width}px`).join(" ")}
-        "
-      >
-
-        ${
-          STAGES.map(
-            stage => `
-
-              <div class="segment-stage">
-                ${stage}
-              </div>
-
-            `
-          )
-          .join("")
-        }
-
-      </div>
-
-
-      <svg
-        class="flight-svg"
-        viewBox="0 0 ${width} 480"
-        preserveAspectRatio="none"
-      >
-
-        ${
-          renderPath(
-            points,
-            left
-          )
-        }
-
-      </svg>
-
-    </div>
-
-  `;
-
-
-  points.forEach(
-    point => {
-
-      html += `
-
-        <button
-          class="event ${getResultClass(session, point.index)}"
-          data-type="event"
-          data-index="${point.index}"
-          style="
-            left:${point.x}px;
-            top:${point.y}px
-          "
-        >
-
-          <div class="event-dot"></div>
-
-          <div class="event-title">
-            ${escapeHtml(
-              shortenTitle(
-                point.title
-              )
-            )}
-          </div>
-
-          <div class="event-sub">
-            ${escapeHtml(point.stage)}
-          </div>
-
-        </button>
-
-      `;
-
-    }
-  );
-
-
-  return html;
-
-}
-
-
-function getSegmentWidth(
-  segment
-) {
-
-  return getStageWidths(
-    segment
-  )
-    .reduce(
-      (
-        total,
-        width
-      ) =>
-        total +
-        width,
-      0
-    );
-
-}
-
-
-function getStageWidths(
-  segment
-) {
-
-  return STAGES.map(
-    stage => {
-
-      const count =
-        segment
-          .items
-          .filter(
-            item =>
-              item.stage ===
-              stage
-          )
-          .length;
-
-      if (
-        count ===
-        0
-      ) {
-        return 160;
-      }
-
-
-      return 240 +
-        count *
-        170;
-
-    }
-  );
-
-}
-
-
-function getStageLaneOffsets(
-  stage
-) {
-
-  const lanes = {
-    "Ground": [
-      0,
-      -36,
-      -72,
-      -108,
-      36,
-      72,
-      108,
-      -140,
-      140
-    ],
-
-    "Taxi": [
-      0,
-      -36,
-      36,
-      -72,
-      72,
-      -108,
-      108
-    ],
-
-    "Take Off": [
-      0,
-      -40,
-      40,
-      -80,
-      80,
-      120,
-      -120
-    ],
-
-    "Climb/Cruise": [
-      0,
-      42,
-      84,
-      126,
-      168,
-      210,
-      252,
-      294,
-      336
-    ],
-
-    "Approach": [
-      0,
-      -42,
-      42,
-      -84,
-      84,
-      -126,
-      126,
-      168,
-      210
-    ],
-
-    "Landing": [
-      0,
-      -42,
-      42,
-      -84,
-      84,
-      -126,
-      126
-    ],
-
-    "Rollout": [
-      0,
-      -42,
-      42,
-      -84,
-      84,
-      -126,
-      126
-    ]
-  };
-
-
-  return (
-    lanes[stage] ||
-    [
-      0
-    ]
-  );
-
-}
-
-
-/* ================================================= */
-/* PATH */
-/* ================================================= */
-
-function renderPath(
-  points,
-  segmentLeft
-) {
-
-  if (
-    points.length <
-    2
-  ) {
-    return "";
+function getShortLessonNote(title) {
+  if (/ECAM|Fault|Failure|FIRE|Smoke|HYD|ADR|IR|Generator|Pump/i.test(title)) {
+    return "Abnormal recognition, ECAM discipline and task sharing.";
   }
 
-
-  const local =
-    points.map(
-      point => ({
-        x:
-          point.x -
-          segmentLeft,
-
-        y:
-          point.y -
-          54
-      })
-    );
-
-
-  const path =
-    createSmoothPath(
-      local
-    );
-
-
-  return `
-
-    <path
-      class="flight-path-shadow"
-      d="${path}"
-    ></path>
-
-    <path
-      class="flight-path"
-      d="${path}"
-    ></path>
-
-  `;
-
-}
-
-
-function createSmoothPath(
-  points
-) {
-
-  let d =
-    `M ${points[0].x} ${points[0].y}`;
-
-
-  for (
-    let i = 1;
-    i < points.length;
-    i++
-  ) {
-
-    const a =
-      points[
-        i - 1
-      ];
-
-
-    const b =
-      points[i];
-
-
-    const dx =
-      b.x -
-      a.x;
-
-
-    const c1 =
-      a.x +
-      dx * .42;
-
-
-    const c2 =
-      a.x +
-      dx * .58;
-
-
-    d +=
-      ` C ${c1} ${a.y}, ${c2} ${b.y}, ${b.x} ${b.y}`;
-
+  if (/ILS|VOR|NPA|PBN|approach|circle|landing/i.test(title)) {
+    return "Approach preparation, energy management and monitoring.";
   }
 
-
-  return d;
-
-}
-
-
-/* ================================================= */
-/* CLICK EVENTS */
-/* ================================================= */
-
-function bindFlightEvents(
-  session
-) {
-
-  document
-    .querySelectorAll(
-      ".event"
-    )
-    .forEach(
-      button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            const type =
-              button.dataset.type;
-
-
-            if (
-              type ===
-              "briefing"
-            ) {
-
-              openBriefing(
-                session
-              );
-
-              return;
-
-            }
-
-
-            if (
-              type ===
-              "setup"
-            ) {
-
-              openSetup(
-                session
-              );
-
-              return;
-
-            }
-
-
-            if (
-              type ===
-              "event"
-            ) {
-
-              openEvent(
-                session,
-                Number(
-                  button.dataset.index
-                )
-              );
-
-            }
-
-          }
-        );
-
-      }
-    );
-
-}
-
-
-function bindPreSimTabs() {
-
-  document
-    .querySelectorAll(
-      ".pre-sim-tab"
-    )
-    .forEach(
-      button => {
-
-        button
-          .addEventListener(
-            "click",
-            () => {
-
-              const tab =
-                button.dataset.preSimTab;
-
-
-              document
-                .querySelectorAll(
-                  ".pre-sim-tab"
-                )
-                .forEach(
-                  item => {
-
-                    const active =
-                      item.dataset.preSimTab ===
-                      tab;
-
-                    item
-                      .classList
-                      .toggle(
-                        "active",
-                        active
-                      );
-
-                    item
-                      .setAttribute(
-                        "aria-selected",
-                        active
-                          ? "true"
-                          : "false"
-                      );
-
-                  }
-                );
-
-
-              document
-                .querySelectorAll(
-                  ".pre-sim-panel"
-                )
-                .forEach(
-                  panel => {
-
-                    panel
-                      .classList
-                      .toggle(
-                        "active",
-                        panel.dataset.preSimPanel ===
-                        tab
-                      );
-
-                  }
-                );
-
-            }
-          );
-
-      }
-    );
-
-}
-
-
-/* ================================================= */
-/* BRIEFING */
-/* ================================================= */
-
-function openBriefing(
-  session
-) {
-
-  document
-    .getElementById(
-      "drawerEyebrow"
-    )
-    .textContent =
-      `FFS ${session.number} · Pre-sim`;
-
-
-  document
-    .getElementById(
-      "drawerTitle"
-    )
-    .textContent =
-      "Briefing";
-
-
-  document
-    .getElementById(
-      "drawerBody"
-    )
-    .innerHTML = `
-
-      <div class="field">
-
-        <div class="field-label">
-          Briefing items
-        </div>
-
-        ${renderDetailRows(
-          session.briefing
-        )}
-
-      </div>
-
-    `;
-
-
-  openDrawer();
-
-}
-
-
-/* ================================================= */
-/* AIRCRAFT SETUP */
-/* ================================================= */
-
-function openSetup(
-  session
-) {
-
-  document
-    .getElementById(
-      "drawerEyebrow"
-    )
-    .textContent =
-      `FFS ${session.number} · Pre-sim`;
-
-
-  document
-    .getElementById(
-      "drawerTitle"
-    )
-    .textContent =
-      "Aircraft Setup";
-
-
-  document
-    .getElementById(
-      "drawerBody"
-    )
-    .innerHTML = `
-
-      <div class="field">
-
-        <div class="field-label">
-          Aircraft data
-        </div>
-
-        ${renderDetailRows({
-          "Aircraft":
-            "A320",
-
-          "ZFW":
-            session.setup.ZFW ||
-            "Training value",
-
-          "ZFWCG":
-            session.setup.ZFWCG ||
-            "Training value",
-
-          "FOB":
-            session.setup.FOB ||
-            "Training value"
-        })}
-
-      </div>
-
-
-      <div class="field">
-
-        <div class="field-label">
-          Session setup
-        </div>
-
-        ${
-          renderDetailRows(
-            Object.fromEntries(
-              Object.entries(
-                session.setup
-              )
-              .filter(
-                ([key]) =>
-                  ![
-                    "ZFW",
-                    "ZFWCG",
-                    "FOB"
-                  ]
-                  .includes(
-                    key
-                  )
-              )
-            )
-          )
-        }
-
-      </div>
-
-    `;
-
-
-  openDrawer();
-
-}
-
-
-/* ================================================= */
-/* SAVED EVENT */
-/* ================================================= */
-
-function openEvent(
-  session,
-  index
-) {
-
-  const item =
-    session.items[
-      index
-    ];
-
-
-  if (!item) {
-    return;
+  if (/take-off|takeoff|V1|EFATO|windshear|RTO|Reject/i.test(title)) {
+    return "Aircraft control, callouts and reject/continue decision.";
   }
 
-
-  const title =
-    item[0];
-
-
-  const stage =
-    normalizeStage(
-      item[1]
-    );
-
-
-  const attempts =
-    getAttempts(
-      session.number,
-      index
-    );
-
-
-  document
-    .getElementById(
-      "drawerEyebrow"
-    )
-    .textContent =
-      `${stage} · Item ${index + 1}`;
-
-
-  document
-    .getElementById(
-      "drawerTitle"
-    )
-    .textContent =
-      title;
-
-
-  document
-    .getElementById(
-      "drawerBody"
-    )
-    .innerHTML = `
-
-      <div class="field">
-
-        <div class="field-label">
-          Attempts
-        </div>
-
-        <div class="attempts">
-
-          <table>
-
-            <thead>
-
-              <tr>
-
-                <th>
-                  Attempt
-                </th>
-
-                <th>
-                  Result
-                </th>
-
-              </tr>
-
-            </thead>
-
-
-            <tbody>
-
-              ${
-                attempts
-                .map(
-                  (
-                    attempt,
-                    attemptIndex
-                  ) => `
-
-                    <tr>
-
-                      <td>
-                        Try ${attemptIndex + 1}
-                      </td>
-
-                      <td>
-
-                        <span
-                          class="
-                            status
-                            ${attempt.result}
-                          "
-                        >
-
-                          ${
-                            attempt.result ===
-                            "pass"
-                              ? "✓ Pass"
-                              : "× Not passed"
-                          }
-
-                        </span>
-
-                      </td>
-
-                    </tr>
-
-                  `
-                )
-                .join("")
-              }
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-
-      <div class="field">
-
-        <div class="field-label">
-          Instructor comments
-        </div>
-
-        <div class="readonly-comments">
-          ${escapeHtml(
-            getComment(
-              session,
-              index
-            )
-          )}
-        </div>
-
-      </div>
-
-    `;
-
-
-  openDrawer();
-
+  return "SOP flow, crew coordination and aircraft state awareness.";
 }
 
-
-/* ================================================= */
-/* MOCK ATTEMPTS */
-/* ================================================= */
-
-function getAttempts(
-  sessionNumber,
-  index
-) {
-
-  const retrained =
-    (
-      sessionNumber +
-      index
-    ) % 7 ===
-    0;
-
-
-  if (
-    retrained
-  ) {
-
-    return [
-      {
-        result:
-          "fail"
-      },
-
-      {
-        result:
-          "pass"
-      }
-    ];
-
+function getOverallComment(session) {
+  if (!COMPLETED_SESSIONS.has(session.number)) {
+    return "Preview only. Instructor comments will be recorded after the simulator event.";
   }
 
-
-  return [
-    {
-      result:
-        "pass"
-    }
-  ];
-
+  return "The crew met the session objectives with clear task sharing and stable aircraft management. Further focus should remain on FMA monitoring, abnormal sequencing and concise operational communication.";
 }
 
-
-function getResultClass(
-  session,
-  index
-) {
-
-  const attempts =
-    getAttempts(
-      session.number,
-      index
-    );
-
-
-  return attempts[
-    attempts.length - 1
-  ].result;
-
-}
-
-
-/* ================================================= */
-/* COMMENTS */
-/* ================================================= */
-
-function getComment(
-  session,
-  index
-) {
-
-  const title =
-    session.items[
-      index
-    ][0];
-
-
-  const attempts =
-    getAttempts(
-      session.number,
-      index
-    );
-
-
-  if (
-    attempts.length >
-    1
-  ) {
-
-    return (
-      "The first attempt did not reach the required standard. " +
-      "Recognition and sequencing were slower than expected and the exercise required a repeat. " +
-      "During the second attempt the crew identified the situation earlier, prioritised the aircraft correctly and maintained clearer task sharing. " +
-      "The repeated exercise was completed to the expected standard with less instructor intervention."
-    );
-
-  }
-
-
-  if (
-    /ECAM|Fault|Failure|FIRE|Smoke|HYD|ADR|IR|Generator|Pump/i.test(
-      title
-    )
-  ) {
-
-    return (
-      "The malfunction was identified correctly and the crew maintained an orderly response. " +
-      "The aircraft state remained understood while the abnormal actions were completed and the operational consequences were reviewed before continuing. " +
-      "PF and PM duties were clear and irreversible actions were confirmed appropriately. " +
-      "The exercise met the expected standard."
-    );
-
-  }
-
-
-  if (
-    /ILS|VOR|NPA|PBN|approach|circle|landing/i.test(
-      title
-    )
-  ) {
-
-    return (
-      "The approach was prepared in sufficient time and the crew maintained awareness of configuration, automation and landing implications. " +
-      "The flight path remained controlled while the required changes were incorporated into the briefing. " +
-      "Monitoring between PF and PM was effective and the exercise was completed to the expected standard."
-    );
-
-  }
-
-
-  if (
-    /take-off|takeoff|V1|EFATO|windshear/i.test(
-      title
-    )
-  ) {
-
-    return (
-      "Aircraft control was prioritised correctly throughout the exercise. " +
-      "Callouts and task sharing remained clear and the crew avoided rushing into secondary actions before the flight path was stabilised. " +
-      "The required sequence was completed in a structured manner and the exercise met the expected standard."
-    );
-
-  }
-
-
-  return (
-    "The exercise was completed to the expected standard. " +
-    "Crew coordination remained clear, the required sequence was followed and the aircraft state was monitored throughout. " +
-    "No significant instructor intervention was required."
-  );
-
-}
-
-
-/* ================================================= */
-/* HELPERS */
-/* ================================================= */
-
-function normalizeStage(
-  stage
-) {
-
-  if (
-    stage ===
-    "Takeoff"
-  ) {
+function normalizeStage(stage) {
+  if (stage === "Takeoff") {
     return "Take Off";
   }
 
-
-  if (
-    stage ===
-    "Climb / Cruise"
-  ) {
+  if (stage === "Climb / Cruise") {
     return "Climb/Cruise";
   }
 
-
   return stage;
-
 }
 
-
-function shortenTitle(
-  title
-) {
-
-  return title
-
-    .replace(
-      /^Radar vectors to /i,
-      ""
-    )
-
-    .replace(
-      /^Radar-vectored /i,
-      ""
-    )
-
-    .replace(
-      /^Vectors to /i,
-      ""
-    )
-
-    .replace(
-      /^During climb to /i,
-      ""
-    );
-
-}
-
-
-function renderDetailRows(
-  object
-) {
-
-  return `
-
-    <div class="detail-list">
-
-      ${
-        Object.entries(
-          object
-        )
-        .map(
-          ([key, value]) => `
-
-            <div class="detail-row">
-
-              <div class="detail-key">
-                ${escapeHtml(key)}
-              </div>
-
-              <div class="detail-value">
-                ${escapeHtml(value)}
-              </div>
-
-            </div>
-
-          `
-        )
-        .join("")
-      }
-
-    </div>
-
-  `;
-
-}
-
-
-function escapeHtml(
-  value
-) {
-
-  return String(
-    value
-  )
-  .replace(
-    /[&<>"']/g,
-    character => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-    }[character])
-  );
-
-}
-
-
-/* ================================================= */
-/* DRAWER */
-/* ================================================= */
-
-function openDrawer() {
-
+function showView(id) {
   document
-    .getElementById(
-      "drawer"
-    )
-    .classList
-    .add(
-      "open"
-    );
-
-}
-
-
-function closeDrawer() {
-
-  document
-    .getElementById(
-      "drawer"
-    )
-    .classList
-    .remove(
-      "open"
-    );
-
-}
-
-
-/* ================================================= */
-/* VIEWS */
-/* ================================================= */
-
-function showView(
-  id
-) {
-
-  document
-    .querySelectorAll(
-      ".view"
-    )
+    .querySelectorAll(".view")
     .forEach(
       view => {
-
-        view
-          .classList
-          .remove(
-            "active"
-          );
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      id
-    )
-    .classList
-    .add(
-      "active"
-    );
-
-
-  document
-    .getElementById(
-      "dashboardButton"
-    )
-    .style.display =
-      id ===
-      "dashboardView"
-        ? "none"
-        : "inline-flex";
-
-
-  closeDrawer();
-
-
-  window.scrollTo(
-    0,
-    0
-  );
-
-}
-
-
-function showDashboardTab(
-  tab
-) {
-
-  document
-    .querySelectorAll(
-      ".dashboard-tab"
-    )
-    .forEach(
-      button => {
-
-        const active =
-          button.dataset.dashboardTab ===
-          tab;
-
-        button
-          .classList
-          .toggle(
-            "active",
-            active
-          );
-
-        button
-          .setAttribute(
-            "aria-selected",
-            active
-              ? "true"
-              : "false"
-          );
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      "schedulePanel"
-    )
-    .classList
-    .toggle(
-      "active",
-      tab ===
-      "schedule"
-    );
-
-
-  document
-    .getElementById(
-      "tasksPanel"
-    )
-    .classList
-    .toggle(
-      "active",
-      tab ===
-      "tasks"
-    );
-
-}
-
-
-/* ================================================= */
-/* GLOBAL EVENTS */
-/* ================================================= */
-
-document
-  .getElementById(
-    "brand"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      showView(
-        "dashboardView"
-      );
-
-    }
-  );
-
-
-document
-  .getElementById(
-    "dashboardButton"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      showView(
-        "dashboardView"
-      );
-
-    }
-  );
-
-
-document
-  .getElementById(
-    "drawerClose"
-  )
-  .addEventListener(
-    "click",
-    closeDrawer
-  );
-
-
-document
-  .querySelectorAll(
-    ".dashboard-tab"
-  )
-  .forEach(
-    button => {
-
-      button
-        .addEventListener(
-          "click",
-          () => {
-
-            showDashboardTab(
-              button.dataset.dashboardTab
-            );
-
-          }
+        view.classList.toggle(
+          "active",
+          view.id === id
         );
-
-    }
-  );
-
-
-document
-  .addEventListener(
-    "keydown",
-    event => {
-
-      if (
-        event.key ===
-        "Escape"
-      ) {
-
-        closeDrawer();
-
       }
+    );
 
-    }
-  );
+  window.scrollTo(0, 0);
+}
 
+function openDrawer() {
+  document
+    .getElementById("drawer")
+    .classList
+    .add("open");
+}
 
-/* ================================================= */
-/* INIT */
-/* ================================================= */
+function closeDrawer() {
+  document
+    .getElementById("drawer")
+    .classList
+    .remove("open");
+}
 
-renderDashboard();
-renderTaskMatrix();
+function escapeHtml(value) {
+  return String(value)
+    .replace(
+      /[&<>"']/g,
+      character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#039;"
+      }[character])
+    );
+}
+
+init();

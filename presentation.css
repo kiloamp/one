@@ -29,7 +29,7 @@ body {
 }
 
 .reveal .slides section {
-  padding-top: 5vh;
+  padding-top: 4vh;
 }
 
 .reveal h1,
@@ -41,22 +41,22 @@ body {
 }
 
 .reveal h1 {
-  max-width: 980px;
-  font-size: 2.35em;
-  line-height: .98;
+  max-width: 960px;
+  font-size: 1.72em;
+  line-height: 1.04;
 }
 
 .reveal h2 {
   color: var(--muted);
-  font-size: .78em;
+  font-size: .58em;
   font-weight: 600;
 }
 
 .reveal p,
 .reveal li {
   color: var(--muted);
-  font-size: .7em;
-  line-height: 1.45;
+  font-size: .48em;
+  line-height: 1.5;
 }
 
 .reveal ul,
@@ -68,8 +68,7 @@ body {
   color: var(--blue);
 }
 
-.reveal .cta,
-.demo-link {
+.reveal .cta {
   min-height: 44px;
   padding: 0 18px;
   display: inline-flex;
@@ -79,29 +78,17 @@ body {
   border-radius: 8px;
   background: rgba(113, 168, 255, .12);
   color: var(--text);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 760;
   text-decoration: none;
-}
-
-.demo-link {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  z-index: 20;
-  min-height: 38px;
-  padding: 0 13px;
-  border-color: var(--line);
-  background: rgba(21, 24, 29, .82);
-  font-size: 13px;
 }
 
 .reveal section::before {
   content: "EASA FSTD / FCS";
   display: block;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   color: var(--green);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 780;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -116,17 +103,12 @@ body {
 }
 
 @media (max-width: 720px) {
-  .demo-link {
-    top: 10px;
-    right: 10px;
-  }
-
   .reveal h1 {
-    font-size: 1.75em;
+    font-size: 1.34em;
   }
 
   .reveal p,
   .reveal li {
-    font-size: .62em;
+    font-size: .44em;
   }
 }
