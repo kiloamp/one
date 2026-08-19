@@ -1802,6 +1802,10 @@ h1 {
 .login-card {
   min-height: 275px;
   padding: 30px;
+  display: grid;
+  grid-template-rows: 58px 98px minmax(42px, auto);
+  align-items: start;
+  justify-content: stretch;
   border-radius: 12px;
   background: #ffffff;
   box-shadow: 0 18px 50px rgba(21, 35, 48, .08);
@@ -1813,17 +1817,11 @@ h1 {
   color: var(--blue);
 }
 
-.emoji-icon {
-  width: 54px;
-  height: 54px;
-  display: inline-grid;
-  place-items: center;
-  font-size: 42px;
-  line-height: 1;
-}
-
 .login-card strong {
-  margin: auto 0 9px;
+  min-height: 58px;
+  margin: 0 0 9px;
+  display: flex;
+  align-items: flex-end;
   font-size: 24px;
   font-weight: 620;
   letter-spacing: 0;
@@ -1831,6 +1829,7 @@ h1 {
 
 .login-card span,
 .login-card small {
+  min-height: 42px;
   color: var(--muted-light);
   font-size: 13px;
   line-height: 1.45;

@@ -1,7 +1,7 @@
 const COMPLETED_SESSIONS = new Set([1, 2, 3, 4, 5]);
 
 const ROLE_LABELS = {
-  stakeholder: "ATO Shareholders",
+  stakeholder: "ATO Manager",
   tri: "ATO TRI TRE",
   student: "Students",
   manufacturer: "Simulator Manufacturers"
@@ -145,7 +145,7 @@ const MANUFACTURER_SCREENS = [
 let currentRole = null;
 let currentSession = null;
 let currentSessionTab = "briefing";
-let currentStakeholderTab = "inventory";
+let currentStakeholderTab = "programmes";
 
 function init() {
   bindGlobalEvents();

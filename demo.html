@@ -59,6 +59,9 @@
         <path d="M12 9v4"></path>
         <path d="M12 17h.01"></path>
       </symbol>
+      <symbol id="icon-wrench" viewBox="0 0 24 24">
+        <path d="M14.7 6.3a4.5 4.5 0 0 0-5.9 5.9L3 18l3 3 5.8-5.8a4.5 4.5 0 0 0 5.9-5.9l-3 3-3-3 3-3Z"></path>
+      </symbol>
     </svg>
 
     <header class="topbar">
@@ -76,13 +79,13 @@
           <div class="login-grid">
             <button class="login-card" type="button" data-role="stakeholder">
               <svg class="icon"><use href="#icon-briefcase"></use></svg>
-              <strong>ATO Shareholders</strong>
+              <strong>ATO Manager</strong>
               <span>Full oversight of training, compliance and simulator utilisation.</span>
             </button>
 
             <button class="login-card" type="button" data-role="tri">
               <svg class="icon"><use href="#icon-user"></use></svg>
-              <strong>TRI / TRE</strong>
+              <strong>ATO TRI / TRE</strong>
               <span>Digital workspace for instruction, assessment and evidence</span>
             </button>
 
@@ -93,7 +96,7 @@
             </button>
 
             <button class="login-card" type="button" data-role="manufacturer">
-              <span class="emoji-icon" aria-hidden="true">🔧</span>
+              <svg class="icon"><use href="#icon-wrench"></use></svg>
               <strong>Simulator Manufacturers</strong>
               <span>Qualification workspace for simulator manufacturers</span>
             </button>
@@ -121,22 +124,22 @@
           </section>
 
           <section id="stakeholderArea">
-            <div class="stakeholder-tabs" role="tablist" aria-label="ATO Shareholder sections">
-              <button class="stakeholder-tab active" type="button" data-stakeholder-tab="inventory">
-                <svg class="icon"><use href="#icon-monitor"></use></svg>
-                Device Inventory
+            <div class="stakeholder-tabs" role="tablist" aria-label="ATO Manager sections">
+              <button class="stakeholder-tab active" type="button" data-stakeholder-tab="programmes">
+                <svg class="icon"><use href="#icon-clipboard"></use></svg>
+                Programs
               </button>
               <button class="stakeholder-tab" type="button" data-stakeholder-tab="tasks">
                 <svg class="icon"><use href="#icon-list"></use></svg>
                 Task Matrix
               </button>
-              <button class="stakeholder-tab" type="button" data-stakeholder-tab="programmes">
-                <svg class="icon"><use href="#icon-clipboard"></use></svg>
-                Programs
+              <button class="stakeholder-tab" type="button" data-stakeholder-tab="inventory">
+                <svg class="icon"><use href="#icon-monitor"></use></svg>
+                Device Inventory
               </button>
             </div>
 
-            <section class="stakeholder-panel active" id="inventoryPanel">
+            <section class="stakeholder-panel" id="inventoryPanel">
               <div class="section-head">
                 <h2>Device Inventory</h2>
                 <button class="add-button" type="button" data-create="device">
@@ -159,7 +162,7 @@
               <div class="task-matrix" id="taskMatrix"></div>
             </section>
 
-            <section class="stakeholder-panel" id="programmesPanel">
+            <section class="stakeholder-panel active" id="programmesPanel">
               <div class="section-head">
                 <h2>Programs</h2>
                 <button class="add-button" type="button" data-create="programme">
